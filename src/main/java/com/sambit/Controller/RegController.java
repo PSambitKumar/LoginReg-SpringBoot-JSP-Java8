@@ -1,5 +1,6 @@
 package com.sambit.Controller;
 
+import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.RegBean;
 import com.sambit.Service.RegService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +23,30 @@ public class RegController {
     }
     @PostMapping("Registration")
     public String saveRegData(@ModelAttribute("regBean")RegBean regBean, Model model){
-        System.out.println(regBean);
-        String result = regService.saveRegLoginData(regBean);
-        System.out.println(result);
+        try {
+            regService.saveRegLoginData(regBean);
+            model.addAttribute("loginBean", new LoginBean());
+        }catch (Exception e){
+            System.out.println(regBean.getUsername()+" Username Already Taken");
+        }
         return "Login";
+    }
+    @GetMapping("Login")
+    public String login(Model model){
+        model.addAttribute("loginBean", new LoginBean());
+        return "Login";
+    }
+    @PostMapping("Login")
+    public String loginData(@ModelAttribute("loginBean")LoginBean loginBean){
+        String UserPage = "";
+        try {
+            LoginBean lb = regService.checkLoginData(loginBean);
+            if (lb != null)
+                UserPage = "User";
+        }catch (Exception e){
+//            System.out.println("User Not Found, Try to Register!!");
+            UserPage = "UserNotFound";
+        }
+        return UserPage;
     }
 }

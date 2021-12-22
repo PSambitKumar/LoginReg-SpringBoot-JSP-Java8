@@ -62,7 +62,7 @@
 		<tfoot>
 			<tr>
 				<td>Already a User: </td>
-				<td>&emsp;&emsp;<a href = "${pageContext.request.contextPath}/Login">Login</a></td>
+				<td>&emsp;&emsp;<a href = "/Login">Login</a></td>
 			</tr>
 		</tfoot>
 	</table>

@@ -5,4 +5,5 @@ import com.sambit.Bean.RegBean;
 
 public interface RegService {
     public String saveRegLoginData(RegBean regBean);
+    public LoginBean checkLoginData(LoginBean loginBean);
 }

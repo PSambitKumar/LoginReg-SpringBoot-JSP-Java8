@@ -6,6 +6,7 @@ import com.sambit.Entity.Login;
 import com.sambit.Entity.Reg;
 import com.sambit.Repository.LoginRepository;
 import com.sambit.Repository.RegRepository;
+import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,5 +40,18 @@ public class RegServiceImpl implements RegService{
         System.out.println("Data Added to Login Table!!");
         res = "Success";
         return res;
+    }
+
+    @Override
+    public LoginBean checkLoginData(LoginBean loginBean) {
+        String username = loginBean.getUsername();
+        String password = loginBean.getPassword();
+        Login lb = loginRepository.findByUsernameAndPassword(username, password);
+        LoginBean lb1 = new LoginBean();
+        lb1.setUid(lb.getUid());
+        lb1.setUsername(lb.getUsername());
+        lb1.setPassword(lb.getPassword());
+//        LoginBean lb = loginRepository.findByUsernameAndPassword(loginBean);
+        return lb1;
     }
 }
