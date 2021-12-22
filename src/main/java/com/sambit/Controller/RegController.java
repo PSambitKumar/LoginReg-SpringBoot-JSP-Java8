@@ -3,7 +3,6 @@ package com.sambit.Controller;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.RegBean;
 import com.sambit.Service.RegService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +12,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class RegController {
 
-    @Autowired
-    RegService regService;
+    final RegService regService;
+    public RegController(RegService regService) {
+        this.regService = regService;
+    }
 
     @GetMapping("Registration")
     public String home(Model model){
@@ -44,9 +45,9 @@ public class RegController {
             if (lb != null)
                 UserPage = "User";
         }catch (Exception e){
-//            System.out.println("User Not Found, Try to Register!!");
             UserPage = "UserNotFound";
         }
         return UserPage;
     }
 }
+

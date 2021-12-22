@@ -1,6 +1,5 @@
 package com.sambit.Repository;
 
-import com.sambit.Bean.LoginBean;
 import com.sambit.Entity.Login;
 import org.springframework.data.jpa.repository.JpaRepository;
 
