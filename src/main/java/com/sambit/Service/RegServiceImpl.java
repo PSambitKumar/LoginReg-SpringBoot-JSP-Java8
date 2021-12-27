@@ -10,6 +10,9 @@ import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
 @Service
 public class RegServiceImpl implements RegService{
 
@@ -53,5 +56,35 @@ public class RegServiceImpl implements RegService{
         lb1.setPassword(lb.getPassword());
 //        LoginBean lb = loginRepository.findByUsernameAndPassword(loginBean);
         return lb1;
+    }
+
+//    @Override
+//    public RegBean getAllDataOfUser(LoginBean loginBean) {
+//        String username = loginBean.getUsername();
+//        String password = loginBean.getPassword();
+//        Reg reg = regRepository.findAllByUsernameAndPassword(username, password);
+//        RegBean rb = new RegBean();
+//        rb.setSlno(reg.getSlno());
+//        rb.setUsername(reg.getUsername());
+//        rb.setPassword(reg.getPassword());
+//        rb.setName(reg.getName());
+//        rb.setEmail(reg.getEmail());
+//        rb.setDept(reg.getDept());
+//        rb.setGender(reg.getGender());
+//        rb.setDob(reg.getDob());
+//        return rb;
+//    }
+
+    @Override
+    public List<Reg> getAllDataofUser(LoginBean loginBean) {
+        String username = loginBean.getUsername();
+        String password = loginBean.getPassword();
+        List list = regRepository.findAllByUsernameAndPassword(username, password);
+        return list;
+    }
+
+    @Override
+    public List<Reg> getDataOfUser(int slno) {
+        return regRepository.findAllBySlno(slno);
     }
 }
