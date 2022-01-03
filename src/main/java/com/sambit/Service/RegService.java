@@ -12,4 +12,5 @@ public interface RegService {
     //RegBean getAllDataOfUser(LoginBean loginBean);
     List<Reg> getAllDataofUser(LoginBean loginBean);
     List<Reg> getDataOfUser(int slno);
+    List<Reg> getDataOfUserByPhn(String phn);
 }

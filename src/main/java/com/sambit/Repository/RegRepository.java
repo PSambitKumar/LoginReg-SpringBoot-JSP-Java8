@@ -10,4 +10,6 @@ public interface RegRepository extends JpaRepository<Reg, Integer> {
 //    Reg findAllByUsernameAndPassword(String username, String password);
     List<Reg> findAllByUsernameAndPassword(String username, String password);
     List<Reg> findAllBySlno(int slno);
+    List<Reg> findAllByPhn(String phn);
+
 }

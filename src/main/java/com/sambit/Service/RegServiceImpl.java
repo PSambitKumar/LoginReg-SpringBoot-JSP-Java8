@@ -87,4 +87,9 @@ public class RegServiceImpl implements RegService{
     public List<Reg> getDataOfUser(int slno) {
         return regRepository.findAllBySlno(slno);
     }
+
+    @Override
+    public List<Reg> getDataOfUserByPhn(String phn) {
+        return  regRepository.findAllByPhn(phn);
+    }
 }

@@ -68,5 +68,13 @@ public class RegController {
 
         return "Hello";
     }
+
+    @GetMapping("phn")
+    public String getList(){
+        String phn = "7008095918";
+        List<Reg> list = regService.getDataOfUserByPhn(phn);
+        System.out.println(list);
+        return "Hello";
+    }
 }
 
