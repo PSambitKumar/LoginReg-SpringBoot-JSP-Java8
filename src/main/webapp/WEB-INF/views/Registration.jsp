@@ -12,7 +12,7 @@
 	<table align="center">
 		<thead>
 			<tr>
-				<td colspan="2" style="text-align: center;">Registrtion Here</td>
+				<td colspan="2" style="text-align: center;">Registration Here</td>
 			</tr>
 		</thead>
 		<tbody>

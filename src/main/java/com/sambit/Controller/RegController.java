@@ -76,5 +76,20 @@ public class RegController {
         System.out.println(list);
         return "Hello";
     }
+
+    @ResponseBody
+    @GetMapping("/getData")
+    public List<Reg> getData(){
+        System.out.println("Hello Mr. Sambit.");
+        List<Reg> list = regService.getDataofUserByUamePassandName("sambit", "sambit16", "Sambit Kumar Pradhan");
+        System.out.println(list);
+    return list;
+    }
+
+    @RequestMapping("/View")
+    public ModelAndView getDetail(){
+        ModelAndView mav = new ModelAndView("View");
+        return mav;
+    }
 }
 
