@@ -26,8 +26,11 @@ public class RegController {
     }
     @PostMapping("Registration")
     public String saveRegData(@ModelAttribute("regBean")RegBean regBean, Model model){
+//        System.out.println(regBean);
+        String result = "";
         try {
-            regService.saveRegLoginData(regBean);
+            result = regService.saveRegLoginData(regBean);
+            System.out.println(result);
             model.addAttribute("loginBean", new LoginBean());
         }catch (Exception e){
             System.out.println(regBean.getUsername()+" Username Already Taken");
@@ -91,5 +94,9 @@ public class RegController {
         ModelAndView mav = new ModelAndView("View");
         return mav;
     }
+//    public String validateAdharAndPan(Model model){
+//        model.addAttribute()
+//        return "ValidateAdharAndPan";
+//    }
 }
 

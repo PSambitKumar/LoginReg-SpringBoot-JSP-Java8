@@ -3,8 +3,10 @@ package com.sambit.Service;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.RegBean;
 import com.sambit.Entity.Login;
+import com.sambit.Entity.PersonalData;
 import com.sambit.Entity.Reg;
 import com.sambit.Repository.LoginRepository;
+import com.sambit.Repository.PersonalDatarRepository;
 import com.sambit.Repository.RegRepository;
 import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class RegServiceImpl implements RegService{
     RegRepository regRepository;
     @Autowired
     LoginRepository loginRepository;
+    @Autowired
+    PersonalDatarRepository personalDatarRepository;
 
     @Override
     public String saveRegLoginData(RegBean regBean) {
