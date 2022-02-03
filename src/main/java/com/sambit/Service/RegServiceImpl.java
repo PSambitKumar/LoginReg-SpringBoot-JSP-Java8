@@ -1,6 +1,7 @@
 package com.sambit.Service;
 
 import com.sambit.Bean.LoginBean;
+import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
 import com.sambit.Entity.Login;
 import com.sambit.Entity.PersonalData;
@@ -28,24 +29,30 @@ public class RegServiceImpl implements RegService{
     @Override
     public String saveRegLoginData(RegBean regBean) {
         String res = "";
-        Reg reg = new Reg();
-        reg.setUsername(regBean.getUsername());
-        reg.setPassword(regBean.getPassword());
-        reg.setName(regBean.getName());
-        reg.setPhn(regBean.getPhn());
-        reg.setEmail(regBean.getEmail());
-        reg.setDept(regBean.getDept());
-        reg.setDob(regBean.getDob());
-        reg.setGender(regBean.getGender());
-        Reg result = regRepository.save(reg);
-        System.out.println("Data Added to Registration Table!!");
+        try {
+            Reg reg = new Reg();
+            reg.setUsername(regBean.getUsername());
+            reg.setPassword(regBean.getPassword());
+            reg.setName(regBean.getName());
+            reg.setPhn(regBean.getPhn());
+            reg.setEmail(regBean.getEmail());
+            reg.setDept(regBean.getDept());
+            reg.setDob(regBean.getDob());
+            reg.setGender(regBean.getGender());
+            Reg result = regRepository.save(reg);//It will save all data to an object of Reg ENTITY and print toString method
+            System.out.println(result);
+            System.out.println("Data Added to Registration Table!!");
 
-        Login login = new Login();
-        login.setUsername(regBean.getUsername());
-        login.setPassword(regBean.getPassword());
-        Login result1 = loginRepository.save(login);
-        System.out.println("Data Added to Login Table!!");
-        res = "Success";
+            Login login = new Login();
+            login.setUsername(regBean.getUsername());
+            login.setPassword(regBean.getPassword());
+            Login result1 = loginRepository.save(login);
+            System.out.println("Data Added to Login Table!!");
+            res = "Success";
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Data Doesn't Added to Database.");
+        }
         return res;
     }
 
@@ -100,5 +107,24 @@ public class RegServiceImpl implements RegService{
     @Override
     public List<Reg> getDataofUserByUamePassandName(String uname, String password, String name) {
         return regRepository.findAllByUsernameAndPasswordAndName(uname, password, name);
+    }
+
+    @Override
+    public String savePersonalDetails(PersonalDataBean personalDataBean) {
+        String result = "";
+        try {
+            PersonalData personalData = new PersonalData();
+            personalData.setName(personalDataBean.getName());
+            personalData.setPanId(personalDataBean.getPanId());
+            personalData.setAdharNo(personalDataBean.getAdharNo());
+            personalDatarRepository.save(personalData);
+            System.out.println("Data Added to Database!!");
+            result = "Success";
+        }catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Data doesn't Added to Database!!");
+            result = "Fail";
+        }
+        return result;
     }
 }

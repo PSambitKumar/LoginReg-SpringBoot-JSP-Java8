@@ -14,7 +14,7 @@ public class PersonalData {
     @Column
     private String panId;
     @Column
-    private int adharNo;
+    private String adharNo;
 
     public int getPid() {
         return pid;
@@ -40,11 +40,11 @@ public class PersonalData {
         this.panId = panId;
     }
 
-    public int getAdharNo() {
+    public String getAdharNo() {
         return adharNo;
     }
 
-    public void setAdharNo(int adharNo) {
+    public void setAdharNo(String adharNo) {
         this.adharNo = adharNo;
     }
 
@@ -54,7 +54,7 @@ public class PersonalData {
                 "pid=" + pid +
                 ", name='" + name + '\'' +
                 ", panId='" + panId + '\'' +
-                ", adharNo=" + adharNo +
+                ", adharNo='" + adharNo + '\'' +
                 '}';
     }
 }

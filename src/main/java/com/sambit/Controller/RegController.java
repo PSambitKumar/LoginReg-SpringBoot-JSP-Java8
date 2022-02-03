@@ -1,6 +1,7 @@
 package com.sambit.Controller;
 
 import com.sambit.Bean.LoginBean;
+import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
 import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
@@ -94,9 +95,33 @@ public class RegController {
         ModelAndView mav = new ModelAndView("View");
         return mav;
     }
-//    public String validateAdharAndPan(Model model){
-//        model.addAttribute()
-//        return "ValidateAdharAndPan";
+    @GetMapping("/PersonalDetails")
+    public String validateAdharAndPan(Model model){
+        model.addAttribute("personalDataBean", new PersonalDataBean());
+        return "ValidateAdharAndPan";
+    }
+
+//    @PostMapping("AddPersonalData")
+//    public String addPersonalData(@ModelAttribute("persoalDataBean") PersonalDataBean personalDataBean){
+//        System.out.println(personalDataBean);
+//        return "Success";
 //    }
+
+    @PostMapping("AddPersonalData")
+    public String addPersonalData(PersonalDataBean personalDataBean){
+        //System.out.println(personalDataBean);
+        String result = "";
+        //result = regService.savePersonalDetails(personalDataBean);
+        try {
+            result = regService.savePersonalDetails(personalDataBean);
+            if(result.equalsIgnoreCase("Success")){
+                System.out.println("Data Added!!.");
+            }
+        }catch (Exception e){
+            result = "Fail";
+            e.printStackTrace();
+        }
+        return result;
+    }
 }
 

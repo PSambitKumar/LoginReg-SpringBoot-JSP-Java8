@@ -1,6 +1,7 @@
 package com.sambit.Service;
 
 import com.sambit.Bean.LoginBean;
+import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
 import com.sambit.Entity.Reg;
 
@@ -14,4 +15,6 @@ public interface RegService {
     List<Reg> getDataOfUser(int slno);
     List<Reg> getDataOfUserByPhn(String phn);
     List<Reg> getDataofUserByUamePassandName(String uname, String password, String name);
+
+    String savePersonalDetails(PersonalDataBean personalDataBean);
 }
