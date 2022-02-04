@@ -123,5 +123,10 @@ public class RegController {
         }
         return result;
     }
+
+    @GetMapping("GetDetails")
+    public String getDetails(){
+        return "Details";
+    }
 }
 
