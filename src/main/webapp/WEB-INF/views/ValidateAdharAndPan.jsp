@@ -52,7 +52,8 @@
 
             var name_val = /^[a-zA-Z\s-, ]+$/;
             var mob_val = /[0-9]{10}/;
-            var adhar_val = /[0-9]{16}/;
+            var adhar_val = /[0-9]{12}/;
+            var only_numbers = /^[0-9]*$/;
 
             // Name Validation:
             if (name.length == 0 || name.length <=4 || name.length >=20){
@@ -77,7 +78,8 @@
                 return false;
             }
             //Adhar Validation:
-            else if (adharid.length != 12){
+            // adharid.length != 12 && !adharid.match(only_numbers)
+            else if (!adharid.match(adhar_val)){
                 $('#inputAdhar').focus();
                 $('#inputAdhar').css('border', '2px solid red');
                 $('#adharalert').text("Adhar range must be 12 digit!!").css('color', 'red');
@@ -86,16 +88,42 @@
                 return false;
             }
             else{
-                return true;
+                $('#inputAdhar').css('border', '2px solid green');
+                $('#adharalert').text("Looks Good!").css('color', 'green');
 
+                $('#personalDetailForm').submit(function (event){
+                    event.preventDefault();
+                    loadData();
+                });
+                return true;
             }
         });
     });
+
+    // $(document).ready(function () {
+    //     $("#personalDetailForm").submit(function (event) {
+    //         //stop submit the form, we will post it manually.
+    //         event.preventDefault();
+    //         loadData();
+    //     });
+    // });
+
+    function loadData() {
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    document.getElementById("display").innerHTML = this.responseText;
+                }
+            };
+            xhttp.open("POST", "AddPersonalData",modelAttribute="personalDataBean", true);
+            xhttp.send();
+        }
 </script>
 
     <h4 style="text-align: center">Fill Personal Details</h4>
 
-    <form:form id="personalDetailForm" action="AddPersonalData" method="post" modelAttribute="personalDataBean">
+<%--action="AddPersonalData"--%>
+    <form:form id="personalDetailForm" method="post" modelAttribute="personalDataBean">
         <div style="margin: auto" class="form-group col-md-8">
 
             <div class="form-group row">
@@ -128,7 +156,8 @@
             <div style="margin: auto; margin-top: 20px" class="form-group row col-md-6">
 
                 <div class="form-group row col-md-3">
-                    <button type="button" id="submit"  onclick="loadData()" class="btn btn-success">Submit</button>
+<%--                    onclick="loadData()"--%>
+                    <button type="submit" id="submit"   class="btn btn-success">Submit</button>
                 </div>
 
                 <div style="margin-left: 10px" class="form-group row col-md-3">
@@ -142,19 +171,21 @@
         </div>
     </form:form>
 
+
+
 <%--Ajax Function:--%>
-<script>
-    function loadData() {
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function() {
-            if (this.readyState == 4 && this.status == 200) {
-                document.getElementById("display").innerHTML = this.responseText;
-            }
-        };
-        xhttp.open("POST", "AddPersonalData", true);
-        xhttp.send();
-    }
-</script>
+<%--<script>--%>
+<%--    function loadData() {--%>
+<%--        var xhttp = new XMLHttpRequest();--%>
+<%--        xhttp.onreadystatechange = function() {--%>
+<%--            if (this.readyState == 4 && this.status == 200) {--%>
+<%--                document.getElementById("display").innerHTML = this.responseText;--%>
+<%--            }--%>
+<%--        };--%>
+<%--        xhttp.open("POST", "AddPersonalData", true);--%>
+<%--        xhttp.send();--%>
+<%--    }--%>
+<%--</script>--%>
 
 </body>
 </html>

@@ -11,6 +11,6 @@
     <title>Success</title>
 </head>
 <body>
-<h5>Successfull!!</h5>
+<h5>Data Inserted to Database Successful!!</h5>
 </body>
 </html>

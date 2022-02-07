@@ -1,15 +1,22 @@
 package com.sambit.Controller;
 
+import antlr.StringUtils;
+import com.sambit.Bean.ImageBean;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
+import com.sambit.Entity.Image;
 import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.annotation.MultipartConfig;
+import javax.servlet.http.Part;
+import java.io.IOException;
 import java.util.List;
 
 @Controller
@@ -54,6 +61,7 @@ public class RegController {
                 modelAndView = new ModelAndView(UserPage);
                 List<Reg> list = regService.getAllDataofUser(loginBean);
                 modelAndView.addObject("list", list);
+//                modelAndView.addObject("imageData", new ImageBean());
             }
             else {
                 UserPage = "UserNotFound";
@@ -65,6 +73,12 @@ public class RegController {
         }
         return modelAndView;
     }
+//    @PostMapping("ImageData")
+//    public String saveImageData(ImageBean imageBean){
+//        System.out.println(imageBean);
+//        regService.saveImageData(imageBean);
+//        return "Image";
+//    }
     @GetMapping ("slno")
     public String get() {
         List<Reg> list = regService.getDataOfUser(1);
@@ -128,5 +142,17 @@ public class RegController {
     public String getDetails(){
         return "Details";
     }
-}
 
+    @GetMapping("UploadImage")
+    public ModelAndView uploadImage(){
+        ModelAndView mav = new ModelAndView("UploadImage");
+//        mav.addObject("uploadImage", new ImageBean());
+        return mav;
+    }
+
+    @PostMapping("UploadImageData")
+    String uploadImageData(ImageBean imageBean, @RequestParam("image") MultipartFile multipartFile)throws IOException {
+        String fileName = multipartFile.getOriginalFilename();
+        return "Success";
+    }
+}

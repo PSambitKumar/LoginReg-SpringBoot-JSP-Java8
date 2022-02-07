@@ -1,8 +1,10 @@
 package com.sambit.Service;
 
+import com.sambit.Bean.ImageBean;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
+import com.sambit.Entity.Image;
 import com.sambit.Entity.Login;
 import com.sambit.Entity.PersonalData;
 import com.sambit.Entity.Reg;
@@ -126,5 +128,12 @@ public class RegServiceImpl implements RegService{
             result = "Fail";
         }
         return result;
+    }
+
+    @Override
+    public String saveImageData(ImageBean imageBean) {
+        Image image1 = new Image();
+        image1.setImageName(imageBean.getImageName());
+        return "Image";
     }
 }

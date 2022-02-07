@@ -53,5 +53,16 @@
 
 </table>
 
+<%--<div>--%>
+<%--    <form:form action="imageData" method="post" modelAttribute="imageData">--%>
+<%--        <div>--%>
+<%--            <label>Upload Image Name:</label>--%>
+<%--            <form:input type="text" path="imageName"/>--%>
+<%--            <form:hidden path="imageId"/>--%>
+<%--            <button>Submit</button>--%>
+<%--        </div>--%>
+<%--    </form:form>--%>
+<%--</div>--%>
+
 </body>
 </html>
