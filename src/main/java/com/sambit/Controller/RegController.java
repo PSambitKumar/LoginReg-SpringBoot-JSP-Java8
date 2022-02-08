@@ -6,6 +6,7 @@ import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
 import com.sambit.Entity.Image;
+import com.sambit.Entity.PersonalData;
 import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
 import org.springframework.stereotype.Controller;
@@ -61,7 +62,7 @@ public class RegController {
                 modelAndView = new ModelAndView(UserPage);
                 List<Reg> list = regService.getAllDataofUser(loginBean);
                 modelAndView.addObject("list", list);
-//                modelAndView.addObject("imageData", new ImageBean());
+                modelAndView.addObject("personalDetailBean", new PersonalDataBean());
             }
             else {
                 UserPage = "UserNotFound";
@@ -122,25 +123,32 @@ public class RegController {
 //    }
 
     @PostMapping("AddPersonalData")
-    public String addPersonalData(PersonalDataBean personalDataBean){
+    public String addPersonalData(PersonalDataBean personalDataBean, Model model){
         //System.out.println(personalDataBean);
         String result = "";
         //result = regService.savePersonalDetails(personalDataBean);
         try {
             result = regService.savePersonalDetails(personalDataBean);
             if(result.equalsIgnoreCase("Success")){
-                System.out.println("Data Added!!.");
+                System.out.println("Data Added!!");
+                List<PersonalData> list = regService.getAllPersonalDetails();
+                model.addAttribute("list", list);
             }
         }catch (Exception e){
             result = "Fail";
             e.printStackTrace();
         }
-        return result;
+//        return result;
+        return "ViewPersonalDetails";
     }
 
-    @GetMapping("GetDetails")
-    public String getDetails(){
-        return "Details";
+
+    @GetMapping("ViewPersonalDetails")
+    public String viewPersonalDetails(Model model){
+        List<PersonalData> list = regService.getAllPersonalDetails();
+        model.addAttribute("list", list);
+        System.out.println(list);
+        return "ViewPersonalDetails";
     }
 
     @GetMapping("UploadImage")

@@ -9,14 +9,12 @@ import com.sambit.Entity.Login;
 import com.sambit.Entity.PersonalData;
 import com.sambit.Entity.Reg;
 import com.sambit.Repository.LoginRepository;
-import com.sambit.Repository.PersonalDatarRepository;
+import com.sambit.Repository.PersonalDataRepository;
 import com.sambit.Repository.RegRepository;
-import org.apache.juli.logging.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class RegServiceImpl implements RegService{
@@ -26,7 +24,7 @@ public class RegServiceImpl implements RegService{
     @Autowired
     LoginRepository loginRepository;
     @Autowired
-    PersonalDatarRepository personalDatarRepository;
+    PersonalDataRepository personalDataRepository;
 
     @Override
     public String saveRegLoginData(RegBean regBean) {
@@ -119,7 +117,7 @@ public class RegServiceImpl implements RegService{
             personalData.setName(personalDataBean.getName());
             personalData.setPanId(personalDataBean.getPanId());
             personalData.setAdharNo(personalDataBean.getAdharNo());
-            personalDatarRepository.save(personalData);
+            personalDataRepository.save(personalData);
             System.out.println("Data Added to Database!!");
             result = "Success";
         }catch (Exception e){
@@ -128,6 +126,11 @@ public class RegServiceImpl implements RegService{
             result = "Fail";
         }
         return result;
+    }
+
+    @Override
+    public List<PersonalData> getAllPersonalDetails() {
+        return personalDataRepository.findAll();
     }
 
     @Override

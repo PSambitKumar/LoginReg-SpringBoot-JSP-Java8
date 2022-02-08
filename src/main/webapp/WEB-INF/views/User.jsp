@@ -5,6 +5,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+    <%--    Bootstrap for Design--%>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <%--    For Validation--%>
+    <script type="text/javascript" src="http://code.jquery.com/jquery-1.10.2.js"></script>
+    <%--    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">--%>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/5.1.3/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
+    <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
     <title>Welcome User</title>
 </head>
 <body>
@@ -53,16 +61,64 @@
 
 </table>
 
-<%--<div>--%>
-<%--    <form:form action="imageData" method="post" modelAttribute="imageData">--%>
-<%--        <div>--%>
-<%--            <label>Upload Image Name:</label>--%>
-<%--            <form:input type="text" path="imageName"/>--%>
-<%--            <form:hidden path="imageId"/>--%>
-<%--            <button>Submit</button>--%>
-<%--        </div>--%>
-<%--    </form:form>--%>
-<%--</div>--%>
+
+<div>
+    <button id="personalDetails" class="btn btn-primary">Add Personal Details</button>
+    <button id="viewPersonalDetails"  class="btn btn-success">View Personal Details</button>
+<%--    onclick="window.location='viewPersonalDetails'"--%>
+</div>
+
+<div id="display"></div>
+
+<%--Load Personal Detail Page using Jquery and Ajax--%>
+<script>
+
+
+    $('#personalDetails').click(function (e){
+        e.preventDefault();
+        loadPersonalDetails($(this));
+    });
+
+    function loadPersonalDetails(d){
+        $.ajax({
+            url: "PersonalDetails",
+            method : "GET",
+            data : d.serialize(),
+            success : function (data){
+                console.log("Success!!");
+                $('#display').html(data);
+            },
+            error : function (data){
+                console.log("Fail!!");
+            }
+        });
+    }
+
+
+
+
+
+    $('#viewPersonalDetails').click(function (e){
+        e.preventDefault();
+        loadViewPersonalDetails($(this));
+    });
+
+    function loadViewPersonalDetails(e){
+        $.ajax({
+            url : "ViewPersonalDetails",
+            method: "GET",
+            data : e.serialize(),
+            success: function (data){
+                console.log("Success!!");
+                $('#display').html(data);
+            },
+            error : function (data){
+                console.log("Failed!!");
+            }
+        })
+    }
+</script>
+
 
 </body>
 </html>

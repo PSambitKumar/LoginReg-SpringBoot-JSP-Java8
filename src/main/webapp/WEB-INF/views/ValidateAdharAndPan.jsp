@@ -93,7 +93,7 @@
 
                 $('#personalDetailForm').submit(function (event){
                     event.preventDefault();
-                    loadData();
+                    loadData($(this));
                 });
                 return true;
             }
@@ -108,16 +108,31 @@
     //     });
     // });
 
-    function loadData() {
-            var xhttp = new XMLHttpRequest();
-            xhttp.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    document.getElementById("display").innerHTML = this.responseText;
-                }
-            };
-            xhttp.open("POST", "AddPersonalData",modelAttribute="personalDataBean", true);
-            xhttp.send();
-        }
+    function loadData(form) {
+        /*            var xhttp = new XMLHttpRequest();
+                    xhttp.onreadystatechange = function() {
+                        if (this.readyState == 4 && this.status == 200) {
+                            document.getElementById("display").innerHTML = this.responseText;
+                            $("#display").html(this.responseText);
+                        }
+                    };
+                    xhttp.open("POST", "AddPersonalData",modelAttribute="personalDataBean", true);
+                    xhttp.send();
+                }*/
+
+        $.ajax({
+            url: "AddPersonalData",
+            method: "POST",
+            data: form.serialize(),
+            success: function (data) {
+                console.log(data);
+                $('#display').html(data);
+            },
+            error: function (data) {
+                console.log(data);
+            }
+        });
+    }
 </script>
 
     <h4 style="text-align: center">Fill Personal Details</h4>
@@ -161,7 +176,7 @@
                 </div>
 
                 <div style="margin-left: 10px" class="form-group row col-md-3">
-                    <button onclick="window.location='Registration';return false;" class="btn btn-danger">Cancel</button>
+                    <button onclick="window.location='Registration'; return false;" class="btn btn-danger">Cancel</button>
                 </div>
 
             </div>
