@@ -33,6 +33,7 @@ public class RegController {
         model.addAttribute("regBean", new RegBean());
         return "Registration";
     }
+
     @PostMapping("Registration")
     public String saveRegData(@ModelAttribute("regBean")RegBean regBean, Model model){
 //        System.out.println(regBean);

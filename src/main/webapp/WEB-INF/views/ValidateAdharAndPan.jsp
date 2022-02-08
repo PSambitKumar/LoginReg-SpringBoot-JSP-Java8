@@ -19,6 +19,12 @@
     <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/css/bootstrapValidator.min.css"/>
     <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/jquery.bootstrapvalidator/0.5.3/js/bootstrapValidator.min.js"> </script>
     <title>Personal Details</title>
+    <style>
+        .form-group.required .control-label:after {
+            content:"*";
+            color:red;
+        }
+    </style>
 </head>
 <body>
 <%--<script>--%>
@@ -125,7 +131,7 @@
             method: "POST",
             data: form.serialize(),
             success: function (data) {
-                console.log(data);
+                // console.log(data);
                 $('#display').html(data);
             },
             error: function (data) {
@@ -141,10 +147,10 @@
     <form:form id="personalDetailForm" method="post" modelAttribute="personalDataBean">
         <div style="margin: auto" class="form-group col-md-8">
 
-            <div class="form-group row">
+            <div class="form-group row required">
 
                 <div class="col-md-4">
-                    <label class="form-label" for="inputName">Name</label>
+                    <label class="form-label control-label" for="inputName">Name</label>
                     <form:input path="name" type="text" class="form-control" id="inputName" name="name" placeholder="Enter Name"/>
 <%--                    <small class="form-text text-muted" >Name must not contains number</small>--%>
                     <div id="namealert"></div>
