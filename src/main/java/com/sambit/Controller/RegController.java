@@ -163,4 +163,9 @@ public class RegController {
         String fileName = multipartFile.getOriginalFilename();
         return "Success";
     }
+
+    @GetMapping("Home")
+    public String home(){
+        return "Home";
+    }
 }
