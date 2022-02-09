@@ -11,6 +11,10 @@
 <%--    Linking CSS Design--%>
     <link href="style/style.css" rel="stylesheet"/>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Festive&family=Lato&family=Nunito+Sans&display=swap" rel="stylesheet">
+
     <link rel="canonical" href="https://themesberg.com/product/ui-kits/neumorphism-ui/" />
 
     <!--  Social tags -->
@@ -64,7 +68,7 @@
 
 
         <nav id="main-nav" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-transparent navbar-theme-primary">
-            <a class="navbar-brand shadow-soft py-2 px-3 rounded border border-light mr-lg-4" href="/Home">Sambit</a>
+            <a style="color: black; font-weight: normal" class="navbar-brand shadow-soft py-2 px-3 rounded border border-light mr-lg-4" href="/Home">Sambit</a>
 
             <div class="navbar-collapse collapse" id="navbar_global">
 
@@ -134,25 +138,27 @@
         </nav>
 
 
-        <div style="margin: 120px" class="col-12 col-lg-10">
+        <div style="margin: 120px; font-family: Lato" class="col-12 col-lg-10">
             <div class="card bg-primary shadow-soft border-light px-4 py-1 mb-6">
                 <div class="card-body text-center text-md-left">
                     <div class="row align-items-center">
                         <div class="col-md-6">
                             <h2 class="mb-3">Hello, <b style="color: orangered">I' M Sambit.</b></h2>
-                            <p class="mb-4">
+                            <p style="color: black" class="mb-4">
                                 This is my official Portfolio website to showcase my all works related to
                                 Java Software Engineer and part time Android development, web development and ui design.
                             </p>
-                            <a href="/resume/myresume.pdf" class="btn btn-primary">
+                            <a style="font-weight: bold; color: #0b7ec4" href="/resume/myresume.pdf" class="btn btn-primary">
                                     <span class="mr-1">
-                                        <span class="fas fa-file-invoice"></span>
+                                        <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
+                                          <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>
+                                        </svg></span>
                                     </span>
                                 View Resume
                             </a>
                         </div>
                         <div class="col-12 col-md-6 mt-4 mt-md-0 text-md-right">
-                            <img src="./assets/img/illustrations/reading-side.svg" alt="illustration">
+                            <img src="images/sambit.png" alt="Sambit">
                         </div>
                     </div>
                 </div>
