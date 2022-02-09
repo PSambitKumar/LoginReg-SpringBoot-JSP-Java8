@@ -65,10 +65,12 @@
 <div>
     <button id="personalDetails" class="btn btn-primary">Add Personal Details</button>
     <button id="viewPersonalDetails"  class="btn btn-success">View Personal Details</button>
+    <button onclick="typeWriter()"  class="btn btn-success">View Personal Details in Writing Effect</button>
 <%--    onclick="window.location='viewPersonalDetails'"--%>
 </div>
 
 <div id="display"></div>
+<div style="color: #0b7ec4; font-family: Constantia; font-size: 22px; margin: 60px" id="typeWriter"></div>
 
 <%--Load Personal Detail Page using Jquery and Ajax--%>
 <script>
@@ -96,8 +98,6 @@
 
 
 
-
-
     $('#viewPersonalDetails').click(function (e){
         e.preventDefault();
         loadViewPersonalDetails($(this));
@@ -116,6 +116,22 @@
                 console.log("Failed!!");
             }
         })
+    }
+</script>
+
+
+<script>
+    //Typing Effect using JavaScript
+    var i = 0;
+    var msg = 'Welcome, Sambit Kumar Pradhan';
+    var speed = 50;
+
+    function typeWriter() {
+        if (i < msg.length) {
+            document.getElementById("typeWriter").innerHTML += msg.charAt(i);
+            i++;
+            setTimeout(typeWriter, speed);
+        }
     }
 </script>
 

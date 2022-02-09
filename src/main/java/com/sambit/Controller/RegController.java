@@ -148,7 +148,7 @@ public class RegController {
     public String viewPersonalDetails(Model model){
         List<PersonalData> list = regService.getAllPersonalDetails();
         model.addAttribute("list", list);
-        System.out.println(list);
+//        System.out.println(list);
         return "ViewPersonalDetails";
     }
 
