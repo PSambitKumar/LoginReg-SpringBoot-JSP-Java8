@@ -5,6 +5,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
+    <link href="style/typewriter.css" rel="stylesheet"/>
     <%--    Bootstrap for Design--%>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
     <%--    For Validation--%>
@@ -135,6 +136,13 @@
     }
 </script>
 
+<%--First Typing Effect--%>
+<%--<p class="line-1 anim-typewriter">Hello, Sambit Kumar Pradhan</p>--%>
 
+<%--New Typing Effect--%>
+<h4>Hello I'm Sambit, I'm a</h4>
+<div class="container">
+    <div class="typed-out">Software Engineer!!</div>
+</div>
 </body>
 </html>

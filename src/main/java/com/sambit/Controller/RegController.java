@@ -169,4 +169,10 @@ public class RegController {
     public String home(){
         return "Home";
     }
+
+
+    @GetMapping("Practice")
+    public String practice(){
+        return "Practice";
+    }
 }
