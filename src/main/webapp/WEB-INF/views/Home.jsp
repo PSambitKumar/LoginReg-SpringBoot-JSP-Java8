@@ -59,7 +59,126 @@
 <%--<h4>Welcome Home, Sambit.</h4>--%>
 <nav id="main-nav" class="navbar navbar-main navbar-expand-lg navbar-theme-primary headroom navbar-light navbar-transparent navbar-theme-primary">
     <a class="navbar-brand shadow-soft py-2 px-3 rounded border border-light mr-lg-4" href="/Home">Sambit</a>
+
+    <div class="navbar-collapse collapse" id="navbar_global">
+
+        <div class="navbar-collapse-header">
+            <div class="row">
+                <div class="col-6 collapse-brand">
+                    <a href="./index.html" class="navbar-brand shadow-soft py-2 px-3 rounded border border-light">
+                        <img src="./assets/img/brand/dark.svg" alt="Themesberg logo">
+                    </a>
+                </div>
+                <div class="col-6 collapse-close">
+                    <a href="#navbar_global" class="fas fa-times" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" title="close" aria-label="Toggle navigation"></a>
+                </div>
+            </div>
+        </div>
+
+        <ul class="navbar-nav navbar-nav-hover align-items-lg-center">
+
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link" data-toggle="dropdown" >
+                    <span class="nav-link-inner-text">Pages</span>
+                    <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" onclick="window.location='About'">About</a></li>
+                    <li><a class="dropdown-item" onclick="window.location='Contact'">Contact</a></li>
+                    <li><a class="dropdown-item" onclick="window.location='Login'">Login</a></li>
+                    <li><a class="dropdown-item" onclick="window.location='Registration'">Sign up</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a href="#" class="nav-link" data-toggle="dropdown" >
+                    <span class="nav-link-inner-text">Support</span>
+                    <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-lg">
+                    <div class="col-auto px-0" data-dropdown-content>
+                        <div class="list-group list-group-flush">
+                            <a href="resume/myresume.pdf" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                <span class="icon icon-sm icon-secondary"><span class="fas fa-file-alt"></span></span>
+                                <div class="ml-4">
+                                    <span class="text-dark d-block">Resume<span class="badge badge-sm badge-secondary ml-2">v1.0</span></span>
+                                    <span class="small">View and Download</span>
+                                </div>
+                            </a>
+                            <a href="https://github.com/PSambitKumar" target="_blank" class="list-group-item list-group-item-action d-flex align-items-center p-0 py-3 px-lg-4">
+                                <span class="icon icon-sm icon-secondary"><span class="fas fa-microphone-alt"></span></span>
+                                <div class="ml-4">
+                                    <span class="text-dark d-block">Support</span>
+                                    <span class="small">Looking for answers? Ask us!</span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
 </nav>
 
+<div class="typing-container">
+    <span id="sentence" class="sentence">Here, take this </span>
+    <span id="feature-text"></span>
+    <span class="input-cursor"></span>
+</div>
+
+<script>
+    const carouselText = [
+        {text: "Apple", color: "red"},
+        {text: "Orange", color: "orange"},
+        {text: "Lemon", color: "yellow"}
+    ]
+
+    $( document ).ready(async function() {
+        carousel(carouselText, "#feature-text")
+    });
+
+    async function typeSentence(sentence, eleRef, delay = 100) {
+        const letters = sentence.split("");
+        let i = 0;
+        while(i < letters.length) {
+            await waitForMs(delay);
+            $(eleRef).append(letters[i]);
+            i++
+        }
+        return;
+    }
+
+    async function deleteSentence(eleRef) {
+        const sentence = $(eleRef).html();
+        const letters = sentence.split("");
+        let i = 0;
+        while(letters.length > 0) {
+            await waitForMs(100);
+            letters.pop();
+            $(eleRef).html(letters.join(""));
+        }
+    }
+
+    async function carousel(carouselList, eleRef) {
+        var i = 0;
+        while(true) {
+            updateFontColor(eleRef, carouselList[i].color)
+            await typeSentence(carouselList[i].text, eleRef);
+            await waitForMs(1500);
+            await deleteSentence(eleRef);
+            await waitForMs(500);
+            i++
+            if(i >= carouselList.length) {i = 0;}
+        }
+    }
+
+    function updateFontColor(eleRef, color) {
+        $(eleRef).css('color', color);
+    }
+
+    function waitForMs(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms))
+    }
+</script>
 </body>
 </html>
