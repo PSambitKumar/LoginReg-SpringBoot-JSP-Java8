@@ -10,6 +10,8 @@
 <head>
 <%--    Linking CSS Design--%>
     <link href="style/style.css" rel="stylesheet"/>
+<%--    Font Awesome--%>
+    <link type="text/css" href="style/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,53 +19,11 @@
 
     <link rel="canonical" href="https://themesberg.com/product/ui-kits/neumorphism-ui/" />
 
-    <!--  Social tags -->
-    <meta name="keywords" content="neumorphism, neumorphism ui, neomorphism, neomorphism ui, neomorphism css, neumorphism css, neumorph, neumorphic, design system, login, form, table, tables, card, cards, navbar, modal, icons, icons, map, chat, carousel, menu, datepicker, gallery, slider, date, social, dropdown, search, tab, nav, footer, date picker, forms, tabs, time, button, select, input, timeline, cart, about us, account, log in, blog, profile, portfolio, landing page, ecommerce, shop, landing, register, app, contact, one page, sign up, signup, store, bootstrap 4, bootstrap4, dashboard, bootstrap 4 dashboard, bootstrap 4 design, bootstrap 4 system, bootstrap 4, bootstrap 4 uit kit, bootstrap 4 kit, themesberg, html kit, html css template, web template, bootstrap, bootstrap 4, css3 template, frontend, responsive bootstrap template, bootstrap ui kit, responsive ui kit">
-    <meta name="description" content="Start developing neumorphic web applications and pages using Neumorphism UI. It features over 100 individual components and 5 example pages.">
-
-    <!-- Schema.org markup for Google+ -->
-    <meta itemprop="name" content="Neumorphism UI by Themesberg">
-    <meta itemprop="description" content="Start developing neumorphic web applications and pages using Neumorphism UI. It features over 100 individual components and 5 example pages.">
-    <meta itemprop="image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/neumorphism-ui/neumorphism-thumbnail.jpg">
-
-    <!-- Twitter Card data -->
-    <meta name="twitter:card" content="product">
-    <meta name="twitter:site" content="@themesberg">
-    <meta name="twitter:title" content="Neumorphism UI by Themesberg">
-    <meta name="twitter:description" content="Start developing neumorphic web applications and pages using Neumorphism UI. It features over 100 individual components and 5 example pages.">
-    <meta name="twitter:creator" content="@themesberg">
-    <meta name="twitter:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/neumorphism-ui/neumorphism-thumbnail.jpg">
-
-    <!-- Open Graph data -->
-    <meta property="fb:app_id" content="214738555737136">
-    <meta property="og:title" content="Neumorphism UI by Themesberg" />
-    <meta property="og:type" content="article" />
-    <meta property="og:url" content="https://demo.themesberg.com/neumorphism-ui/" />
-    <meta property="og:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/neumorphism-ui/neumorphism-thumbnail.jpg"/>
-    <meta property="og:description" content="Start developing neumorphic web applications and pages using Neumorphism UI. It features over 100 individual components and 5 example pages." />
-    <meta property="og:site_name" content="Themesberg" />
-
-    <!-- Favicon -->
-    <link rel="apple-touch-icon" sizes="120x120" href="./assets/img/favicon/apple-touch-icon.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="./assets/img/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="./assets/img/favicon/favicon-16x16.png">
-    <link rel="manifest" href="./assets/img/favicon/site.webmanifest">
-    <link rel="mask-icon" href="./assets/img/favicon/safari-pinned-tab.svg" color="#ffffff">
-    <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="theme-color" content="#ffffff">
-
-    <!-- Fontawesome -->
-    <link type="text/css" href="./vendor/@fortawesome/fontawesome-free/css/all.min.css" rel="stylesheet">
-
-
-    <!-- NOTICE: You can use the _analytics.html partial to include production code specific code & trackers -->
     <title>Home</title>
 </head>
 <body>
-<%--<h4>Welcome Home, Sambit.</h4>--%>
 
-
-<div class="col-12">
+<div style="background-color: #ecf2f4" class="col-12">
     <div class="card bg-primary shadow-soft border-light px-4 py-5 text-center mb-5">
 
 
@@ -90,7 +50,7 @@
                     <li class="nav-item dropdown">
                         <a  onclick="window.location='Home'" class="nav-link" data-toggle="dropdown" >
                             <span class="nav-link-inner-text">Home</span>
-                            <span class="fas fa-angle-down nav-link-arrow ml-2"></span>
+<%--                            <span class="fas fa-angle-down nav-link-arrow ml-2"></span>--%>
                         </a>
                     </li>
 
@@ -134,6 +94,14 @@
                         </div>
                     </li>
                 </ul>
+
+                <div style="margin-left: 420px" class="d-flex align-items-center">
+                    <a href="Login" style="width: 8rem" target="_blank" class="btn btn-primary text-secondary d-none d-md-inline-block mr-3"><i class="fas fa-lock mr-2"></i>Sign In</a>
+                    <a href="Registration" style="width: 8rem" target="_blank" class="btn btn-primary"><i class="fas fa-user"></i>   Register</a>
+                    <button class="navbar-toggler ml-2" type="button" data-toggle="collapse" data-target="#navbar_global" aria-controls="navbar_global" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
             </div>
         </nav>
 
@@ -148,7 +116,7 @@
                                 This is my official Portfolio website to showcase my all works related to
                                 Java Software Engineer and part time Android development, web development and ui design.
                             </p>
-                            <a style="font-weight: bold; color: #0b7ec4" href="/resume/myresume.pdf" class="btn btn-primary">
+                            <a style="font-weight: bold; color: #0b7ec4" href="resume/myresume.pdf" class="btn btn-primary">
                                     <span class="mr-1">
                                         <span><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-text-fill" viewBox="0 0 16 16">
                                           <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0zM9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1zM4.5 9a.5.5 0 0 1 0-1h7a.5.5 0 0 1 0 1h-7zM4 10.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 1 0-1h4a.5.5 0 0 1 0 1h-4z"/>

@@ -1,5 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Festive&family=Lato&family=Nunito+Sans&display=swap');
-
+/*@import url('https://fonts.googleapis.com/css2?family=Festive&family=Poppins&family=Nunito+Sans&display=swap');*/
+@import url('https://fonts.googleapis.com/css2?family=Poppins&display=swap');
 :root {
     --blue: #0056B3;
     --indigo: #6610f2;
@@ -71,7 +71,7 @@ article, aside, figcaption, figure, footer, header, hgroup, main, nav, section {
 
 body {
     margin: 40px;
-    font-family: "Lato", sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 1rem;
     font-weight: 300;
     line-height: 1.5;
@@ -8790,7 +8790,7 @@ a.close.disabled {
     z-index: 1070;
     display: block;
     margin: 0;
-    font-family: "Lato", sans-serif;
+    font-family: "Poppins", sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -8903,7 +8903,7 @@ a.close.disabled {
     z-index: 1060;
     display: block;
     max-width: 276px;
-    font-family: "Lato", sans-serif;
+    font-family: "Poppins", sans-serif;
     font-style: normal;
     font-weight: 400;
     line-height: 1.5;
@@ -31719,12 +31719,12 @@ textarea[resize="horizontal"] {
  */
 h1, h2, h3, h4, h5, h6,
 .h1, .h2, .h3, .h4, .h5, .h6 {
-    font-family: "Lato", sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 400;
 }
 
 p, ol li, ul li {
-    font-family: "Lato", sans-serif;
+    font-family: "Poppins", sans-serif;
     font-size: 1rem;
     font-weight: 300;
     line-height: 1.6;
