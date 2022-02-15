@@ -125,7 +125,7 @@
                                 View Resume
                             </a>
                         </div>
-                        <div class="col-12 col-md-6 mt-4 mt-md-0 text-md-right">
+                        <div style="" class="col-12 col-md-6 mt-4 mt-md-0 text-md-right">
                             <img src="images/sambit.png" alt="Sambit">
                         </div>
                     </div>
