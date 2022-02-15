@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.http.Part;
@@ -35,7 +36,7 @@ public class RegController {
     }
 
     @PostMapping("Registration")
-    public String saveRegData(@ModelAttribute("regBean")RegBean regBean, Model model){
+    public String saveRegData(@ModelAttribute("regBean")RegBean regBean, Model model, RedirectAttributes redirect){
 //        System.out.println(regBean);
         String result = "";
         try {
@@ -45,7 +46,7 @@ public class RegController {
         }catch (Exception e){
             System.out.println(regBean.getUsername()+" Username Already Taken");
         }
-        return "Login";
+        return "redirect:/Login";
     }
     @GetMapping("Login")
     public String login(Model model){
@@ -133,6 +134,7 @@ public class RegController {
             if(result.equalsIgnoreCase("Success")){
                 System.out.println("Data Added!!");
                 List<PersonalData> list = regService.getAllPersonalDetails();
+//                personalDataBean = null;
                 model.addAttribute("list", list);
             }
         }catch (Exception e){

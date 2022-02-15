@@ -99,7 +99,7 @@
 
                 $('#personalDetailForm').submit(function (event){
                     event.preventDefault();
-                    loadData($(this));
+                    loadData($(this))
                 });
                 return true;
             }
@@ -144,27 +144,27 @@
     <h4 style="text-align: center">Fill Personal Details</h4>
 
 <%--action="AddPersonalData"--%>
-    <form:form id="personalDetailForm" method="post" modelAttribute="personalDataBean">
+    <form:form id="personalDetailForm" modelAttribute="personalDataBean">
         <div style="margin: auto" class="form-group col-md-8">
 
             <div class="form-group row required">
 
                 <div class="col-md-4">
-                    <label class="form-label control-label" for="inputName">Name</label>
-                    <form:input path="name" type="text" class="form-control" id="inputName" name="name" placeholder="Enter Name"/>
+                    <label class="form-label control-label" >Name</label>
+                    <form:input path="name" type="text" class="form-control" id="inputName"  placeholder="Enter Name"/>
 <%--                    <small class="form-text text-muted" >Name must not contains number</small>--%>
                     <div id="namealert"></div>
                 </div>
 
                 <div class="col-md-4">
-                    <label class="form-label" for="inputName">Pan Card ID</label>
-                    <form:input path="panId" type="text" class="form-control" id="inputPan" name="panid" placeholder="Enter Pan Card ID"/>
+                    <label class="form-label" >Pan Card ID</label>
+                    <form:input path="panId" type="text" class="form-control" id="inputPan" placeholder="Enter Pan Card ID"/>
 <%--                    <small class="form-text text-muted">Personal details are don't shared</small>--%>
                     <div id="panalert"></div>
                 </div>
 
                 <div class="col-md-4">
-                    <label class="form-label" for="inputName">Adhar Card ID</label>
+                    <label class="form-label">Adhar Card ID</label>
                     <form:input path="adharNo" type="text" class="form-control" id="inputAdhar" placeholder="Enter Adhar Card ID"/>
 <%--                    <small class="form-text text-muted">Enter 16 digit adhar card number</small>--%>
                     <div id="adharalert"></div>
@@ -178,7 +178,7 @@
 
                 <div class="form-group row col-md-3">
 <%--                    onclick="loadData()"--%>
-                    <button type="submit" id="submit"   class="btn btn-success">Submit</button>
+                    <button id="submit"   class="btn btn-success">Submit</button>
                 </div>
 
                 <div style="margin-left: 10px" class="form-group row col-md-3">
