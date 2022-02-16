@@ -141,7 +141,6 @@ public class RegController {
             result = "Fail";
             e.printStackTrace();
         }
-//        return result;
         return "ViewPersonalDetails";
     }
 
@@ -175,5 +174,10 @@ public class RegController {
     @GetMapping("About")
     public String about(){
         return "About";
+    }
+    @GetMapping("/NewReg")
+    public String newReg(Model model){
+        model.addAttribute("regBean", new RegBean());
+        return "Registration1";
     }
 }
