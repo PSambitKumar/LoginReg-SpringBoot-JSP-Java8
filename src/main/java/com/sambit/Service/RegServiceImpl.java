@@ -28,7 +28,7 @@ public class RegServiceImpl implements RegService{
 
     @Override
     public String saveRegLoginData(RegBean regBean) {
-        String res = "";
+        String res = null;
         try {
             Reg reg = new Reg();
             reg.setUsername(regBean.getUsername());
