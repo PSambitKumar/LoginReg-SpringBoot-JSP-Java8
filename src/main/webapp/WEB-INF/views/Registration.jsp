@@ -110,8 +110,8 @@
                         <div class="input-group-prepend">
                         </div>
                         <div style="margin-left: 2rem">
-                            <form:radiobutton path="gender" value = "Male"/>Male&nbsp;
-                            <form:radiobutton path="gender" value = "Female"/>Female
+                            <form:radiobutton cssStyle="color: #ECF0F3" class="form-check-input" path="gender" value = "Male"/>Male&emsp;&emsp;
+                            <form:radiobutton class="form-check-input" path="gender" value = "Female"/>Female
                         </div>
                     </div>
                     <!-- End of Form -->
