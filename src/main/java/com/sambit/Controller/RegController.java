@@ -1,11 +1,9 @@
 package com.sambit.Controller;
 
-import antlr.StringUtils;
 import com.sambit.Bean.ImageBean;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
-import com.sambit.Entity.Image;
 import com.sambit.Entity.PersonalData;
 import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
@@ -16,9 +14,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import javax.servlet.annotation.MultipartConfig;
-import javax.servlet.http.Part;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -180,4 +180,22 @@ public class RegController {
         model.addAttribute("regBean", new RegBean());
         return "Registration1";
     }
+
+    @ResponseBody
+    @GetMapping("PrintDate")
+    public String printDate() throws ParseException {
+        Date date1 = new Date();
+        String date = new SimpleDateFormat("dd-MMM-yyyy").format(date1);
+        return date;
+    }
+
+//    @ResponseBody
+//    @GetMapping("PrintDate1")
+//    public Date printDate1() throws ParseException {
+//        String dateString = new SimpleDateFormat("yyyy mm dd").format(new Date());
+////        Date date=Date.valueOf(dateString);
+////        Date date = new Date();
+//        return date;
+//    }
+
 }
