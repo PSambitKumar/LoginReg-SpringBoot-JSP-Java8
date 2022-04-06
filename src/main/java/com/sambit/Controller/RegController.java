@@ -198,4 +198,65 @@ public class RegController {
 //        return date;
 //    }
 
+    @GetMapping("PrintDate2/{strDate}")
+    public String datePrint(@PathVariable("strDate") String strDate){
+        String newDate = "";
+        System.out.println(strDate);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MMM/yyyy");
+        SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MMM-yyyy");
+        String[] dateString = strDate.split("-");
+
+        for (int i = 0; i < dateString.length; i++){
+            if (i == 1){
+                String data = dateString[i];
+
+                String monthString = "";
+                switch (data) {
+                    case "Jan":  newDate += "/01/";
+                        break;
+                    case "Feb":  newDate += "/02/";
+                        break;
+                    case "Mar":  newDate += "/03/";
+                        break;
+                    case "Apr":  newDate += "/04/";
+                        break;
+                    case "May":  newDate += "/05/";
+                        break;
+                    case "Jun":  newDate += "/06/";
+                        break;
+                    case "Jul":  newDate += "/07/";
+                        break;
+                    case "Aug":  newDate += "/08/";
+                        break;
+                    case "Sep":  newDate += "/09/";
+                        break;
+                    case "Oct": newDate += "/10/";
+                        break;
+                    case "Nov": newDate += "/11/";
+                        break;
+                    case "Dec": newDate += "/12/";
+                        break;
+                    default: monthString = "Invalid month";
+                        break;
+                }
+            }
+            else {
+                String data = dateString[i];
+                newDate = newDate + data;
+            }
+        }
+        System.out.println(newDate);
+        try {
+            Date date = formatter.parse(newDate);
+            System.out.println(date);
+            System.out.println(formatter.format(date));
+            System.out.println(formatter1.format(date));
+            System.out.println(formatter2.format(date));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
