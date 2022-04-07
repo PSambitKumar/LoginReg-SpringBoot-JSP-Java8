@@ -7,6 +7,7 @@ import com.sambit.Bean.RegBean;
 import com.sambit.Entity.PersonalData;
 import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
+import com.sambit.Utils.CommonFileUpload;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -198,6 +199,8 @@ public class RegController {
 //        return date;
 //    }
 
+
+//    Method to Type Cast String Date to Util.Date
     @GetMapping("PrintDate2/{strDate}")
     public String datePrint(@PathVariable("strDate") String strDate){
         String newDate = "";
@@ -205,6 +208,7 @@ public class RegController {
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat formatter1 = new SimpleDateFormat("dd/MMM/yyyy");
         SimpleDateFormat formatter2 = new SimpleDateFormat("dd-MMM-yyyy");
+        SimpleDateFormat formatter3 = new SimpleDateFormat("MMM d, yyyy");
         String[] dateString = strDate.split("-");
 
         for (int i = 0; i < dateString.length; i++){
@@ -253,10 +257,17 @@ public class RegController {
             System.out.println(formatter.format(date));
             System.out.println(formatter1.format(date));
             System.out.println(formatter2.format(date));
+            System.out.println(formatter3.format(date));
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    @GetMapping(value = "/informationCheck/{folderName}")
+    public String informationCheck(@PathVariable("folderName") String folderName){
+        //Traversing to Success Page in WEB-INF/views
+        return CommonFileUpload.createFolder(folderName);
     }
 
 }
