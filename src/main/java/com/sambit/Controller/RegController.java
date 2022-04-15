@@ -8,6 +8,8 @@ import com.sambit.Entity.PersonalData;
 import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
 import com.sambit.Utils.CommonFileUpload;
+import com.sambit.Utils.ValidationCheck;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -268,6 +270,18 @@ public class RegController {
     public String informationCheck(@PathVariable("folderName") String folderName){
         //Traversing to Success Page in WEB-INF/views
         return CommonFileUpload.createFolder(folderName);
+    }
+
+    @GetMapping(value = "/validateGepNIC/{GepNIC}")
+    public String validateGepNIC(@PathVariable("GepNIC") String GepNIC){
+        String copyGepNIC = GepNIC;
+        if (copyGepNIC.length() != 15)
+            System.out.println("GepNIC ID Must be 15 Characters!");
+        else if (copyGepNIC.substring(0, 7).matches("^[a-zA-Z]*$") && copyGepNIC.substring(7, 14).matches("^[0-9]*$") && copyGepNIC.substring(14, 15).matches("^[a-zA-Z0-9]*$"))
+            System.out.println("Validated GepNIC");
+        else
+            System.out.println("GepNIC ID Must First 7 Must be Alphabetic, Next 7 Must be Numbers, and Next 1 Must Be AlphaNumeric!");
+        return null;
     }
 
 }
