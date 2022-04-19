@@ -4,6 +4,7 @@ import com.sambit.Bean.ImageBean;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
+import com.sambit.Entity.Image;
 import com.sambit.Entity.PersonalData;
 import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
@@ -284,4 +285,26 @@ public class RegController {
         return null;
     }
 
+    @GetMapping(value = "/imageUpload")
+    public String imageUpload(){
+        return "imageUploadPage";
+    }
+
+    @PostMapping(value = "/saveImage")
+    public String saveImageData(@RequestParam("imageData")MultipartFile imageData, Image image, RedirectAttributes redirectAttributes) throws IOException {
+        System.out.println(imageData);
+        String originalFileName = imageData.getOriginalFilename();
+        System.out.println(originalFileName);
+        String filePath = CommonFileUpload.singleFileUplaod(imageData, "images");
+        System.out.println(filePath);
+        image.setImageName(filePath);
+        Image updateImage = regService.saveImage(image);
+        if (updateImage != null){
+            redirectAttributes.addFlashAttribute("flashMessage", "Image Uploaded To Database Successfully.");
+        }
+        else {
+            redirectAttributes.addFlashAttribute("flashMessage", "Failed To Upload Image!");
+        }
+        return "redirect:/imageUpload";
+    }
 }

@@ -4,12 +4,15 @@
 </head>
 
 <body>
+<%--<div class="alert alert-primary" role="alert">--%>
+<%--    A simple primary alert—check it out!--%>
+<%--</div>--%>
 
 <form action="/saveImage" method="post" enctype="multipart/form-data">
     <div class="container col-md-4" style="margin-top: 4rem">
         <div class="row">
             <div class="col-md-9">
-                <label for="Image" class="border form-label">Upload Your Image:</label>
+                <label for="Image" class="form-label">Upload Your Image:</label>
                 <input class="form-control" type="file" id="Image" onchange="preview()" name="imageData">
                 <small style="color: red">(.jpg/.jpeg/.gif only & Max size 500 KB)</small>
                 <div>

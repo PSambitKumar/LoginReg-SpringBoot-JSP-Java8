@@ -23,4 +23,6 @@ public interface RegService {
     List<PersonalData> getAllPersonalDetails();
 
     String saveImageData(ImageBean imageBean);
+
+    Image saveImage(Image image);
 }

@@ -8,6 +8,7 @@ import com.sambit.Entity.Image;
 import com.sambit.Entity.Login;
 import com.sambit.Entity.PersonalData;
 import com.sambit.Entity.Reg;
+import com.sambit.Repository.ImageRepository;
 import com.sambit.Repository.LoginRepository;
 import com.sambit.Repository.PersonalDataRepository;
 import com.sambit.Repository.RegRepository;
@@ -25,6 +26,8 @@ public class RegServiceImpl implements RegService{
     LoginRepository loginRepository;
     @Autowired
     PersonalDataRepository personalDataRepository;
+    @Autowired
+    ImageRepository imageRepository;
 
     @Override
     public String saveRegLoginData(RegBean regBean) {
@@ -138,5 +141,10 @@ public class RegServiceImpl implements RegService{
         Image image1 = new Image();
         image1.setImageName(imageBean.getImageName());
         return "Image";
+    }
+
+    @Override
+    public Image saveImage(Image image) {
+        return imageRepository.save(image);
     }
 }
