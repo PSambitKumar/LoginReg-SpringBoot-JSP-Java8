@@ -50,7 +50,7 @@
 
 
 <c:if test="${flashMessage ne Empty}">
-    <script>firePopUp()</script>
+    <script>swal("Successful", "${flashMessage}", "success")</script>
 </c:if>
 
 <form action="/saveImage" method="post" enctype="multipart/form-data">
@@ -59,7 +59,7 @@
             <div class="col-md-9">
                 <label for="Image" class="form-label">Upload Your Image:</label>
                 <input class="form-control" type="file" id="Image" onchange="preview()" name="imageData">
-                <small style="color: red">(.jpg/.jpeg/.gif only & Max size 500 KB)</small>
+                <small style="color: orangered">(.jpg/.jpeg/.gif only & Max size 500 KB)</small>
                 <div>
                     <button type="submit" class="btn btn-primary mt-3" style="width: 25%">Submit</button>
                     <button type="reset" class="btn btn-danger mt-3">Reset</button>

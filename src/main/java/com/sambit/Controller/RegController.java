@@ -300,7 +300,7 @@ public class RegController {
         image.setImageName(filePath);
         Image updateImage = regService.saveImage(image);
         if (updateImage != null){
-            redirectAttributes.addFlashAttribute("flashMessage", "Image Uploaded To Database Successfully.");
+            redirectAttributes.addFlashAttribute("flashMessage", "Image Uploaded To Database Successfully." + filePath);
         }
         else {
             redirectAttributes.addFlashAttribute("flashMessage", "Failed To Upload Image!");
