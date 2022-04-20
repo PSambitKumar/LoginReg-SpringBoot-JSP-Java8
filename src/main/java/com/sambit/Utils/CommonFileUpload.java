@@ -95,9 +95,9 @@ public class CommonFileUpload {
     public static String fileExistsOrNot(String folderName){
         String filePath = "";
         String result= null;
-//        System.out.println("Logger" + logger.toString() +  "Name: " +  logger.getName());
-//        System.out.println("Operating System--------------> " + ansiGreen + operatingSystem + ansiReset);
-//        System.out.println("System Properties--------------> " + ansiGreen + System.getProperties() + ansiReset);
+        System.out.println("Logger" + logger.toString() +  "Name: " +  logger.getName());
+        System.out.println("Operating System--------------> " + ansiGreen + operatingSystem + ansiReset);
+        System.out.println("System Properties--------------> " + ansiGreen + System.getProperties() + ansiReset);
 //        operatingSystem.indexOf("windows") >= 0 Instead of  operatingSystem.contains("windows")----------can Used but Not Appropriate
         if (operatingSystem.contains("windows")){
             logger.info("This is " + ansiGreen + System.getProperty("user.name") + " Windows" + ansiReset);
