@@ -286,12 +286,13 @@ public class RegController {
     }
 
     @GetMapping(value = "/imageUpload")
-    public String imageUpload(){
+    public String imageUpload(Model model){
+//        model.addAttribute("flashNumber", 88);
         return "imageUploadPage";
     }
 
     @PostMapping(value = "/saveImage")
-    public String saveImageData(@RequestParam("imageData")MultipartFile imageData, Image image, RedirectAttributes redirectAttributes) throws IOException {
+    public String saveImageData(@RequestParam("imageData")MultipartFile imageData, Image image, RedirectAttributes redirectAttributes, Model model) throws IOException {
         System.out.println(imageData);
         String originalFileName = imageData.getOriginalFilename();
         System.out.println(originalFileName);

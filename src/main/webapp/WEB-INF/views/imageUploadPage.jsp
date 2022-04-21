@@ -1,13 +1,21 @@
+
 <head>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
     <title>Image Upload Database</title>
-<%--    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>--%>
-<%--    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>--%>
-<%--    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>--%>
-<%--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">--%>
-<%--    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>--%>
-<%--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>--%>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+
+<%--    <script>var pageContext = "${pageContext.request.contextPath}"</script>--%>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@7.12.15/dist/sweetalert2.min.css'></link>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 
@@ -53,6 +61,43 @@
     <script>swal("Successful", "${flashMessage}", "success")</script>
 </c:if>
 
+<%--<c:if test="${flashMessage ne Empty}">--%>
+<%--    <script>displayModal();</script>--%>
+<%--</c:if>--%>
+
+
+<!-- Button to Open the Modal -->
+<%--<div id="divModal">--%>
+<%--    <button id="modalStatus" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"></button>--%>
+<%--</div>--%>
+
+<!-- The Modal -->
+<%--<div class="modal fade" id="myModal">--%>
+<%--    <div class="modal-dialog">--%>
+<%--        <div class="modal-content">--%>
+
+<%--            <!-- Modal Header -->--%>
+<%--            <div class="modal-header">--%>
+<%--                <h4 class="modal-title">Status</h4>--%>
+<%--                <button type="button" class="close" data-dismiss="modal">&times;</button>--%>
+<%--            </div>--%>
+
+<%--            <!-- Modal body -->--%>
+<%--            <div class="modal-body">--%>
+<%--                ${flashMessage}--%>
+<%--            </div>--%>
+
+<%--            <!-- Modal footer -->--%>
+<%--            <div class="modal-footer">--%>
+<%--                <button type="button" class="btn btn-success" data-dismiss="modal">Ok</button>--%>
+<%--            </div>--%>
+
+<%--        </div>--%>
+<%--    </div>--%>
+<%--</div>--%>
+
+
+
 <form action="/saveImage" method="post" enctype="multipart/form-data">
     <div class="container col-md-4" style="margin-top: 4rem">
         <div class="row">
@@ -72,11 +117,16 @@
     </div>
 </form>
 
+
 <script>
+    // $(document).ready(function (){
+    //     console.log("Inside Ready");
+    //     $('#divModal').hide();
+    // });
+
     function preview() {
         frame.src = URL.createObjectURL(event.target.files[0]);
     }
-
 </script>
 </body>
 </html>
