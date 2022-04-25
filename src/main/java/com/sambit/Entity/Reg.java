@@ -17,6 +17,8 @@ public class Reg {
     @Column
     private String name;
     @Column
+    private String userCode;
+    @Column
     private String phn;
     @Column
     private String email;
@@ -27,6 +29,10 @@ public class Reg {
     @Column
     private Date dob;
 
+    public String getUserCode() {
+        return userCode;
+    }
+
     @Override
     public String toString() {
         return "Reg{" +
@@ -34,12 +40,17 @@ public class Reg {
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", name='" + name + '\'' +
+                ", userCode='" + userCode + '\'' +
                 ", phn='" + phn + '\'' +
                 ", email='" + email + '\'' +
                 ", dept='" + dept + '\'' +
                 ", gender='" + gender + '\'' +
                 ", dob=" + dob +
                 '}';
+    }
+
+    public void setUserCode(String userCode) {
+        this.userCode = userCode;
     }
 
     public int getSlno() {

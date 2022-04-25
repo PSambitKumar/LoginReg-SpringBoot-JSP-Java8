@@ -12,6 +12,7 @@ import com.sambit.Repository.ImageRepository;
 import com.sambit.Repository.LoginRepository;
 import com.sambit.Repository.PersonalDataRepository;
 import com.sambit.Repository.RegRepository;
+import com.sambit.Utils.UserCodeGeneration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -32,6 +33,7 @@ public class RegServiceImpl implements RegService{
     @Override
     public String saveRegLoginData(RegBean regBean) {
         String res = null;
+        int maxEmpId ;
         try {
             Reg reg = new Reg();
             reg.setUsername(regBean.getUsername());
@@ -42,6 +44,15 @@ public class RegServiceImpl implements RegService{
             reg.setDept(regBean.getDept());
             reg.setDob(regBean.getDob());
             reg.setGender(regBean.getGender());
+            try {
+                maxEmpId = regRepository.maxSlno();
+            }catch (Exception e){
+                maxEmpId = 1;
+            }
+            System.out.println(maxEmpId);
+            String userCode = UserCodeGeneration.UserCodeGenreationMethod(maxEmpId);
+            System.out.println("UserCode: " + userCode);
+            reg.setUserCode(userCode);
             Reg result = regRepository.save(reg);//It will save all data to an object of Reg ENTITY and print toString method
             System.out.println(result);
             System.out.println("Data Added to Registration Table!!");

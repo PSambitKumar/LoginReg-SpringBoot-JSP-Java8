@@ -61,6 +61,21 @@
     <script>swal("Successful", "${flashMessage}", "success")</script>
 </c:if>
 
+<%--Working Perfectly--%>
+<%--<c:choose>--%>
+<%--    <c:when test="${flashMessage == 'Success'}">--%>
+<%--        <script>swal("Successful", "Drive Added Successfully.", "success")</script>--%>
+<%--    </c:when>--%>
+
+<%--    <c:when test="${flashMessage == 'Failed'}">--%>
+<%--        <script>swal("Failed", "Failed To Add Drive!", "error")</script>--%>
+<%--    </c:when>--%>
+<%--    &lt;%&ndash;    <c:otherwise>&ndash;%&gt;--%>
+<%--    &lt;%&ndash;        <script>swal("Oops!", "Something Went Wrong!", "error")</script>&ndash;%&gt;--%>
+<%--    &lt;%&ndash;    </c:otherwise>&ndash;%&gt;--%>
+<%--</c:choose>--%>
+
+
 <%--<c:if test="${flashMessage ne Empty}">--%>
 <%--    <script>displayModal();</script>--%>
 <%--</c:if>--%>

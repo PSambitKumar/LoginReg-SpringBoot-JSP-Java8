@@ -7,6 +7,7 @@ public class RegBean {
     private String username;
     private String password;
     private String name;
+    private String usercode;
     private String phn;
     private String email;
     private String dept;
@@ -18,12 +19,36 @@ public class RegBean {
         return slno;
     }
 
+    public String getUsercode() {
+        return usercode;
+    }
+
+    public void setUsercode(String usercode) {
+        this.usercode = usercode;
+    }
+
     public void setSlno(int slno) {
         this.slno = slno;
     }
 
     public String getUsername() {
         return username;
+    }
+
+    @Override
+    public String toString() {
+        return "RegBean{" +
+                "slno=" + slno +
+                ", username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", usercode='" + usercode + '\'' +
+                ", phn='" + phn + '\'' +
+                ", email='" + email + '\'' +
+                ", dept='" + dept + '\'' +
+                ", gender='" + gender + '\'' +
+                ", dob=" + dob +
+                '}';
     }
 
     public void setUsername(String username) {
@@ -84,21 +109,6 @@ public class RegBean {
 
     public void setDob(Date dob) {
         this.dob = dob;
-    }
-
-    @Override
-    public String toString() {
-        return "RegBean{" +
-                "slno=" + slno +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", phn='" + phn + '\'' +
-                ", email='" + email + '\'' +
-                ", dept='" + dept + '\'' +
-                ", gender='" + gender + '\'' +
-                ", dob=" + dob +
-                '}';
     }
 
 }
