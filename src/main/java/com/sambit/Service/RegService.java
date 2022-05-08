@@ -6,6 +6,7 @@ import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
 import com.sambit.Entity.Image;
 import com.sambit.Entity.PersonalData;
+import com.sambit.Entity.Postal;
 import com.sambit.Entity.Reg;
 
 import java.util.List;
@@ -25,4 +26,5 @@ public interface RegService {
     String saveImageData(ImageBean imageBean);
 
     Image saveImage(Image image);
+    List<Postal> saveAllPostal(List<Postal> postalList);
 }

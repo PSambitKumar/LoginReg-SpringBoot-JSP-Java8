@@ -1,16 +1,20 @@
 package com.sambit.Controller;
 
-import com.sambit.Bean.ImageBean;
-import com.sambit.Bean.LoginBean;
-import com.sambit.Bean.PersonalDataBean;
-import com.sambit.Bean.RegBean;
+import com.sambit.Bean.*;
 import com.sambit.Entity.Image;
 import com.sambit.Entity.PersonalData;
+import com.sambit.Entity.Postal;
 import com.sambit.Entity.Reg;
+import com.sambit.Repository.PostalRepository;
 import com.sambit.Service.RegService;
+import com.sambit.Utils.ANSIColors;
 import com.sambit.Utils.CommonFileUpload;
-import com.sambit.Utils.ValidationCheck;
-import org.springframework.data.repository.query.Param;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DataFormatter;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -18,12 +22,16 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
+import static java.util.Comparator.comparingDouble;
+import static java.util.Comparator.comparingInt;
+import static java.util.stream.Collectors.collectingAndThen;
+import static java.util.stream.Collectors.toCollection;
 
 @Controller
 public class RegController {
@@ -32,6 +40,7 @@ public class RegController {
     public RegController(RegService regService) {
         this.regService = regService;
     }
+
 
     @GetMapping("Registration")
     public String home(Model model){
@@ -307,5 +316,364 @@ public class RegController {
             redirectAttributes.addFlashAttribute("flashMessage", "Failed To Upload Image!");
         }
         return "redirect:/imageUpload";
+    }
+
+//    @GetMapping("secure/postalHo.htm")
+//    public String postalHo(){
+//        System.out.println(ANSIColors.ansiRed + "Entering Into Postal Ho Method" + ANSIColors.ansiReset);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        MediUser mediUser = (MediUser) authentication.getPrincipal();
+//        User user = userService.findByUsername(mediUser.getUsername());
+//        System.out.println(ANSIColors.ansiRed + "User : " + ANSIColors.ansiReset + user);
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\sambit.pradhan\\Documents\\a1.xlsx");
+//            System.out.println(ANSIColors.ansiRed + "File Input Stream : " + ANSIColors.ansiReset + fileInputStream);
+//            XSSFWorkbook xssfWorkbook = new XSSFWorkbook(fileInputStream);
+//            System.out.println(ANSIColors.ansiRed + "XSSFWorkbook : " + ANSIColors.ansiReset + xssfWorkbook);
+//            XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(0);
+//            System.out.println(ANSIColors.ansiRed + "XSSFSheet : " + ANSIColors.ansiReset +  xssfSheet );
+//            Iterator<Row> rowIterator = xssfSheet.iterator();
+//            int rowNumber = 0;
+////            System.out.println(ANSIColors.ansiGreen + "Row Iterator : " + ANSIColors.ansiReset + rowIterator.toString());
+//            while (rowIterator.hasNext()){
+//                System.out.println(ANSIColors.ansiRed + "Row Iterator Has Next : " + ANSIColors.ansiReset + rowIterator.hasNext());
+//                Row row = rowIterator.next();
+//                if (rowNumber == 0 || rowNumber == 1) {
+//                    rowNumber++;
+//                    continue;
+//                }
+////                System.out.println(ANSIColors.ansiGreen + "Row : " + ANSIColors.ansiReset + row.toString());
+//                Iterator<Cell> cellIterator = row.cellIterator();
+////                System.out.println(ANSIColors.ansiGreen + "Cell Iterator : " + ANSIColors.ansiReset + cellIterator.toString());
+//                while (cellIterator.hasNext()){
+//                    System.out.println(ANSIColors.ansiRed + "Cell Iterator Has Next : " + ANSIColors.ansiReset + cellIterator.hasNext());
+//                    Cell cell = cellIterator.next();
+////                    System.out.println(ANSIColors.ansiGreen + "Cell : " + ANSIColors.ansiReset + cell.toString());
+//                    switch (cell.getCellType()) {
+//                        case Cell.CELL_TYPE_NUMERIC:
+//                            System.out.print(cell.getNumericCellValue() + "\t");
+//                            break;
+//                        case Cell.CELL_TYPE_STRING:
+//                            System.out.print(cell.getStringCellValue() + "\t");
+//                            break;
+//                    }
+//                }
+//                System.out.println("");
+//            }
+//            fileInputStream.close();
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
+
+//    @GetMapping("secure/postalHo.htm")
+//    public String postalHo(){
+//        System.out.println(ANSIColors.ansiRed + "Entering Into Postal Ho Method" + ANSIColors.ansiReset);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        MediUser mediUser = (MediUser) authentication.getPrincipal();
+//        User user = userService.findByUsername(mediUser.getUsername());
+//        List<PostalHoHelper> postalHoHelpersList = new ArrayList<>();
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\sambit.pradhan\\Documents\\a2.xlsx");
+//            XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
+//            XSSFSheet sheet = workbook.getSheetAt(0);
+//            Row row = sheet.getRow(4);   //Starting from 4th Row
+////            System.out.println("Row : " + row);
+//            int lastRowIndex = sheet.getLastRowNum() + 1;
+//            System.out.println("Last row index :" + lastRowIndex);
+//            int totalNoOfCols = row.getLastCellNum() - 1;
+//            System.out.println("Total columns :" + totalNoOfCols);
+//            DataFormatter df = new DataFormatter();
+//
+////            Coulmn Wise
+////            for (int i = 1; i <= totalNoOfCols ; i++) {
+////                for (int j = 4; j < lastRowIndex; j++) {
+////                    row = sheet.getRow(j);
+////                    Cell c = row.getCell(i);
+////                    String cellData = df.formatCellValue(c);
+////                    System.out.println(cellData);
+////                    arrayExcelData[i-1][j] = cellData;
+////                }
+////                System.out.println("-----------");
+////            }
+//
+//            for (int i = 5; i< lastRowIndex; i++){
+//                PostalHoHelper postalHoHelper = new PostalHoHelper();
+//                for (int j = 1; j < totalNoOfCols; j++){
+//                    row = sheet.getRow(i);
+//                    if (j == 2){
+//
+//                        Cell cell = row.getCell(j);
+//                        String cellData = df.formatCellValue(cell);
+//                        postalHoHelper.setOfcName(cellData);
+//                        System.out.print(cellData + "|\t");
+//                    }
+//                    else if (j == 10){
+//                        Cell cell = row.getCell(j);
+//                        String cellData = df.formatCellValue(cell);
+//                        System.out.println(cellData);
+//                        postalHoHelper.setOfcPincode(cellData);
+//                    }
+//                    postalHoHelpersList.add(postalHoHelper);
+//                }
+//            }
+//            System.out.println(postalHoHelpersList);
+//            HashSet<PostalHoHelper> hashSet = new HashSet(postalHoHelpersList);
+//            System.out.println(hashSet);
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
+
+
+    //    For Rading Data of a Excel File
+//    @GetMapping("readExcelFile")
+//    public String postal(){
+//        System.out.println(ANSIColors.ansiRed + "Entering Into Postal Ho Method" + ANSIColors.ansiReset);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        MediUser mediUser = (MediUser) authentication.getPrincipal();
+//        User user = userService.findByUsername(mediUser.getUsername());
+//        List<PostalBean> postalBeanArrayList = new ArrayList<>();
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\sambit.pradhan\\Documents\\a2.xlsx");
+//            XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
+//            XSSFSheet sheet = workbook.getSheetAt(0);
+//            Row row = sheet.getRow(4);   //Starting from 4th Row
+//            System.out.println("Row : " + row);
+//            int lastRowIndex = sheet.getLastRowNum() + 1;
+//            System.out.println("Last row index :" + lastRowIndex);
+//            int totalNoOfCols = row.getLastCellNum() - 1;
+//            System.out.println("Total columns :" + totalNoOfCols);
+//            DataFormatter df = new DataFormatter();
+//            PostalBean postalBean;
+//            int count = 1;
+//
+//            for (int i = 5; i< lastRowIndex; i++){
+//                postalBean = new PostalBean();
+//                for (int j = 1; j < totalNoOfCols; j++){
+//                    row = sheet.getRow(i);
+//                    if (j == 2){
+//                        Cell cell = row.getCell(j);
+//                        String cellData = df.formatCellValue(cell).trim();
+//                        if (postalBeanArrayList.size() == 0){
+//                            System.out.println("Inside");
+//                            postalBean.getOfcId(count);
+//                        }
+//                        else if(postalBeanArrayList.size() > 1){
+//                            for (PostalBean bean : postalBeanArrayList) {
+//                                if (bean.getOfcName() == cellData){
+//                                    postalBean.setOfcId(count);
+//                                }
+//                                else {
+//                                    count += 1;
+//                                    postalBean.setOfcId(count);
+//                                }
+//                            }
+//                        }
+//                        postalBean.setOfcName(cellData);
+//                        System.out.print(cellData + "|\t");
+//                    }
+//                    else if (j == 10){
+//                        Cell cell = row.getCell(j);
+//                        String cellData = df.formatCellValue(cell).trim();
+//                        System.out.println(cellData);
+//                        postalBean.setOfcPincode(cellData);
+//                        postalBean.setStatus("Active");
+//                        postalBean.setCreatedOn(new Date());
+//                    }
+//                }
+//                postalBeanArrayList.add(postalBean);
+//            }
+//
+////            Printing Each Object of PostalBeanList
+//            for (PostalBean postalBean1 : postalBeanArrayList) {
+//                System.out.println(postalBean1);
+//            }
+//
+//            System.out.println(postalBeanArrayList.size());
+//            System.out.println(postalBeanArrayList);
+//
+//            List<PostalBean> postalBeanArrayList1 = new ArrayList<>();
+//
+//            for (int i = 1 ; i <= postalBeanArrayList.size(); i++){
+//                for (int j = 2; j <= postalBeanArrayList.size(); j++){
+//                    if (postalBeanArrayList.get(i).getOfcName() != postalBeanArrayList.get(j).getOfcName()){
+//                        postalBeanArrayList.remove(j);
+////                        postalBeanArrayList1.add(postalBeanArrayList.get(j));
+//                    }
+//                }
+//            }
+//            System.out.println("Unique Data List : " + postalBeanArrayList1);
+//
+//            for (PostalBean postalBean : postalBeanArrayList) {
+//                if (postalBeanArrayList1.size() == 0){
+//                    postalBeanArrayList1.add(postalBean);
+//                    System.out.println(postalBeanArrayList1);
+//                }
+//                else {
+//                    System.out.println("Inside Else Method.");
+//                    for (PostalBean bean : postalBeanArrayList1) {
+//                        if (bean.getOfcName() != postalBean.getOfcName()){
+//                            System.out.println("Unique Data : " + postalBean.getOfcName());
+//                            postalBeanArrayList1.add(postalBean);
+//                        }
+//                    }
+//                }
+//            }
+//            System.out.println("Unique List : " + postalBeanArrayList1);
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
+//    //    For Rading Data of a Excel File // Working Perfect
+//    @GetMapping("readExcelFile")
+//    public String postal(){
+//        System.out.println(ANSIColors.ansiRed + "Entering Into Postal Ho Method" + ANSIColors.ansiReset);
+////        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+////        MediUser mediUser = (MediUser) authentication.getPrincipal();
+////        User user = userService.findByUsername(mediUser.getUsername());
+//        List<PostalBean> postalBeanArrayList = new ArrayList<>();
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\sambit.pradhan\\Documents\\a1.xlsx");
+//            XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
+//            XSSFSheet sheet = workbook.getSheetAt(0);
+//            Row row = sheet.getRow(4);   //Starting from 4th Row
+////            System.out.println("Row : " + row);
+//            int lastRowIndex = sheet.getLastRowNum() + 1;
+//            System.out.println("Last row index :" + lastRowIndex);
+//            int totalNoOfCols = row.getLastCellNum() - 1;
+//            System.out.println("Total columns :" + totalNoOfCols);
+//            DataFormatter df = new DataFormatter();
+//            PostalBean postalBean;
+//            int count = 0;
+//            String oficeName = null;
+//
+//            for (int i = 5; i< lastRowIndex; i++){
+//                postalBean = new PostalBean();
+//                for (int j = 1; j < totalNoOfCols; j++){
+//                    row = sheet.getRow(i);
+//                    if (j == 2){
+//                        Cell cell = row.getCell(j);
+//                        String cellData = df.formatCellValue(cell).trim();
+//                        if (cellData != oficeName){
+//                            oficeName = cellData;
+//                            count += 1;
+//                        }
+//                        postalBean.setOfcName(cellData);
+//                        postalBean.setOfcId(count);
+//                        System.out.print(cellData + "|\t");
+//                    }
+//                    else if (j == 10){
+//                        Cell cell = row.getCell(j);
+//                        String cellData = df.formatCellValue(cell).trim();
+//                        System.out.println(cellData);
+//                        postalBean.setOfcPincode(cellData);
+//                        postalBean.setStatus("Active");
+//                        postalBean.setCreatedOn(new Date());
+//                    }
+//                }
+//                postalBeanArrayList.add(postalBean);
+//            }
+//
+////            Printing Each Object of PostalBeanList
+//            for (PostalBean postalBean1 : postalBeanArrayList) {
+//                System.out.println(postalBean1);
+//            }
+//
+//            System.out.println(postalBeanArrayList.size());
+//            System.out.println(postalBeanArrayList);
+//
+//            List<PostalBean> unique = postalBeanArrayList.stream()
+//                    .collect(collectingAndThen(toCollection(() -> new TreeSet<>(comparingInt(PostalBean::getOfcId))), ArrayList::new));
+//
+//            System.out.println("Unique Data : " + unique);
+//            for (PostalBean bean : unique) {
+//                System.out.println(bean);
+//            }
+//            System.out.println("Size : " + unique.size());
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
+
+
+
+    //    For Rading Data of a Excel File // Working Perfect
+    @GetMapping("readExcelFile")
+    public String postal(){
+        System.out.println(ANSIColors.ansiRed + "Entering Into Postal Ho Method" + ANSIColors.ansiReset);
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        MediUser mediUser = (MediUser) authentication.getPrincipal();
+//        User user = userService.findByUsername(mediUser.getUsername());
+        List<Postal> postalList = new ArrayList<>();
+        try {
+            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\sambit.pradhan\\Documents\\a1.xlsx");
+            XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
+            XSSFSheet sheet = workbook.getSheetAt(0);
+            Row row = sheet.getRow(4);   //Starting from 4th Row
+            int lastRowIndex = sheet.getLastRowNum() + 1;
+            int totalNoOfCols = row.getLastCellNum() - 1;
+            DataFormatter df = new DataFormatter();
+            Postal postal;
+            int count = 0;
+            String oficeName = null;
+
+            for (int i = 5; i< lastRowIndex; i++){
+                postal = new Postal();
+                for (int j = 1; j < totalNoOfCols; j++){
+                    row = sheet.getRow(i);
+                    if (j == 2){
+                        Cell cell = row.getCell(j);
+                        String cellData = df.formatCellValue(cell).trim();
+                        if (cellData != oficeName){
+                            oficeName = cellData;
+                            count += 1;
+                        }
+                        postal.setOfcName(cellData);
+                        postal.setOfcId(count);
+                    }
+                    else if (j == 10){
+                        Cell cell = row.getCell(j);
+                        String cellData = df.formatCellValue(cell).trim();
+                        postal.setOfcPincode(cellData);
+                        postal.setStatus("Active");
+                        postal.setCreatedOn(new Date());
+                    }
+                }
+                postalList.add(postal);
+            }
+
+            for (Postal postal1 : postalList) {
+                System.out.println(postal1);
+            }
+
+            List<Postal> uniquePostal = postalList.stream()
+                    .collect(collectingAndThen(toCollection(() -> new TreeSet<>(comparingDouble(Postal::getOfcId))), ArrayList::new));
+
+            System.out.println("Unique Data Size : " + uniquePostal.size());
+            for (Postal postal2 : uniquePostal) {
+                System.out.println(postal2);
+            }
+            List<Postal> updatedDataPostalList = regService.saveAllPostal(postalList);
+            if (updatedDataPostalList.size() == postalList.size()){
+                System.out.println(ANSIColors.ansiGreen + "Data Updated to Database Successfully.");
+            }
+            else {
+                System.out.println("Data Failed to Update to The Database!");
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 }

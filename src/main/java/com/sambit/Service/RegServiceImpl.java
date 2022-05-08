@@ -4,14 +4,8 @@ import com.sambit.Bean.ImageBean;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
-import com.sambit.Entity.Image;
-import com.sambit.Entity.Login;
-import com.sambit.Entity.PersonalData;
-import com.sambit.Entity.Reg;
-import com.sambit.Repository.ImageRepository;
-import com.sambit.Repository.LoginRepository;
-import com.sambit.Repository.PersonalDataRepository;
-import com.sambit.Repository.RegRepository;
+import com.sambit.Entity.*;
+import com.sambit.Repository.*;
 import com.sambit.Utils.UserCodeGeneration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +23,8 @@ public class RegServiceImpl implements RegService{
     PersonalDataRepository personalDataRepository;
     @Autowired
     ImageRepository imageRepository;
+    @Autowired
+    private PostalRepository postalRepository;
 
     @Override
     public String saveRegLoginData(RegBean regBean) {
@@ -157,5 +153,10 @@ public class RegServiceImpl implements RegService{
     @Override
     public Image saveImage(Image image) {
         return imageRepository.save(image);
+    }
+
+    @Override
+    public List<Postal> saveAllPostal(List<Postal> postalList) {
+        return postalRepository.saveAll(postalList);
     }
 }
