@@ -210,7 +210,7 @@ public class ExcelFileHandellerController {
                         newList.add(bean);
                 }
             }
-            System.out.println("MOHIT " + newList.size());
+            System.out.println("Unique Data : " + newList.size());
             for (PostalBean bean : newList) {
                 System.out.println(bean);
             }
