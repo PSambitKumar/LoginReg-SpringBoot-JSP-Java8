@@ -172,4 +172,10 @@ public class RegServiceImpl implements RegService{
         return postalPoRepository.saveAll(postalPoList);
     }
 
+    @Override
+    public String recieveIntData(String x) {
+        System.out.println(x);
+        return null;
+    }
+
 }

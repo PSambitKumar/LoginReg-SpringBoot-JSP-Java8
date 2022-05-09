@@ -26,6 +26,7 @@ public interface RegService {
     List<Postal> saveAllPostal(List<Postal> postalList);
     Postal findPostalHoByOfcName(String ofcName);
     List<PostalPo> saveAllPostalPo(List<PostalPo> postalPoList);
+    String recieveIntData(String x);
 
 
 }
