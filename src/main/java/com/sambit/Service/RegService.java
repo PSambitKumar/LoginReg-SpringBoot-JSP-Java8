@@ -4,10 +4,7 @@ import com.sambit.Bean.ImageBean;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
-import com.sambit.Entity.Image;
-import com.sambit.Entity.PersonalData;
-import com.sambit.Entity.Postal;
-import com.sambit.Entity.Reg;
+import com.sambit.Entity.*;
 
 import java.util.List;
 
@@ -27,4 +24,8 @@ public interface RegService {
 
     Image saveImage(Image image);
     List<Postal> saveAllPostal(List<Postal> postalList);
+    Postal findPostalHoByOfcName(String ofcName);
+    List<PostalPo> saveAllPostalPo(List<PostalPo> postalPoList);
+
+
 }

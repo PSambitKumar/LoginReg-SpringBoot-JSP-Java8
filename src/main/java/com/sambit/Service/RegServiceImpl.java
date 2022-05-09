@@ -17,6 +17,9 @@ public class RegServiceImpl implements RegService{
 
     @Autowired
     RegRepository regRepository;
+
+    @Autowired
+    PostalPoRepository postalPoRepository;
     @Autowired
     LoginRepository loginRepository;
     @Autowired
@@ -159,4 +162,14 @@ public class RegServiceImpl implements RegService{
     public List<Postal> saveAllPostal(List<Postal> postalList) {
         return postalRepository.saveAll(postalList);
     }
+    @Override
+    public Postal findPostalHoByOfcName(String ofcName) {
+        return postalRepository.findPostalHoByOfcName(ofcName);
+    }
+
+    @Override
+    public List<PostalPo> saveAllPostalPo(List<PostalPo> postalPoList) {
+        return postalPoRepository.saveAll(postalPoList);
+    }
+
 }

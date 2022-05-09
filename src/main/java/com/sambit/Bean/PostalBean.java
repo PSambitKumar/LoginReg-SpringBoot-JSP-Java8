@@ -4,18 +4,18 @@ package com.sambit.Bean;
 import java.util.Date;
 
 public class PostalBean {
-    private int ofcId;
+    private Long ofcId;
     private String ofcName;
     private String ofcPincode;
     private String status;
     private Date createdOn;
     private Date updatedOn;
 
-    public int getOfcId() {
+    public Long getOfcId() {
         return ofcId;
     }
 
-    public void setOfcId(int ofcId) {
+    public void setOfcId(Long ofcId) {
         this.ofcId = ofcId;
     }
 

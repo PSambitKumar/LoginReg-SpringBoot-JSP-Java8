@@ -1,23 +1,25 @@
 package com.sambit.Entity;
 
-import com.sambit.Bean.PostalBean;
-
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table
-public class Postal {
+@Table(name = "m_cdm_postal_so", schema = "public")
+public class PostalPo {
     @Id
-    @Column(name = "ofc_id")
+    @Column(name = "so_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long ofcId;
+    private Long soId;
 
-    @Column(name = "name_of_ofc")
-    private String ofcName;
+    @ManyToOne
+    @JoinColumn(name="ho_id")
+    private Postal hoId;
 
-    @Column(name = "pincode")
-    private String ofcPincode;
+    @Column(name = "so_name")
+    private String soName;
+
+    @Column(name = "so_pincode")
+    private String soPincode;
 
     @Column(name = "status")
     private String status;
@@ -28,29 +30,28 @@ public class Postal {
     @Column(name="updated_on")
     private Date updatedOn;
 
-
-    public Long getOfcId() {
-        return ofcId;
+    public Long getSoId() {
+        return soId;
     }
 
-    public void setOfcId(Long ofcId) {
-        this.ofcId = ofcId;
+    public void setSoId(Long soId) {
+        this.soId = soId;
     }
 
-    public String getOfcName() {
-        return ofcName;
+    public String getSoName() {
+        return soName;
     }
 
-    public void setOfcName(String ofcName) {
-        this.ofcName = ofcName;
+    public void setSoName(String soName) {
+        this.soName = soName;
     }
 
-    public String getOfcPincode() {
-        return ofcPincode;
+    public String getSoPincode() {
+        return soPincode;
     }
 
-    public void setOfcPincode(String ofcPincode) {
-        this.ofcPincode = ofcPincode;
+    public void setSoPincode(String soPincode) {
+        this.soPincode = soPincode;
     }
 
     public String getStatus() {
@@ -79,13 +80,23 @@ public class Postal {
 
     @Override
     public String toString() {
-        return "Postal{" +
-                "ofcId=" + ofcId +
-                ", ofcName='" + ofcName + '\'' +
-                ", ofcPincode='" + ofcPincode + '\'' +
+        return "PostalPo{" +
+                "soId=" + soId +
+                ", hoId=" + hoId +
+                ", soName='" + soName + '\'' +
+                ", soPincode='" + soPincode + '\'' +
                 ", status='" + status + '\'' +
                 ", createdOn=" + createdOn +
                 ", updatedOn=" + updatedOn +
                 '}';
     }
+
+    public Postal getHoId() {
+        return hoId;
+    }
+
+    public void setHoId(Postal hoId) {
+        this.hoId = hoId;
+    }
+
 }
