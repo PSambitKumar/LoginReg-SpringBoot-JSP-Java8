@@ -142,78 +142,78 @@ public class ExcelFileHandellerController {
 
 
     //    For Rading Data of a Excel File
-    @GetMapping("readExcelFile")
-    public String postal1(){
-        System.out.println(ANSIColors.ansiRed + "Entering Into Postal Ho Method" + ANSIColors.ansiReset);
+//    @GetMapping("readExcelFile")
+//    public String postal1(){
+//        System.out.println(ANSIColors.ansiRed + "Entering Into Postal Ho Method" + ANSIColors.ansiReset);
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //        MediUser mediUser = (MediUser) authentication.getPrincipal();
 //        User user = userService.findByUsername(mediUser.getUsername());
-        List<PostalBean> postalBeanArrayList = new ArrayList<>();
-        try {
-            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\sambit.pradhan\\Documents\\a3.xlsx");
-            XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
-            XSSFSheet sheet = workbook.getSheetAt(0);
-            Row row = sheet.getRow(4);   //Starting from 4th Row
+//        List<PostalBean> postalBeanArrayList = new ArrayList<>();
+//        try {
+//            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\sambit.pradhan\\Documents\\a3.xlsx");
+//            XSSFWorkbook workbook = new XSSFWorkbook(fileInputStream);
+//            XSSFSheet sheet = workbook.getSheetAt(0);
+//            Row row = sheet.getRow(4);   //Starting from 4th Row
 //            System.out.println("Row : " + row);
-            int lastRowIndex = sheet.getLastRowNum() + 1;
-            System.out.println("Last row index :" + lastRowIndex);
-            int totalNoOfCols = row.getLastCellNum() - 1;
-            System.out.println("Total columns :" + totalNoOfCols);
-            DataFormatter df = new DataFormatter();
-            PostalBean postalBean;
-
-            for (int i = 5; i< lastRowIndex; i++){
-                postalBean = new PostalBean();
-                for (int j = 1; j < totalNoOfCols; j++){
-                    row = sheet.getRow(i);
-                    if (j == 2){
-                        Cell cell = row.getCell(j);
-                        String cellData = df.formatCellValue(cell).trim();
-                        postalBean.setOfcName(cellData);
-                        System.out.print(cellData + "|\t");
-                    }
-                    else if (j == 10){
-                        Cell cell = row.getCell(j);
-                        String cellData = df.formatCellValue(cell).trim();
-                        System.out.println(cellData);
-                        postalBean.setOfcPincode(cellData);
-                        postalBean.setStatus("Active");
-                        postalBean.setCreatedOn(new Date());
-                    }
-                }
-                postalBeanArrayList.add(postalBean);
-            }
-
-//            Printing Each Object of PostalBeanList
-            for (PostalBean postalBean1 : postalBeanArrayList) {
-                System.out.println(postalBean1);
-            }
-
-            System.out.println(postalBeanArrayList.size());
-
-            List<PostalBean> newList = new ArrayList<>();
-
-
-            for (PostalBean bean : postalBeanArrayList) {
-                String ofcName = bean.getOfcName();
-                if(newList.isEmpty()) {
-                    newList.add(bean);
-                } else {
-                    int count = 0;
-                    for (PostalBean newBean : newList) {
-                        if (ofcName.equals(newBean.getOfcName())) {
-                            count++;
-                            break;
-                        }
-                    }
-                    if(count <= 0)
-                        newList.add(bean);
-                }
-            }
-            System.out.println("Unique Data : " + newList.size());
-            for (PostalBean bean : newList) {
-                System.out.println(bean);
-            }
+//            int lastRowIndex = sheet.getLastRowNum() + 1;
+//            System.out.println("Last row index :" + lastRowIndex);
+//            int totalNoOfCols = row.getLastCellNum() - 1;
+//            System.out.println("Total columns :" + totalNoOfCols);
+//            DataFormatter df = new DataFormatter();
+//            PostalBean postalBean;
+//
+//            for (int i = 5; i< lastRowIndex; i++){
+//                postalBean = new PostalBean();
+//                for (int j = 1; j < totalNoOfCols; j++){
+//                    row = sheet.getRow(i);
+//                    if (j == 2){
+//                        Cell cell = row.getCell(j);
+//                        String cellData = df.formatCellValue(cell).trim();
+//                        postalBean.setOfcName(cellData);
+//                        System.out.print(cellData + "|\t");
+//                    }
+//                    else if (j == 10){
+//                        Cell cell = row.getCell(j);
+//                        String cellData = df.formatCellValue(cell).trim();
+//                        System.out.println(cellData);
+//                        postalBean.setOfcPincode(cellData);
+//                        postalBean.setStatus("Active");
+//                        postalBean.setCreatedOn(new Date());
+//                    }
+//                }
+//                postalBeanArrayList.add(postalBean);
+//            }
+//
+////            Printing Each Object of PostalBeanList
+//            for (PostalBean postalBean1 : postalBeanArrayList) {
+//                System.out.println(postalBean1);
+//            }
+//
+//            System.out.println(postalBeanArrayList.size());
+//
+//            List<PostalBean> newList = new ArrayList<>();
+//
+//
+//            for (PostalBean bean : postalBeanArrayList) {
+//                String ofcName = bean.getOfcName();
+//                if(newList.isEmpty()) {
+//                    newList.add(bean);
+//                } else {
+//                    int count = 0;
+//                    for (PostalBean newBean : newList) {
+//                        if (ofcName.equals(newBean.getOfcName())) {
+//                            count++;
+//                            break;
+//                        }
+//                    }
+//                    if(count <= 0)
+//                        newList.add(bean);
+//                }
+//            }
+//            System.out.println("Unique Data : " + newList.size());
+//            for (PostalBean bean : newList) {
+//                System.out.println(bean);
+//            }
 //            System.out.println(postalBeanArrayList);
 
 
@@ -248,12 +248,12 @@ public class ExcelFileHandellerController {
 //                }
 //            }
 //            System.out.println("Unique List : " + postalBeanArrayList1);
-
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
+//
+//        }catch (Exception e){
+//            e.printStackTrace();
+//        }
+//        return null;
+//    }
 
 //    //    For Rading Data of a Excel File // Working Perfect
 //    @GetMapping("readExcelFile")
