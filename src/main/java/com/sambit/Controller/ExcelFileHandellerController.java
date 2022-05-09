@@ -190,9 +190,37 @@ public class ExcelFileHandellerController {
             }
 
             System.out.println(postalBeanArrayList.size());
+
+            List<PostalBean> newList = new ArrayList<>();
+
+
+            for (PostalBean bean : postalBeanArrayList) {
+                String ofcName = bean.getOfcName();
+                if(newList.isEmpty()) {
+                    newList.add(bean);
+                } else {
+                    int count = 0;
+                    for (PostalBean newBean : newList) {
+                        if (ofcName.equals(newBean.getOfcName())) {
+                            count++;
+                            break;
+                        }
+                    }
+                    if(count <= 0)
+                        newList.add(bean);
+                }
+            }
+            System.out.println("MOHIT " + newList.size());
+            for (PostalBean bean : newList) {
+                System.out.println(bean);
+            }
 //            System.out.println(postalBeanArrayList);
 
-            List<PostalBean> postalBeanArrayList1 = new ArrayList<>();
+
+
+
+
+//            List<PostalBean> postalBeanArrayList1 = new ArrayList<>();
 
 //            for (int i = 1 ; i <= postalBeanArrayList.size(); i++){
 //                for (int j = 2; j <= postalBeanArrayList.size(); j++){
