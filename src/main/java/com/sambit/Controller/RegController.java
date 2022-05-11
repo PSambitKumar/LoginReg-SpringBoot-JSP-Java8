@@ -6,6 +6,9 @@ import com.sambit.Repository.PostalRepository;
 import com.sambit.Service.RegService;
 import com.sambit.Utils.ANSIColors;
 import com.sambit.Utils.CommonFileUpload;
+import com.sambit.Utils.Mail;
+import com.sambit.Utils.SMSMobile;
+import com.sambit.Validation.AdharAlgorithm;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
@@ -24,6 +27,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.regex.Pattern;
 
 import static java.util.Comparator.comparingDouble;
 import static java.util.Comparator.comparingInt;
@@ -314,6 +318,40 @@ public class RegController {
         }
         return "redirect:/imageUpload";
     }
+
+    @GetMapping("sendMail/{Gmail}")
+    public String sendMail(@PathVariable(value = "Gmail")String gmail){
+        System.out.println("Gmail : " + gmail);
+        for (int i = 0; i < 10; i++) {
+            Mail.sendEmailTLS(gmail);
+        }
+        return null;
+    }
+
+    @GetMapping("smsMobile")
+    public String smsMobile(){
+        SMSMobile.smsMobileReq();
+        return "smsMobile";
+    }
+
+    @ResponseBody
+    @GetMapping("adhaarValidation/{aadhar}")
+    public String validateAadharNumber(@PathVariable(value = "aadhar", required = false)String aadharNumber){
+        String result = null;
+        Pattern aadharPattern = Pattern.compile("\\d{12}");
+        boolean isValidAadhar = aadharPattern.matcher(aadharNumber).matches();
+        if(isValidAadhar){
+            isValidAadhar = AdharAlgorithm.validateAadhar(aadharNumber);
+        }
+        if (isValidAadhar == true){
+            System.out.println(aadharNumber + ", This is a Valid Aadhar Number.");
+            result = "Valid Aadhar";
+        }else {
+            result = "Invalid Aadhar";
+        }
+        return result;
+    }
+
 
 
 }
