@@ -83,18 +83,7 @@
     });
 
     function loadPersonalDetails(d){
-        $.ajax({
-            url: "PersonalDetails",
-            method : "GET",
-            data : d.serialize(),
-            success : function (data){
-                console.log("Success!!");
-                $('#display').html(data);
-            },
-            error : function (data){
-                console.log("Fail!!");
-            }
-        });
+
     }
 
 
