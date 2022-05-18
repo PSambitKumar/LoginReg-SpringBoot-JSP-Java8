@@ -4,10 +4,7 @@ import com.sambit.Bean.*;
 import com.sambit.Entity.*;
 import com.sambit.Repository.PostalRepository;
 import com.sambit.Service.RegService;
-import com.sambit.Utils.ANSIColors;
-import com.sambit.Utils.CommonFileUpload;
-import com.sambit.Utils.Mail;
-import com.sambit.Utils.SMSMobile;
+import com.sambit.Utils.*;
 import com.sambit.Validation.AdharAlgorithm;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
@@ -350,6 +347,15 @@ public class RegController {
             result = "Invalid Aadhar";
         }
         return result;
+    }
+
+    @GetMapping("/daysCalculator")
+    public String daysCalculator() throws ParseException {
+        String date_string = "26-05-1997";
+        SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = formatter.parse(date_string);
+        DaysBetweenDates.daysCountBetweenDates(date);
+        return null;
     }
 
 
