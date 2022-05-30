@@ -374,6 +374,11 @@ public class RegController {
         return null;
     }
 
+    @GetMapping(value = "/Issue")
+    public String issue(){
+        return "issue";
+    }
+
 
 
 }
