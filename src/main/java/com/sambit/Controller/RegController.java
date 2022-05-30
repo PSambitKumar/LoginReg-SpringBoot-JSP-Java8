@@ -1,6 +1,7 @@
 package com.sambit.Controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.sambit.Bean.*;
 import com.sambit.Entity.*;
 import com.sambit.Repository.PostalRepository;
@@ -12,6 +13,8 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -362,11 +365,18 @@ public class RegController {
 
 //    IFSC Code Check API Call
     @GetMapping("/checkIFSC")
-    public String checkIFSC(){
+    public String checkIFSC() throws JSONException {
         Gson gson = new Gson();
         String ifscCode ="SBIN0003942";
         RestTemplate restTemplate = new RestTemplate();
         String bankDetails = restTemplate.getForObject("https://ifsc.razorpay.com/"+ifscCode, String.class);
+
+//        Method 1
+        JSONObject jsonObject = new JSONObject(bankDetails);
+        System.out.println("Bank Details Data : " + jsonObject);
+        System.out.println(jsonObject.get("BANK"));
+
+//        Method 2
 //        Converting JSON String to ModeL Class
         BankDetailsBean bankDetailsBean = gson.fromJson(bankDetails, BankDetailsBean.class);
         System.out.println("Bank Details are : " + bankDetailsBean);
@@ -376,6 +386,19 @@ public class RegController {
 
     @GetMapping(value = "/Issue")
     public String issue(){
+        return "issue";
+    }
+
+//    Recieving Data from form using JSON Stringify
+    @PostMapping(value = "/saveIssue")
+    public String saveIssue(@RequestParam("jsonData") String jsonData) throws JSONException {
+        System.out.println("Inside Save Issue Method.");
+        System.out.println("Data : " + jsonData);
+        JSONObject jsonObject = new JSONObject(jsonData);
+        jsonObject.put("id", 0);
+        System.out.println(jsonObject.get("id"));
+        System.out.println(jsonObject);
+        System.out.println(jsonObject.getString("issue"));
         return "issue";
     }
 
