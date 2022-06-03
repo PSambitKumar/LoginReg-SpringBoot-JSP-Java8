@@ -1,5 +1,6 @@
 package com.sambit.Controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.sambit.Bean.*;
@@ -380,7 +381,16 @@ public class RegController {
 //        Converting JSON String to ModeL Class
         BankDetailsBean bankDetailsBean = gson.fromJson(bankDetails, BankDetailsBean.class);
         System.out.println("Bank Details are : " + bankDetailsBean);
-        System.out.println(bankDetails);
+        System.out.println("String Data : " + bankDetails);
+
+//        Object To Map Convertion
+        ObjectMapper objectMapper =new ObjectMapper();
+        Map<String, Object> map = objectMapper.convertValue(bankDetailsBean, Map.class);
+        System.out.println("After Conversion of Map : " + map);
+        System.out.println("Iterating and Printing Each Map Data------------->>");
+        for (Map.Entry<String, Object> entry : map.entrySet())
+            System.out.println("Key = " + entry.getKey() + " | Value = " + entry.getValue());
+
         return null;
     }
 
