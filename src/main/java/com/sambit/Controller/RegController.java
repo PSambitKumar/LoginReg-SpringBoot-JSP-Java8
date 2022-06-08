@@ -426,14 +426,12 @@ public class RegController {
 
 
 //        Range Of Date
-        Calendar calendar1 = Calendar.getInstance();
-        calendar1.add(Calendar.DAY_OF_YEAR, -45);
-        Date fromDate = calendar.getTime();
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -45);
+        fromDate = calendar.getTime();
 
-        Calendar calendar2 = Calendar.getInstance();
-        calendar2.add(Calendar.DAY_OF_YEAR, -(45 + 5));
-        Date toDate = calendar1.getTime();
-        System.out.println("From Date : " + fromDate + ", To Date : " + toDate);
+        calendar.add(Calendar.DAY_OF_YEAR, Integer.parseInt(timeLine));
+        toDate = calendar.getTime();
         return null;
     }
 
