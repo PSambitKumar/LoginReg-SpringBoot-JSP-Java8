@@ -413,5 +413,19 @@ public class RegController {
     }
 
 
+//    Java Subtract Days from Current Date
+    @GetMapping(value = "getADate")
+    public String getADate(){
+        Date date = new Date();
+        System.out.println("Date : " + date);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.DAY_OF_YEAR, -5);
+        Date newDate = calendar.getTime();
+        System.out.println("New From Date : " + newDate);
+        return null;
+    }
+
+
 
 }
