@@ -423,6 +423,17 @@ public class RegController {
         calendar.add(Calendar.DAY_OF_YEAR, -5);
         Date newDate = calendar.getTime();
         System.out.println("New From Date : " + newDate);
+
+
+//        Range Of Date
+        Calendar calendar1 = Calendar.getInstance();
+        calendar1.add(Calendar.DAY_OF_YEAR, -45);
+        Date fromDate = calendar.getTime();
+
+        Calendar calendar2 = Calendar.getInstance();
+        calendar2.add(Calendar.DAY_OF_YEAR, -(45 + 5));
+        Date toDate = calendar1.getTime();
+        System.out.println("From Date : " + fromDate + ", To Date : " + toDate);
         return null;
     }
 
