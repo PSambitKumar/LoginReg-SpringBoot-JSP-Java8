@@ -32,7 +32,7 @@ public class Mail {
                         InternetAddress.parse(email)
                 );
                 message.setSubject("Greeting From Sambit");
-                message.setText("Sir Dakuchanti, Sonali.");
+                message.setText("Hello, This is Random Mail Sending, For Testing Purpose.");
 
                 Transport.send(message);
                 System.out.println("Mail Sent Successfully.");
