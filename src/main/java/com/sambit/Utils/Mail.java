@@ -8,7 +8,7 @@ import java.util.Properties;
 public class Mail {
 
         public static final String username = "sambit.csmtechnologies@gmail.com";
-        public static final String password = "lcjdjtnkobvtcecv";
+        public static final String password = "iyilybecukfvlhoe";
 
 	public static void sendEmailTLS(String email) {
 
@@ -24,9 +24,7 @@ public class Mail {
                         return new PasswordAuthentication(username, password);
                     }
                 });
-
         try {
-
                 Message message = new MimeMessage(session);
                 message.setFrom(new InternetAddress("sambit.csmtechnologies@gmail.com"));
                 message.setRecipients(
@@ -34,11 +32,10 @@ public class Mail {
                         InternetAddress.parse(email)
                 );
                 message.setSubject("Greeting From Sambit");
-                message.setText("Hyper Ledger Padha be, Sabuebele Mobile Dekhila Basi.");
+                message.setText("Sir Dakuchanti, Sonali.");
 
                 Transport.send(message);
-
-                System.out.println("Mail Done");
+                System.out.println("Mail Sent Successfully.");
 
         } catch (MessagingException e) {
             e.printStackTrace();
