@@ -6,6 +6,7 @@ import com.google.gson.JsonObject;
 import com.sambit.Bean.*;
 import com.sambit.Entity.*;
 import com.sambit.Repository.PostalRepository;
+import com.sambit.Repository.RegRepository;
 import com.sambit.Service.RegService;
 import com.sambit.Utils.*;
 import com.sambit.Validation.AdharAlgorithm;
@@ -39,6 +40,9 @@ import static java.util.stream.Collectors.toCollection;
 
 @Controller
 public class RegController {
+
+    @Autowired
+    RegRepository regRepository;
 
     final RegService regService;
     public RegController(RegService regService) {
@@ -305,7 +309,7 @@ public class RegController {
     }
 
     @PostMapping(value = "/saveImage")
-    public String saveImageData(@RequestParam("imageData")MultipartFile imageData, Image image, RedirectAttributes redirectAttributes, Model model) throws IOException {
+    public String saveImageData(@RequestParam("imageData")MultipartFile imageData, Image image, RedirectAttributes redirectAttributes) throws IOException {
         System.out.println(imageData);
         String originalFileName = imageData.getOriginalFilename();
         System.out.println(originalFileName);
@@ -433,6 +437,20 @@ public class RegController {
         calendar.add(Calendar.DAY_OF_YEAR, 5);
         Date toDate = calendar.getTime();
         System.out.println("From Date : " + fromDate + ", To Date : " + toDate);
+        return null;
+    }
+
+    @GetMapping("/userCodeGeneration")
+    public String userCode(){
+        int maxEmpId;
+        try {
+            maxEmpId = regRepository.maxSlno();
+        }catch (Exception e){
+            maxEmpId = 1;
+        }
+        System.out.println(maxEmpId);
+        String userCode = UserCodeGeneration.UserCodeGenreationMethod(maxEmpId);
+        System.out.println("UserCode: " + userCode);
         return null;
     }
 
