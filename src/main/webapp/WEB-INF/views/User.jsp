@@ -125,6 +125,7 @@
     }
 </script>
 
+
 <%--First Typing Effect--%>
 <%--<p class="line-1 anim-typewriter">Hello, Sambit Kumar Pradhan</p>--%>
 

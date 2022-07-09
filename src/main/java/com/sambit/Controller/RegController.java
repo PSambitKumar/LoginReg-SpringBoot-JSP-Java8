@@ -1,5 +1,7 @@
 package com.sambit.Controller;
 
+import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -26,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.DataInput;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
@@ -329,9 +332,10 @@ public class RegController {
     @GetMapping("sendMail/{Gmail}")
     public String sendMail(@PathVariable(value = "Gmail")String gmail){
         System.out.println("Gmail : " + gmail);
-        for (int i = 0; i < 10; i++) {
-            Mail.sendEmailTLS(gmail);
-        }
+//        for (int i = 0; i < 10; i++) {
+//        }
+        Mail.sendEmailTLS(gmail);
+
         return null;
     }
 
@@ -451,6 +455,37 @@ public class RegController {
         System.out.println(maxEmpId);
         String userCode = UserCodeGeneration.UserCodeGenreationMethod(maxEmpId);
         System.out.println("UserCode: " + userCode);
+        return null;
+    }
+
+    @GetMapping(value = "/objectClassTest")
+    public String objectClassTest() throws JSONException, IOException {
+        Gson gson = new Gson();
+        Object[] allData = regRepository.findAll().toArray();
+        for (Object allDatum : allData) {
+            System.out.println("Single Object Data : " + allDatum);
+
+//            Gson Data Convertion
+            String gsonData = gson.toJson(allDatum);
+            Reg reg2 = gson.fromJson(gsonData, Reg.class);
+            System.out.println("Gson Data : " + gson);
+            System.out.println("Registration Data2 : " + reg2);
+
+//            JSONObject Data Convertion
+            JSONObject jsonObject = new JSONObject(allDatum);
+            System.out.println("JSON Data : " + jsonObject);
+            System.out.println(jsonObject.getString("name"));
+
+//            Object to Pojo Class TypeCasting
+            Reg reg = (Reg)allDatum;
+            System.out.println("Registration Data1 : " + reg);
+
+//            Converting JSON Object to POJO/Entity/Model Class
+            ObjectMapper objectMapper = new ObjectMapper();
+            objectMapper.setVisibility(PropertyAccessor.FIELD, JsonAutoDetect.Visibility.ANY);
+            Reg reg1 = objectMapper.convertValue(jsonObject, Reg.class);
+            System.out.println("Registration Data : " + reg1);
+        }
         return null;
     }
 

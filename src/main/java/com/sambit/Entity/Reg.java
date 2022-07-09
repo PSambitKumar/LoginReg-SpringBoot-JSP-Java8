@@ -1,11 +1,12 @@
 package com.sambit.Entity;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.sql.Date;
 
 @Entity
 @Table(name = "Registration")
-public class Reg {
+public class Reg implements Serializable {
     @Column
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

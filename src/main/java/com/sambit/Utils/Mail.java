@@ -7,8 +7,10 @@ import java.util.Properties;
 
 public class Mail {
 
-        public static final String username = "sambit.csmtechnologies@gmail.com";
-        public static final String password = "iyilybecukfvlhoe";
+//        public static final String username = "sambit.csmtechnologies@gmail.com";
+//        public static final String password = "iyilybecukfvlhoe";
+        public static final String username = "teamodishatourism16@gmail.com";
+        public static final String password = "qjqnhwsrvytkgblr";
 
 	public static void sendEmailTLS(String email) {
 

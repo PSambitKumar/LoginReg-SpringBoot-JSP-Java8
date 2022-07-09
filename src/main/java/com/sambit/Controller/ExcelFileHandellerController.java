@@ -1,15 +1,20 @@
 package com.sambit.Controller;
 
 import com.sambit.Bean.PostalBean;
+import com.sambit.Entity.Package;
 import com.sambit.Entity.Postal;
 import com.sambit.Entity.PostalPo;
+import com.sambit.Repository.PackageRepository;
 import com.sambit.Service.RegService;
 import com.sambit.Utils.ANSIColors;
+import org.apache.poi.hssf.usermodel.HSSFSheet;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -27,6 +32,9 @@ public class ExcelFileHandellerController {
     public ExcelFileHandellerController(RegService regService) {
         this.regService = regService;
     }
+
+    @Autowired
+    private PackageRepository packageRepository;
 
 
 //    @GetMapping("secure/postalHo.htm")
@@ -487,7 +495,6 @@ public class ExcelFileHandellerController {
             int totalNoOfCols = row.getLastCellNum() - 1;
             DataFormatter df = new DataFormatter();
             PostalPo postalPo;
-            int count = 0;
 
             for (int i = 5; i< lastRowIndex; i++){
                 postalPo = new PostalPo();
@@ -543,4 +550,59 @@ public class ExcelFileHandellerController {
         }
         return null;
     }
+
+
+
+
+
+//    For Package Insertion
+    @GetMapping("/packageInsert")
+    public String packageInsert(){
+        System.out.println("Inside Package Insert.");
+        List<Package> packageList = new ArrayList<>();
+        try {
+            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\sambit.pradhan\\Downloads\\sheet2.xls");
+            HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
+            HSSFSheet sheet = workbook.getSheetAt(0);
+            Row row = sheet.getRow(2);
+            int lastRowIndex = sheet.getLastRowNum() + 1;
+            int totalNoOfCols = row.getLastCellNum();
+            System.out.println("Last Row Index : " + lastRowIndex + ", Total No Of Columns : " + totalNoOfCols);
+            DataFormatter df = new DataFormatter();
+            for (int i = 0; i< lastRowIndex; i++) {
+                Package package1 = new Package();
+                for (int j = 0; j < totalNoOfCols; j++) {
+                    row = sheet.getRow(i);
+                    if (j == 0) {
+                        System.out.println("NSIDE ++0");
+                        Cell cell = row.getCell(j);
+                        String cellData = df.formatCellValue(cell).trim();
+                        System.out.println("Package Category Code : " + cellData);
+                        package1.setCategoryCode(df.formatCellValue(cell).trim());
+                    } else if (j == 1) {
+                        System.out.println("NSIDE--1");
+                        Cell cell = row.getCell(j);
+                        String cellData = df.formatCellValue(cell).trim();
+                        System.out.println("Package Name : " + cellData);
+                        package1.setPackageName(cellData);
+                    } else if (j == 2) {
+                        System.out.println("NSIDE===2");
+                        Cell cell = row.getCell(j);
+                        String cellData = df.formatCellValue(cell).trim();
+                        System.out.println("Package ID : " + cellData);
+                        package1.setPackId(cellData);
+                    }
+                }
+                packageList.add(package1);
+            }
+            for (Package aPackage : packageList) {
+                System.out.println(aPackage);
+            }
+            packageRepository.saveAll(packageList);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 }
