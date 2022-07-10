@@ -4,7 +4,9 @@ import com.sambit.Bean.PostalBean;
 import com.sambit.Entity.Package;
 import com.sambit.Entity.Postal;
 import com.sambit.Entity.PostalPo;
+import com.sambit.Entity.Procedure;
 import com.sambit.Repository.PackageRepository;
+import com.sambit.Repository.ProcedureRepository;
 import com.sambit.Service.RegService;
 import com.sambit.Utils.ANSIColors;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
@@ -35,6 +37,8 @@ public class ExcelFileHandellerController {
 
     @Autowired
     private PackageRepository packageRepository;
+    @Autowired
+    private ProcedureRepository procedureRepository;
 
 
 //    @GetMapping("secure/postalHo.htm")
@@ -569,7 +573,7 @@ public class ExcelFileHandellerController {
             int totalNoOfCols = row.getLastCellNum();
             System.out.println("Last Row Index : " + lastRowIndex + ", Total No Of Columns : " + totalNoOfCols);
             DataFormatter df = new DataFormatter();
-            for (int i = 0; i< lastRowIndex; i++) {
+            for (int i = 1; i< lastRowIndex; i++) {
                 Package package1 = new Package();
                 for (int j = 0; j < totalNoOfCols; j++) {
                     row = sheet.getRow(i);
@@ -578,7 +582,7 @@ public class ExcelFileHandellerController {
                         Cell cell = row.getCell(j);
                         String cellData = df.formatCellValue(cell).trim();
                         System.out.println("Package Category Code : " + cellData);
-                        package1.setCategoryCode(df.formatCellValue(cell).trim());
+                        package1.setCategoryCode(cellData);
                     } else if (j == 1) {
                         System.out.println("NSIDE--1");
                         Cell cell = row.getCell(j);
@@ -605,4 +609,54 @@ public class ExcelFileHandellerController {
         return null;
     }
 
+
+//    For Procedure Insertion
+@GetMapping("/procedureInsert")
+public String procedureInsert(){
+    System.out.println("Inside Procedure Insert.");
+    List<Procedure> procedureList = new ArrayList<>();
+    try {
+        FileInputStream fileInputStream = new FileInputStream("C:\\Users\\sambit.pradhan\\Downloads\\sheet1.xls");
+        HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
+        HSSFSheet sheet = workbook.getSheetAt(0);
+        Row row = sheet.getRow(2);
+        int lastRowIndex = sheet.getLastRowNum() + 1;
+        int totalNoOfCols = row.getLastCellNum();
+        System.out.println("Last Row Index : " + lastRowIndex + ", Total No Of Columns : " + totalNoOfCols);
+        DataFormatter df = new DataFormatter();
+        for (int i = 1; i< lastRowIndex; i++) {
+            Procedure procedure = new Procedure();
+            for (int j = 0; j < totalNoOfCols; j++) {
+                row = sheet.getRow(i);
+                if (j == 0) {
+                    System.out.println("NSIDE ++0");
+                    Cell cell = row.getCell(j);
+                    String cellData = df.formatCellValue(cell).trim();
+                    System.out.println("Procedure Id : " + cellData);
+                    procedure.setId(Integer.parseInt(cellData));
+                } else if (j == 1) {
+                    System.out.println("NSIDE--1");
+                    Cell cell = row.getCell(j);
+                    String cellData = df.formatCellValue(cell).trim();
+                    System.out.println("Procedure Name : " + cellData);
+                    procedure.setProcedures(cellData);
+                } else if (j == 2) {
+                    System.out.println("NSIDE==2");
+                    Cell cell = row.getCell(j);
+                    String cellData = df.formatCellValue(cell).trim();
+                    System.out.println("Procedure Category ID : " + cellData);
+                    procedure.setPackageCategoryCode(cellData);
+                }
+            }
+            procedureList.add(procedure);
+        }
+        for (Procedure procedure : procedureList) {
+            System.out.println(procedure);
+        }
+        procedureRepository.saveAll(procedureList);
+    }catch (Exception e){
+        e.printStackTrace();
+    }
+    return null;
+}
 }

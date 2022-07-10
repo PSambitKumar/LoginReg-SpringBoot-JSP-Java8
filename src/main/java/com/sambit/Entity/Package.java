@@ -3,7 +3,7 @@ package com.sambit.Entity;
 import javax.persistence.*;
 
 @Entity
-@Table
+@Table(name = "package_tbl")
 public class Package {
 	@Id
 	@Column
