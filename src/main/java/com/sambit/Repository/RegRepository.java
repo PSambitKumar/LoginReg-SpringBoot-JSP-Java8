@@ -16,4 +16,7 @@ public interface RegRepository extends JpaRepository<Reg, Integer> {
     @Query("SELECT MAX (slno) FROM Reg")
     int maxSlno();
 
+    @Query("SELECT Reg.name FROM Reg")
+    List<String> findAllName();
+
 }

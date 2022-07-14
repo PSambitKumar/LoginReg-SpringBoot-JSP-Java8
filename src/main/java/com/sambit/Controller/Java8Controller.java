@@ -1,12 +1,14 @@
 package com.sambit.Controller;
 
+import com.sambit.Entity.Reg;
+import com.sambit.Service.RegService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.*;
 
 interface Arithmetic{
 	public int operation (int a, int b);
@@ -24,6 +26,9 @@ interface PrintName{
 
 @Controller
 public class Java8Controller {
+
+	@Autowired
+	private RegService regService;
 
 	@GetMapping(value = "/java8ArithmeticOperation")
 	public String arithmeticOperation(){
@@ -98,6 +103,25 @@ public class Java8Controller {
 		};
 		System.out.println(printName.print());
 		return "Your Name is : " + printName.print();
+	}
+
+	@GetMapping(value = "/repvingOfDuplicateDataFromList")
+	public String removingDuplicateDataFromList(){
+		List<String> regList = regService.findAllName();
+
+//		@Method 1 For Removing Duplicate Data
+		HashSet<String> regData = new HashSet<>();
+		System.out.println("Registration Data List : " + regList);
+		for (String name : regList) {
+			regData.add(name);
+		}
+
+//		@Method 2 For Removing Duplicate Data
+		Set<String> regData1 = new HashSet<>(regList);
+		regList.clear();
+		regList.addAll(regData1);
+		System.out.println("Unique Data : " + regList);
+		return null;
 	}
 
 
