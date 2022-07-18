@@ -30,11 +30,8 @@ import static java.util.stream.Collectors.toCollection;
 @Controller
 public class ExcelFileHandellerController {
 
-    final RegService regService;
-    public ExcelFileHandellerController(RegService regService) {
-        this.regService = regService;
-    }
-
+    @Autowired
+    private RegService regService;
     @Autowired
     private PackageRepository packageRepository;
     @Autowired

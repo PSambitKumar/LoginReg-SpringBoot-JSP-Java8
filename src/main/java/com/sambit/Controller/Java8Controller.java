@@ -1,6 +1,5 @@
 package com.sambit.Controller;
 
-import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,19 +9,39 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
 
+interface add{
+	int addMethod(int a, int b);
+}
+
+interface average{
+	int averageMethod(int a, int b, add addObj);
+}
+
 interface Arithmetic{
-	public int operation (int a, int b);
+	int operation (int a, int b);
 }
 
 @FunctionalInterface
 interface areaOfTriangle {
-	public void area();
+	void area();
 }
 
 @FunctionalInterface
 interface PrintName{
-	public String print();
+	String print();
 }
+
+@FunctionalInterface
+interface printData{
+	void printData();
+}
+
+class printWelcomeData {
+	static void data(){
+		System.out.println("Hello, Welcome to CSM.");
+	}
+}
+
 
 @Controller
 public class Java8Controller {
@@ -41,21 +60,15 @@ public class Java8Controller {
 		int y = scanner.nextInt();
 
 //        For Addition
-		Arithmetic arithmetic = (a, b)->{
-			return a+b;
-		};
+		Arithmetic arithmetic = (a, b)-> a+b;
 		System.out.println("Addition of of these numbers are: " + arithmetic.operation(x,y));
 
 //        For Multiplication
-		Arithmetic arithmetic1 = (int a, int b)->{
-			return a*b;
-		};
+		Arithmetic arithmetic1 = (int a, int b)-> a*b;
 		System.out.println("Multiplication of these two numbers are: " + arithmetic1.operation(x,y));
 
 		//    For Substraction
-		Arithmetic arithmetic2 = (a, b)-> {
-			return a-b;
-		};
+		Arithmetic arithmetic2 = (a, b)-> a-b;
 		System.out.println("Substraction of these thwo numbers are: " + arithmetic2.operation(x,y));
 		return null;
 	}
@@ -63,7 +76,7 @@ public class Java8Controller {
 	@ResponseBody
 	@GetMapping(value = "/arrayListEx1")
 	public String arrayListEx1(){
-		String name = null;
+		String name;
 		System.out.println("Enter size of an Arraylist");
 		Scanner scanner = new Scanner(System.in);
 		int size = scanner.nextInt();
@@ -105,9 +118,16 @@ public class Java8Controller {
 		return "Your Name is : " + printName.print();
 	}
 
-	@GetMapping(value = "/repvingOfDuplicateDataFromList")
+	@GetMapping(value = "/removingOfDuplicateDataFromList")
 	public String removingDuplicateDataFromList(){
-		List<String> regList = regService.findAllName();
+//		List<String> regList = regService.findAllName();
+		List<String> regList = new ArrayList<>();
+		regList.add("Sambit");
+		regList.add("Dilip");
+		regList.add("Mohit");
+		regList.add("Deba");
+		regList.add("Sambit");
+		regList.add("Mohit");
 
 //		@Method 1 For Removing Duplicate Data
 		HashSet<String> regData = new HashSet<>();
@@ -124,5 +144,31 @@ public class Java8Controller {
 		return null;
 	}
 
+	@GetMapping("/java8AddAvg")
+	public String example1(){
+		add addObj;
+		System.out.println("Enter First Number?");
+		Scanner scanner = new Scanner(System.in);
+		int x = scanner.nextInt();
+		System.out.println("Enter Second Number?");
+		int y = scanner.nextInt();
+
+		addObj = (a, b)-> a+b;
+		System.out.println("Addition of the two numbers are " + addObj.addMethod(x, y));
+
+		average averageObj = (a, b, addObj1)->{
+			int addValue = addObj1.addMethod(x,y);
+			return addValue/2;
+		};
+		System.out.println("Average of these two numbers are: " + averageObj.averageMethod(x,y, addObj));
+		return null;
+	}
+
+	@GetMapping("/printWelcomeData")
+	public String printWelcomeData(){
+		printData print = printWelcomeData::data;
+		print.printData();
+		return null;
+	}
 
 }
