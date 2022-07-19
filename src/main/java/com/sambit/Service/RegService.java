@@ -28,6 +28,7 @@ public interface RegService {
     List<PostalPo> saveAllPostalPo(List<PostalPo> postalPoList);
     String recieveIntData(String x);
 //    List<String> findAllName();
+    List<Reg> getAllRegList();
 
 
 }

@@ -1,6 +1,6 @@
 package com.sambit.CompetitvePractice.JDBC.Student;
 
-import JDBC.UtilJDBC;
+import com.sambit.CompetitvePractice.JDBC.UtilJDBC;
 
 import java.sql.Connection;
 import java.sql.Date;

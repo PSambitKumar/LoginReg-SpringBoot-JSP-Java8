@@ -178,6 +178,11 @@ public class RegServiceImpl implements RegService{
         return null;
     }
 
+    @Override
+    public List<Reg> getAllRegList() {
+        return regRepository.findAll();
+    }
+
 //    @Override
 //    public List<String> findAllName() {
 //        return regRepository.findAllName();

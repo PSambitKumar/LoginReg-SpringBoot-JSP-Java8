@@ -1,5 +1,6 @@
 package com.sambit.Controller;
 
+import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,20 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.*;
+
+/*Java 8 got released on March 18, 2014.
+	   Java 8 Features :
+	   Lambda Expression
+	   Method references
+	   Functional interfaces
+	   Interface changes: Default and static methods
+	   Streams
+	   Stream filter
+	   forEach()
+	   Collectors class with example
+	   StringJoiner class with example
+	   Optional class with example
+	   Arrays Parallel Sort*/
 
 interface add{
 	int addMethod(int a, int b);
@@ -169,6 +184,34 @@ public class Java8Controller {
 		printData print = printWelcomeData::data;
 		print.printData();
 		return null;
+	}
+
+	@ResponseBody
+	@GetMapping(value = "/listOperation")
+	public String ListOperation(){
+		List<Reg> regList = regService.getAllRegList();
+		regList.forEach(System.out::println);
+		regList.forEach(reg -> System.out.println("Registration Data : " + reg));
+		regList.forEach(reg ->{
+			if (reg != null){
+				System.out.println("Registration Data is Not Null.");
+			}
+			System.out.println(reg.getName());
+		});
+		return "Success";
+	}
+
+	@ResponseBody
+	@GetMapping(value = "/mapOperation")
+	public String mapOperation(){
+		Map<String, Double> laptopList = new HashMap<>();
+		laptopList.put("Dell", 65000.00);
+		laptopList.put("Hp", 85000.50);
+		laptopList.forEach((x, y)->System.out.println("Model Name : " + x + ", Price : " + y));//For Single Line
+		laptopList.forEach((x, y)->{
+			System.out.println("Model Name : " + x + ", Price : " + y);//For Multiple Line
+		});
+		return "Success";
 	}
 
 }

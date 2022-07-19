@@ -33,9 +33,9 @@
     </thead>
 
     <tbody>
-    <c:forEach items="${list}" var="e">
+    <c:forEach items="${list}" var="e" varStatus="coount">
         <tr>
-            <td>${e.slno}</td>
+            <td>${coount.count}</td>
             <td>${e.name}</td>
             <td>${e.phn}</td>
             <td>${e.email}</td>
