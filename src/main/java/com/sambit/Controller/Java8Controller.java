@@ -51,6 +51,15 @@ interface printData{
 	void printData();
 }
 
+@FunctionalInterface
+interface printName{
+	public String namePrint();
+}
+@FunctionalInterface
+interface printNameOneParameter{
+	public String namePrint(String name);
+}
+
 class printWelcomeData {
 	static void data(){
 		System.out.println("Hello, Welcome to CSM.");
@@ -212,6 +221,23 @@ public class Java8Controller {
 			System.out.println("Model Name : " + x + ", Price : " + y);//For Multiple Line
 		});
 		return "Success";
+	}
+
+	@GetMapping(value = "/functionalInterface")
+	public String functionInterface(){
+		System.out.println("Inside Functional Interface.");
+		//Without No Parameters
+		printName prntName = () ->{
+			return "Hello Sambit";
+		};
+		System.out.println(prntName.namePrint());
+
+//		With Only One Parameters
+		printNameOneParameter prntNameOneParameter= (name) -> {
+			return "My Name is : " + name;
+		};
+		System.out.println(prntNameOneParameter.namePrint("Sambit"));
+		return null;
 	}
 
 }
