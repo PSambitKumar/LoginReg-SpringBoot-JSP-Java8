@@ -59,6 +59,10 @@ interface printName{
 interface printNameOneParameter{
 	public String namePrint(String name);
 }
+@FunctionalInterface
+interface printNameMultipleParameter{
+	public String printName(String firstName, String lastName);
+}
 
 class printWelcomeData {
 	static void data(){
@@ -237,6 +241,11 @@ public class Java8Controller {
 			return "My Name is : " + name;
 		};
 		System.out.println(prntNameOneParameter.namePrint("Sambit"));
+
+//		With More Than One Parameters
+		printNameMultipleParameter prntNameMultipleParameter = (firstName, lastName) ->
+			   "My Name is : " + firstName + " " + lastName;//No Need to write return Statement
+		System.out.println(prntNameMultipleParameter.printName("Sambit", "Pradhan"));
 		return null;
 	}
 
