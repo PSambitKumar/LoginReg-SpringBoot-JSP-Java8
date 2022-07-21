@@ -8,7 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.lang.ref.Reference;
 import java.util.*;
+import java.util.function.BiFunction;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 /*Java 8 got released on March 18, 2014.
 	   Java 8 Features :
@@ -63,10 +67,19 @@ interface printNameOneParameter{
 interface printNameMultipleParameter{
 	public String printName(String firstName, String lastName);
 }
+@FunctionalInterface
+interface displaySchoolName{
+	public String displaylName();
+}
 
 class printWelcomeData {
 	static void data(){
 		System.out.println("Hello, Welcome to CSM.");
+	}
+}
+class printFullName{
+	public static String printFullName(String fName, String lName){
+		return "My Full Name is :" + fName + " "  + lName;
 	}
 }
 
@@ -249,4 +262,120 @@ public class Java8Controller {
 		return null;
 	}
 
+//	Method References:
+//	There are Four Types of Method References are as Follows:
+//			1. Method reference to an instance method of an object – object::instanceMethod
+//			2. Method reference to a static method of a class – Class::staticMethod
+//			3. Method reference to an instance method of an arbitrary object of a particular type – Class::instanceMethod
+//			4. Method reference to a constructor – Class::new
+
+
+//	Using of Type 1 Method Reference to an instance method of an object
+	public String printSchoolName(){
+		return "Saraswati Shihu Vidya Mandir, Salipur";
+	}
+
+	@GetMapping(value = "/methodReference1")
+	public String MethodReference1(){
+		Java8Controller java8Controller = new Java8Controller();
+		displaySchoolName schoolName = java8Controller::printSchoolName;
+		System.out.println(schoolName.displaylName());
+		return null;
+	}
+
+//	Using of Type 2 Method Reference to a static method of a class
+	@ResponseBody
+	@GetMapping(value = "methodReference2")
+	public String methodReference2(){
+		BiFunction<String, String, String> fullName = printFullName::printFullName;
+		System.out.println(fullName.apply("Sambit", "Pradhan"));
+		return fullName.apply("Dillip", "Suna");
+	}
+
+//	Using of Type 3 Method Reference to an instance method of an arbitrary object of a particular type
+	@ResponseBody
+	@GetMapping(value = "methodReference3")
+	public String methodReference3(){
+//		For String Array Sort Using Method Reference
+		String[] names = {"Sambit", "Dillip", "Mohit", "Jyoti", "Hrusikesh"};
+		Arrays.sort(names, String::compareToIgnoreCase);
+		for (int i = 0; i < names.length; i++) {
+			System.out.println(i + " :  " + names[i]);
+		}
+//		For Integer Array Sort Using Method Reference
+		Integer[] marks = {90, 89, 88, 87, 86};
+//		Arrays.sort(marks, Integer::compare);//Working
+//		Arrays.sort(marks, Integer::compareTo);//Working
+//		Arrays.sort(marks, Integer::max);//Woking Max to Min
+		Arrays.sort(marks, Integer::min);//Woking Min to Max
+		System.out.println(Arrays.toString(marks));
+ 		return Arrays.toString(names);
+	}
+
+//	Using of Type 4 Method Reference to a constructor
+	public class printTechnology{
+		public printTechnology(String technology){
+			System.out.println("My Technology is = " + technology);
+		}
+	}
+
+	public interface prntTechnology{
+		printTechnology technology(String technology);
+	}
+
+	@ResponseBody
+	@GetMapping(value = "/methodReference4")
+	public String methodReference4(){
+		prntTechnology prtTechnology = printTechnology::new;
+		prtTechnology.technology("Java");
+		return null;
+	}
+
+	@ResponseBody
+	@GetMapping(value = "/preDefinedFunctionalInterface")
+	public String preDefinedFunctionalInterface(){
+//		Using Of Predicate<T>
+		Predicate<Integer> predicate = (i) -> (i == 10);
+		System.out.println(predicate.test(10));
+
+		Predicate<String> predicate1 = (data) -> {
+			if (data == "Java"){
+				System.out.println("Java");
+				return true;
+			}else {
+				System.out.println("Other");
+				return false;
+			}
+		};
+		System.out.println(predicate1.test("Java"));
+
+//		Using of Function<T, R>
+		Function<String, Integer> function = data -> data.length();
+		System.out.println(function.apply("Sambit"));
+
+		Function<String, Character> function1 = data -> data.charAt(5);
+		System.out.println(function1.apply("Sambit"));
+
+		String[] names = {"Sambit", "Debabrata", "Dillip", "Mohit"};
+		Function<String[], Integer> function2 = data -> {
+			System.out.println(Arrays.toString(names));
+			for (int i = 0; i < names.length; i++) {
+				if (names[i] == "Sambit") {
+					System.out.println("Present");
+					break;
+				}
+				else
+					System.out.println("Absent");
+			}
+			return data.length;
+		};
+		System.out.println(function2.apply(names));
+
+		return String.valueOf(predicate1.test("Java"));
+	}
+
 }
+
+
+//We Can Declare a Class Inside a Class by Using of Access Modifiers or Not
+//But We Can Declare a Class outside a Class Without Access Modifiers
