@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import java.lang.ref.Reference;
 import java.util.*;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -371,6 +373,9 @@ public class Java8Controller {
 		};
 		System.out.println(function2.apply(names));
 
+//		Using Consumer<T>
+		Consumer<String> consumer = (data) -> System.out.println(data);
+		consumer.accept("Welcome To CSM Technologies");
 		return String.valueOf(predicate1.test("Java"));
 	}
 
