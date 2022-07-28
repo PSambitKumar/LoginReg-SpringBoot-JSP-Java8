@@ -352,7 +352,7 @@ public class Java8Controller {
 		System.out.println(predicate1.test("Java"));
 
 //		Using of Function<T, R>
-		Function<String, Integer> function = data -> data.length();
+		Function<String, Integer> function = String::length;
 		System.out.println(function.apply("Sambit"));
 
 		Function<String, Character> function1 = data -> data.charAt(5);
@@ -374,7 +374,7 @@ public class Java8Controller {
 		System.out.println(function2.apply(names));
 
 //		Using Consumer<T>
-		Consumer<String> consumer = (data) -> System.out.println(data);
+		Consumer<String> consumer = System.out::println;
 		consumer.accept("Welcome To CSM Technologies");
 		return String.valueOf(predicate1.test("Java"));
 	}
