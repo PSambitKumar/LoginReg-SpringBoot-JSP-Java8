@@ -378,7 +378,11 @@ public class RegController {
         Gson gson = new Gson();
         String ifscCode ="SBIN0003942";
         RestTemplate restTemplate = new RestTemplate();
+//        Recieve Data in String Format
         String bankDetails = restTemplate.getForObject("https://ifsc.razorpay.com/"+ifscCode, String.class);
+
+//        Recieve Data in BankDetailsBean Format
+        BankDetailsBean bankDetailsBean1 = restTemplate.getForObject("https://ifsc.razorpay.com/"+ifscCode, BankDetailsBean.class);
 
 //        Method 1
         JSONObject jsonObject = new JSONObject(bankDetails);
