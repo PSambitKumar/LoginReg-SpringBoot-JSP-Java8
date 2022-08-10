@@ -33,6 +33,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 import java.util.regex.Pattern;
 
@@ -490,6 +492,36 @@ public class RegController {
             Reg reg1 = objectMapper.convertValue(jsonObject, Reg.class);
             System.out.println("Registration Data : " + reg1);
         }
+        return null;
+    }
+
+//    Age Calculator
+    @GetMapping(value = "/ageCalculator")
+    public String ageCalculator() throws ParseException {
+
+//        Using Of Util Date
+        SimpleDateFormat format = new SimpleDateFormat("yyyy/MM/dd");
+        Date dateOfBirth = format.parse("1996/05/26");
+        System.out.println("Date of Birth : " + dateOfBirth);
+
+        LocalDate dob =  dateOfBirth.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+        System.out.println(dob + "<------------Sambit------------>" +  LocalDate.now());
+        int age = AgeCalculator.calculateAge(dob, LocalDate.now());
+        System.out.println("Age : " + age);
+
+//        Using of Sql Date
+        String str="1996-05-26";
+        java.sql.Date dateOfBirth1= java.sql.Date.valueOf(str);
+        System.out.println("Date Of Birth 1 : " + dateOfBirth1);
+
+        long millis=System.currentTimeMillis();
+        java.sql.Date currentSqlDate= new java.sql.Date(millis);
+        System.out.println("Current Sql Date : " + currentSqlDate);
+
+        LocalDate dob1 = java.sql.Date.valueOf(dateOfBirth1.toString()).toLocalDate();
+        System.out.println(dob1 + "<=======Sam======>" +  LocalDate.now());
+        int age1 = AgeCalculator.calculateAge(dob1, LocalDate.now());
+        System.out.println("Age : " + age);
         return null;
     }
 
