@@ -28,9 +28,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.DataInput;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
+import java.net.URLConnection;
+import java.net.URLEncoder;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -522,6 +523,29 @@ public class RegController {
         System.out.println(dob1 + "<=======Sam======>" +  LocalDate.now());
         int age1 = AgeCalculator.calculateAge(dob1, LocalDate.now());
         System.out.println("Age : " + age);
+        return null;
+    }
+
+    @GetMapping(value = "/sendSMS")
+    public String SMSSender() throws IOException {
+            String message = "Hello, Greeting From Sambit.";
+            String phone = "7538089589";
+            String username = "sambit";
+            String password = "Sambit16";
+            String address = "http://192.168.1.102:8090/receiveSMS";
+            String port = "8090";
+
+            URL url = new URL(
+                    address+":"+port+"/SendSMS?username="+username+"&password="+password+
+                            "&phone="+phone+"&message="+ URLEncoder.encode(message,"UTF-8"));
+
+            URLConnection connection = url.openConnection();
+            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String inputLine;
+            while((inputLine = bufferedReader.readLine()) !=null){
+                System.out.println(inputLine);
+            }
+            bufferedReader.close();
         return null;
     }
 
