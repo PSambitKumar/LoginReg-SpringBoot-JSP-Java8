@@ -337,7 +337,7 @@ public class RegController {
         System.out.println("Gmail : " + gmail);
 //        for (int i = 0; i < 10; i++) {
 //        }
-        Mail.sendEmailTLS(gmail);
+        Mail.sendEmailGmailTLS(gmail);
 
         return null;
     }

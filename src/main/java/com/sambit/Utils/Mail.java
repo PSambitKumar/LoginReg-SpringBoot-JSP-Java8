@@ -12,7 +12,7 @@ public class Mail {
         public static final String username = "teamodishatourism16@gmail.com";
         public static final String password = "qjqnhwsrvytkgblr";
 
-	public static void sendEmailTLS(String email) {
+	public static void sendEmailGmailTLS(String email) {
 
         Properties prop = new Properties();
         prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -44,4 +44,39 @@ public class Mail {
         	System.out.println(e);
         }
 	}
+
+     public static void sendMailYahooTLS(){
+             final String to = "nobunagX.XXXXXXX@yahoo.com";
+             final String from = "nobunagX.XXXXXXX@yahoo.com";
+
+             String host = "smtp.mail.yahoo.com";
+             Properties properties = System.getProperties();
+
+             properties.put("mail.smtp.host", host);
+             properties.put("mail.smtp.port", "587");
+             properties.put("mail.smtp.starttls.enable", "true");
+             properties.put("mail.smtp.auth", "true");
+
+             Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
+                     protected PasswordAuthentication getPasswordAuthentication() {
+                             return new PasswordAuthentication("nobunagX.XXXXXXX", "XXXXgdflXXXXinta");
+                     }
+             });
+
+             session.setDebug(true);
+             try {
+                     MimeMessage message = new MimeMessage(session);
+
+                     message.setFrom(new InternetAddress(from));
+                     message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+                     message.setSubject("This is the Subject Line!");
+                     message.setText("This is actual message");
+
+                     System.out.println("sending...");
+                     Transport.send(message);
+                     System.out.println("Sent message successfully....");
+             } catch (MessagingException mex) {
+                     mex.printStackTrace();
+             }
+     }
 }
