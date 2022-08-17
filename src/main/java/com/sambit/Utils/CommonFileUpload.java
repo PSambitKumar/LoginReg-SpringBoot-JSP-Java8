@@ -1,19 +1,26 @@
 package com.sambit.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
 
 public class CommonFileUpload {
     public static final Logger logger = LoggerFactory.getLogger(CommonFileUpload.class);
     public static final String windowsRootFolder = "C://RegistrationData//";
     public static final String linuxRootFolder = "/opt/RegistrationData/";
+    private static final String uploadedFolderInWindows="C://RegistrationData//Documents//";
+    private static final String uploadedFolderInLinux="/opt/RegistrationData/Documents/";
     public static String operatingSystem = System.getProperty("os.name").toLowerCase().trim();
 
 
@@ -176,4 +183,117 @@ public class CommonFileUpload {
         }
         return fileFlag;
     }
+
+    public static String generateFileNoSuffix(String originalFileName,String fileNames) {
+        int lastIndexOfDot=originalFileName.lastIndexOf(".");
+        String fileName=fileNames;
+        String extension=originalFileName.substring(lastIndexOfDot,originalFileName.length());
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+        LocalDateTime now = LocalDateTime.now();
+        String numbers[] = dtf.format(now).split("\\s+");
+        String number1[] = numbers[0].split("/");
+        String number2[] = numbers[1].split(":");
+        String generateFileNoSuffix =number1[0]+number1[1]+number1[2]+number2[0]+number2[1]+number2[2];
+        fileName=fileName+generateFileNoSuffix+extension;
+        return fileName;
+    }
+
+
+    public static File convert(MultipartFile file) throws IOException
+    {
+        File convFile = new File(file.getOriginalFilename());
+        convFile.createNewFile();
+        FileOutputStream fos = new FileOutputStream(convFile);
+        fos.write(file.getBytes());
+        fos.close();
+        return convFile;
+    }
+
+
+    public static String getDocumentPath(String filePath){
+        String docPath = "";
+        if (operatingSystem.indexOf("win") >= 0) {
+            logger.info("This is Windows");
+            docPath = uploadedFolderInWindows+filePath;
+        }
+        else if (operatingSystem.indexOf("nix") >= 0 || operatingSystem.indexOf("nux") >= 0 || operatingSystem.indexOf("aix") > 0 ) {
+            logger.info("This is Unix or Linux");
+            docPath = uploadedFolderInLinux+filePath;
+        }
+        return docPath;
+    }
+
+//    Download Files
+    public static void downloadFile(HttpServletResponse response, String filePath) throws IOException {
+
+        File file= new File(CommonFileUpload.getDocumentPath(filePath));
+        if(!file.exists()){
+            String errorMessage = "Sorry. The File You Are Looking For Doesn't Exists!";
+            logger.info(errorMessage);
+            OutputStream outputStream = response.getOutputStream();
+            outputStream.write(errorMessage.getBytes(Charset.forName("UTF-8")));
+            outputStream.close();
+            return;
+        }
+        String mimeType= URLConnection.guessContentTypeFromName(file.getName());
+        if(mimeType==null){
+            logger.info("Mimetype is Not Detectable, Will Take Default");
+            mimeType = "application/octet-stream";
+        }
+        logger.info("mimetype : "+mimeType);
+        response.setContentType(mimeType);
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"" + file.getName() +"\""));//For Downloading
+//        response.setHeader("Content-Disposition", String.format("inline; filename=\"" + file.getName() +"\""));//For Opeing in Chrome
+        response.setContentLength((int)file.length());
+        InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+        FileCopyUtils.copy(inputStream, response.getOutputStream());
+    }
+
+
+//    Upoad Multiple Files
+    public static String multipleFileUpload(MultipartFile[] file, String folderPath) {
+        String fileFlag = "";
+        if (file.length > 0 ) {
+            for (int i = 0; i < file.length; i++) {
+                if (file[i].isEmpty()) {
+                    fileFlag = "FEP";
+                }else{
+                    try {
+                        String filePath=fileExistsOrNot(folderPath.trim());
+                        System.out.println("FilePath length------------"+filePath.length());
+                        if(!filePath.isEmpty()){
+                            // logic to save the corresponding file
+                            byte[] bytes = file[i].getBytes();
+                            Path path = Paths.get(filePath.trim());
+                            Files.write(path, bytes);
+                            fileFlag = filePath.trim()+"/"+file[i].getOriginalFilename();
+                             System.out.println("FilePath trim length------------"+filePath.trim().length());
+                        }
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+        return fileFlag;
+    }
+
+
+
+
+//    Operating Systems
+public static String typeOfOperatingSystem(){
+    String filePath = "";
+    if (operatingSystem.indexOf("win") >= 0) {
+        logger.info("This is Windows");
+        filePath = "Windows";
+    }
+    else if (operatingSystem.indexOf("nix") >= 0 || operatingSystem.indexOf("nux") >= 0 || operatingSystem.indexOf("aix") > 0 ) {
+        logger.info("This is Unix or Linux");
+        filePath = "Linux";
+    }
+    return filePath;
 }
+}
+

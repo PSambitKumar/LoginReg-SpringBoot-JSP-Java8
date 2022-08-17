@@ -549,6 +549,12 @@ public class RegController {
         return null;
     }
 
+    @ResponseBody
+    @GetMapping(value = "/cheeckOperatingSystem")
+    public String checkOperatingSystem(){
+        String filePath = CommonFileUpload.typeOfOperatingSystem();
+        return filePath;
+    }
 
 
 }
