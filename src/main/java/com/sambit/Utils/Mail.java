@@ -47,7 +47,7 @@ public class Mail {
 
      public static void sendMailYahooTLS(){
              final String to = "nobunagX.XXXXXXX@yahoo.com";
-             final String from = "nobunagX.XXXXXXX@yahoo.com";
+             final String from = "sambitkumar_pradhan@yahoo.in";
 
              String host = "smtp.mail.yahoo.com";
              Properties properties = System.getProperties();
