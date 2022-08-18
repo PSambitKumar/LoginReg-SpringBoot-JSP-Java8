@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
@@ -554,6 +555,17 @@ public class RegController {
     public String checkOperatingSystem(){
         String filePath = CommonFileUpload.typeOfOperatingSystem();
         return filePath;
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/downloadFile")
+    public void downloadFile(HttpServletResponse httpServletResponse) throws IOException {
+        System.out.println("Inside Download File Method------->>");
+//        String filePath = "images//csm.jpg";
+//        CommonFileUpload.downloadFile(httpServletResponse, filePath);
+
+        String filePath1 = "C:\\RegistrationData\\images\\csm.jpg";
+        CommonFileUpload.downloadFileUsingCompletePath(httpServletResponse, filePath1);
     }
 
 

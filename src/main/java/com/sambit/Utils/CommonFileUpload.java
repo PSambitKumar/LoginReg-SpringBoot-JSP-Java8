@@ -214,11 +214,13 @@ public class CommonFileUpload {
         String docPath = "";
         if (operatingSystem.indexOf("win") >= 0) {
             logger.info("This is Windows");
-            docPath = uploadedFolderInWindows+filePath;
+            docPath = windowsRootFolder+filePath;
+            System.out.println("Document Path : " + docPath);
         }
         else if (operatingSystem.indexOf("nix") >= 0 || operatingSystem.indexOf("nux") >= 0 || operatingSystem.indexOf("aix") > 0 ) {
             logger.info("This is Unix or Linux");
-            docPath = uploadedFolderInLinux+filePath;
+            docPath = linuxRootFolder+filePath;
+            System.out.println("Document Path : " + docPath);
         }
         return docPath;
     }
@@ -247,6 +249,31 @@ public class CommonFileUpload {
         response.setContentLength((int)file.length());
         InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
         FileCopyUtils.copy(inputStream, response.getOutputStream());
+    }
+
+    public static void downloadFileUsingCompletePath(HttpServletResponse response, String filePath) throws IOException {
+        File file= new File(filePath);
+        if(!file.exists()){
+            String errorMessage = "Sorry. The File You Are Looking For Doesn't Exists!";
+            logger.info(errorMessage);
+            OutputStream outputStream = response.getOutputStream();
+            outputStream.write(errorMessage.getBytes(Charset.forName("UTF-8")));
+            outputStream.close();
+            return;
+        }
+        String mimeType= URLConnection.guessContentTypeFromName(file.getName());
+        if(mimeType==null){
+            logger.info("Mimetype is Not Detectable, Will Take Default");
+            mimeType = "application/octet-stream";
+        }
+        logger.info("mimetype : "+mimeType);
+        response.setContentType(mimeType);
+        response.setHeader("Content-Disposition", String.format("attachment; filename=\"" + file.getName() +"\""));//For Downloading
+//        response.setHeader("Content-Disposition", String.format("inline; filename=\"" + file.getName() +"\""));//For Opeing in Chrome
+        response.setContentLength((int)file.length());
+        InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+        FileCopyUtils.copy(inputStream, response.getOutputStream());
+        System.out.println("File Downloaded Successfully!");
     }
 
 
