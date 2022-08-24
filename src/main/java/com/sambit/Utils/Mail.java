@@ -59,10 +59,9 @@ public class Mail {
 
              Session session = Session.getInstance(properties, new javax.mail.Authenticator() {
                      protected PasswordAuthentication getPasswordAuthentication() {
-                             return new PasswordAuthentication("nobunagX.XXXXXXX", "XXXXgdflXXXXinta");
+                             return new PasswordAuthentication("sambitkumar_pradhan@yahoo.in", "Password");
                      }
              });
-
              session.setDebug(true);
              try {
                      MimeMessage message = new MimeMessage(session);
@@ -72,7 +71,7 @@ public class Mail {
                      message.setSubject("This is the Subject Line!");
                      message.setText("This is actual message");
 
-                     System.out.println("sending...");
+                     System.out.println("Sending...");
                      Transport.send(message);
                      System.out.println("Sent message successfully....");
              } catch (MessagingException mex) {

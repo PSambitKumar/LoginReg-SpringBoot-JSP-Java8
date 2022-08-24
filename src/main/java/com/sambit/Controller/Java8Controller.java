@@ -3,18 +3,23 @@ package com.sambit.Controller;
 import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.convert.ReadingConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.persistence.criteria.CriteriaBuilder;
-import java.lang.ref.Reference;
+import javax.servlet.SessionTrackingMode;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Stream;
+
+import static java.util.function.UnaryOperator.identity;
+import static java.util.stream.Collectors.counting;
+import static java.util.stream.Collectors.groupingBy;
 
 /*Java 8 got released on March 18, 2014.
 	   Java 8 Features :
@@ -379,7 +384,61 @@ public class Java8Controller {
 		return String.valueOf(predicate1.test("Java"));
 	}
 
+
+	//Java 8 Stram Practice
+//	Letter Count Using Java8 Stream
+	@ResponseBody
+	@GetMapping("/letterCount")
+		public Map<String, Long> letterCount(){
+		System.out.println("Inside Letter Count Method--------->>");
+		Stream<String> words = Stream.of("Java", "is", "the", "best", "programming", "language");
+		Stream<String> name = Stream.of("Sambit", "Debabrata", "Dillip", "Mohit");
+		Stream<String> myName = Stream.of("Sambit Kumar Pradhan");
+
+		Map<String, Long> letterToCount = myName.map(w -> w.split(""))
+			   .flatMap(Arrays::stream)
+			   .collect(groupingBy(identity(), counting()));
+
+		System.out.println("Letter Count : " + letterToCount);
+		return letterToCount;
+	}
+
+//	Word Count
+	@ResponseBody
+	@GetMapping(value = "/wordCount")
+	public Map<String, Long> wordCount(){
+		System.out.println("Inside Word Count Method--------->>");
+		Stream<String> sentence = Stream.of("Java is the best programming language, Geek for Geeks is the best website to learn java");
+
+		Map<String, Long> wordToCount = sentence.map(word -> word.split(" "))
+			   .flatMap(Arrays::stream)
+			   .collect(groupingBy(identity(),counting()));
+
+		System.out.println("Word Count : " + wordToCount);
+		return wordToCount;
+	}
+
+//	Sum of Integers using Stram Java 8
+	@ResponseBody
+	@GetMapping(value = "/sumOfIntegers")
+	public String sumOfIntegers(){
+		System.out.println("Inside Sum Of Integers Method--------->>");
+		List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
+		Stream<Integer> stream = integers.stream();
+		int sum = stream.reduce(0, (a, b) -> a + b);
+		System.out.println("Sum Of Integers : " + sum);
+
+
+		Stream<Integer> numbers = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+		int sum1 = numbers.reduce(0, Integer::sum);//Using of Lambda Expression
+		System.out.println("Sum Of Integers : " + sum1);
+
+		return sum +", " + sum1;
+	}
+
 }
+
+
 
 
 //We Can Declare a Class Inside a Class by Using of Access Modifiers or Not
