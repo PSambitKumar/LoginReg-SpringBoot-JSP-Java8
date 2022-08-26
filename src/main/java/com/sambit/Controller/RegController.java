@@ -565,7 +565,8 @@ public class RegController {
 //        CommonFileUpload.downloadFile(httpServletResponse, filePath);
 
         String filePath1 = "C:\\RegistrationData\\images\\csm.jpg";
-        CommonFileUpload.downloadFileUsingCompletePath(httpServletResponse, filePath1);
+        String filePath12 = "C:\\Users\\sambit.pradhan\\Downloads\\licenceCanceled.pdf";
+        CommonFileUpload.downloadFileUsingCompletePath(httpServletResponse, filePath12);
     }
 
 

@@ -2,6 +2,10 @@ package com.sambit.Controller;
 
 import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.convert.ReadingConverter;
 import org.springframework.stereotype.Controller;
@@ -10,6 +14,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.SessionTrackingMode;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -419,6 +428,7 @@ public class Java8Controller {
 		return wordToCount;
 	}
 
+
 //	Sum of Integers using Stram Java 8
 	@ResponseBody
 	@GetMapping(value = "/sumOfIntegers")
@@ -436,6 +446,7 @@ public class Java8Controller {
 
 		return sum +", " + sum1;
 	}
+
 }
 
 

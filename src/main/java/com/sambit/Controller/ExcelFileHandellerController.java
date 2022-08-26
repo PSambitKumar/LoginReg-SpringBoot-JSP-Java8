@@ -1,6 +1,5 @@
 package com.sambit.Controller;
 
-import com.sambit.Bean.PostalBean;
 import com.sambit.Entity.Package;
 import com.sambit.Entity.Postal;
 import com.sambit.Entity.PostalPo;
