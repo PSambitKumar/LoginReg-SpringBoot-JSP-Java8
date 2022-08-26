@@ -89,3 +89,16 @@ public class SOAPController {
         return outputString.toString();
     }
 }
+
+
+//        Sample GePIDs in GePNIC
+//        UCAADPR3318542O
+//        PCAADPR24185417
+//        MCAADPR2718540H
+//        TCAADPR3318539E
+//        TCAADPR3318538N
+//        ACAADPR27185370
+//        ACAADPR2318536A
+//        MCAADPR33185357
+//        XCAADPR22185345
+//        ACAADPR2218533B
