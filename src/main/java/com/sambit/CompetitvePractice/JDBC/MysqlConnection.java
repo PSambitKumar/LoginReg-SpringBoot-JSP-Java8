@@ -10,13 +10,12 @@ import java.sql.SQLException;
  * @Created On : 07/09/2022 - 10:44 AM
  */
 
-//Need to add Ojdbc6.jar in the project(By Project Structure -> Libraries -> + -> Java -> ojdbc6.jar)
 public class MysqlConnection {
-	public Connection getConnection(){
+	public Connection getConnection(String databseName, String userName, String password){
 		Connection connection = null;
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/spring", "root", "");
+			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/"+databseName, userName, password);
 			System.out.println("Database Connection Established!");
 		}catch(SQLException | ClassNotFoundException e){
 			e.printStackTrace();

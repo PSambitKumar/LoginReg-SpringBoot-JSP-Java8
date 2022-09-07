@@ -27,7 +27,7 @@ import static java.util.stream.Collectors.collectingAndThen;
 import static java.util.stream.Collectors.toCollection;
 
 @Controller
-public class ExcelFileHandellerController {
+public class ExcelFileHandlerController {
 
     @Autowired
     private RegService regService;
