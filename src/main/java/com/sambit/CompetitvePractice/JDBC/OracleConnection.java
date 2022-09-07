@@ -14,7 +14,7 @@ public class OracleConnection {
 		Connection con;
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			con = DriverManager.getConnection("jdbc:oracle:thin:@ora3.corp.csmpl.com:1521:ora3", "BSKYM1", "BskyOdi#23iu");
+			con = DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:xe", "userId", "Password");
 			System.out.println("Database Connection Established!");
 		} catch (SQLException | ClassNotFoundException e) {
 			System.out.println("Connection Failed");
