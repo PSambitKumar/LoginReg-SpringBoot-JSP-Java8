@@ -1,7 +1,9 @@
 package com.sambit.Controller;
 
 import com.sambit.CompetitvePractice.JDBC.MysqlConnection;
+import com.sambit.Entity.MultiFileUpload;
 import com.sambit.Entity.SingleFileUpload;
+import com.sambit.Repository.MultiFileUploadRepository;
 import com.sambit.Repository.SingleFileUploadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
@@ -32,7 +34,11 @@ public class FileHandlerController {
 
 	@Autowired
 	private SingleFileUploadRepository singleFileUploadRepository;
+	@Autowired
+	private MultiFileUploadRepository multiFileUploadRepository;
 
+
+//	Single File Upload
 	@GetMapping(value = "/singleFileUpload")
 	public String singleFileUpload(Model model) {
 		System.out.println("Inside Single File Upload---------->>");
@@ -137,4 +143,63 @@ public class FileHandlerController {
 			}
 		}
 	}
+
+
+//	Multi File Upload
+	@GetMapping(value = "/multiFileUpload")
+	public String multiFileUpload(Model model) {
+		System.out.println("Inside Multi File Upload---------->>");
+		List<MultiFileUpload> multiFileUploadList = multiFileUploadRepository.findAll();
+		model.addAttribute("multiFileUploadList", multiFileUploadList);
+		return "multiFileUpload";
+	}
+
+	@PostMapping(value = "/multiFileUpload")
+	public String saveMultiFileUpload(@RequestParam(value = "fullName", required = false)String fullName,
+	                                  @RequestParam(value = "document", required = false)MultipartFile[] document) {
+		System.out.println("Inside Save Multi File Upload---------->>");
+		System.out.println("Full Name : " + fullName);
+		System.out.println("Document : " + Arrays.toString(document));
+		MultiFileUpload multiFileUpload = null;
+		try {
+			for (MultipartFile multipartFile : document) {
+				multiFileUpload = new MultiFileUpload();
+				multiFileUpload.setFullName(fullName);
+				multiFileUpload.setFile(multipartFile.getBytes());
+				multiFileUpload.setFileContentType(multipartFile.getContentType());
+				multiFileUpload.setOriginalFileName(multipartFile.getOriginalFilename());
+				multiFileUpload = multiFileUploadRepository.save(multiFileUpload);
+			}
+			if (multiFileUpload.getMultiFileUploadId() > 0) {
+				System.out.println("File Uploaded Successfully");
+			}else {
+				System.out.println("File Uploaded Failed");
+			}
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		return "redirect:/multiFileUpload";
+	}
+
+	@GetMapping(value = "/downloadMultipleFile/{multiFileUploadId}")
+	public void downloadMultipleFile(@PathVariable(value = "multiFileUploadId")int multiFileUploadId,
+	                               HttpServletResponse httpServletResponse) {
+		System.out.println("Inside Download Multiple File Method---------->>");
+		System.out.println("Multi File Upload Id : " + multiFileUploadId);
+		try {
+			MultiFileUpload multiFileUpload = multiFileUploadRepository.findById(multiFileUploadId).get();
+			byte[] bytes = multiFileUpload.getFile();
+			System.out.println("Bytes : " + bytes);
+
+			httpServletResponse.setContentType(multiFileUpload.getFileContentType());
+//			httpServletResponse.setHeader("Content-Disposition", "inline;filename=" + singleFileUpload.getOriginalFileName());//For Open in Browser
+			httpServletResponse.setHeader("Content-Disposition", "attachment;filename=" + multiFileUpload.getOriginalFileName());//For Download
+			OutputStream out = httpServletResponse.getOutputStream();
+			out.write(bytes);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }
+
