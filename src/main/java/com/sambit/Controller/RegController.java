@@ -203,6 +203,7 @@ public class RegController {
     public String about(){
         return "About";
     }
+
     @GetMapping("/NewReg")
     public String newReg(Model model){
         model.addAttribute("regBean", new RegBean());

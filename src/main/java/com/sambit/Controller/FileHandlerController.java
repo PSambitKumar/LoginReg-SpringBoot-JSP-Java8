@@ -19,6 +19,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.*;
 import java.util.Arrays;
 import java.util.List;
@@ -134,7 +137,7 @@ public class FileHandlerController {
 			System.out.println("Bytes : " + Arrays.toString(bytes));
 
 			InputStream in = blob.getBinaryStream();
-			OutputStream out = new FileOutputStream("C:\\Users\\sambit.pradhan\\Downloads\\2.jpg");//This Need To Change For According To Your File Content Type
+			OutputStream out = new FileOutputStream("C:\\Users\\sambit.pradhan\\Downloads\\downloadedData.pdf");//This Need To Change For According To Your File Content Type
 			byte[] buff = new byte[4096];
 			int len;
 
@@ -201,5 +204,20 @@ public class FileHandlerController {
 		}
 	}
 
+
+//	File Read And Write
+	@GetMapping(value = "/processTextFileData")
+	public String processDataOfFiles() throws IOException {
+		System.out.println("Inside Process Data Of Files---------->>");
+		String fileName = "C:\\Users\\sambit.pradhan\\Downloads\\sambit.JPG";
+		Path path = Paths.get(fileName);
+		System.out.println("File Name : " + fileName);
+		System.out.println("File Size : " + Files.size(path));
+		System.out.println("File Content1 : " + Files.readString(path));
+		System.out.println("File Content2 : " + Files.readAllLines(path));
+		System.out.println("File Content3 : " + Files.readAllBytes(path));
+		System.out.println("Path : " + path);
+		return null;
+	}
 }
 
