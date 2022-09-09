@@ -7,6 +7,9 @@ import com.sambit.Repository.MultiFileUploadRepository;
 import com.sambit.Repository.SingleFileUploadRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -216,6 +219,9 @@ public class FileHandlerController {
 		System.out.println("File Content1 : " + Files.readString(path));
 		System.out.println("File Content2 : " + Files.readAllLines(path));
 		System.out.println("File Content3 : " + Files.readAllBytes(path));
+		System.out.println("Bytes To String : " + new String(Files.readAllBytes(path)));
+		System.out.println("Bytes : " + Files.readAllBytes(path));
+		byte[] bytes = Files.readAllBytes(path);
 		System.out.println("Path : " + path);
 		return null;
 	}
