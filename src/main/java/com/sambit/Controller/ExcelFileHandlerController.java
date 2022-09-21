@@ -607,52 +607,52 @@ public class ExcelFileHandlerController {
 
 
 //    For Procedure Insertion
-@GetMapping("/procedureInsert")
-public String procedureInsert(){
-    System.out.println("Inside Procedure Insert.");
-    List<Procedure> procedureList = new ArrayList<>();
-    try {
-        FileInputStream fileInputStream = new FileInputStream("C:\\Users\\sambit.pradhan\\Downloads\\sheet1.xls");
-        HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
-        HSSFSheet sheet = workbook.getSheetAt(0);
-        Row row = sheet.getRow(2);
-        int lastRowIndex = sheet.getLastRowNum() + 1;
-        int totalNoOfCols = row.getLastCellNum();
-        System.out.println("Last Row Index : " + lastRowIndex + ", Total No Of Columns : " + totalNoOfCols);
-        DataFormatter df = new DataFormatter();
-        for (int i = 1; i< lastRowIndex; i++) {
-            Procedure procedure = new Procedure();
-            for (int j = 0; j < totalNoOfCols; j++) {
-                row = sheet.getRow(i);
-                if (j == 0) {
-                    System.out.println("NSIDE ++0");
-                    Cell cell = row.getCell(j);
-                    String cellData = df.formatCellValue(cell).trim();
-                    System.out.println("Procedure Id : " + cellData);
-                    procedure.setId(Integer.parseInt(cellData));
-                } else if (j == 1) {
-                    System.out.println("NSIDE--1");
-                    Cell cell = row.getCell(j);
-                    String cellData = df.formatCellValue(cell).trim();
-                    System.out.println("Procedure Name : " + cellData);
-                    procedure.setProcedures(cellData);
-                } else if (j == 2) {
-                    System.out.println("NSIDE==2");
-                    Cell cell = row.getCell(j);
-                    String cellData = df.formatCellValue(cell).trim();
-                    System.out.println("Procedure Category ID : " + cellData);
-                    procedure.setPackageCategoryCode(cellData);
+    @GetMapping("/procedureInsert")
+    public String procedureInsert(){
+        System.out.println("Inside Procedure Insert.");
+        List<Procedure> procedureList = new ArrayList<>();
+        try {
+            FileInputStream fileInputStream = new FileInputStream("C:\\Users\\sambit.pradhan\\Downloads\\sheet1.xls");
+            HSSFWorkbook workbook = new HSSFWorkbook(fileInputStream);
+            HSSFSheet sheet = workbook.getSheetAt(0);
+            Row row = sheet.getRow(2);
+            int lastRowIndex = sheet.getLastRowNum() + 1;
+            int totalNoOfCols = row.getLastCellNum();
+            System.out.println("Last Row Index : " + lastRowIndex + ", Total No Of Columns : " + totalNoOfCols);
+            DataFormatter df = new DataFormatter();
+            for (int i = 1; i< lastRowIndex; i++) {
+                Procedure procedure = new Procedure();
+                for (int j = 0; j < totalNoOfCols; j++) {
+                    row = sheet.getRow(i);
+                    if (j == 0) {
+                        System.out.println("NSIDE ++0");
+                        Cell cell = row.getCell(j);
+                        String cellData = df.formatCellValue(cell).trim();
+                        System.out.println("Procedure Id : " + cellData);
+                        procedure.setId(Integer.parseInt(cellData));
+                    } else if (j == 1) {
+                        System.out.println("NSIDE--1");
+                        Cell cell = row.getCell(j);
+                        String cellData = df.formatCellValue(cell).trim();
+                        System.out.println("Procedure Name : " + cellData);
+                        procedure.setProcedures(cellData);
+                    } else if (j == 2) {
+                        System.out.println("NSIDE==2");
+                        Cell cell = row.getCell(j);
+                        String cellData = df.formatCellValue(cell).trim();
+                        System.out.println("Procedure Category ID : " + cellData);
+                        procedure.setPackageCategoryCode(cellData);
+                    }
                 }
+                procedureList.add(procedure);
             }
-            procedureList.add(procedure);
+            for (Procedure procedure : procedureList) {
+                System.out.println(procedure);
+            }
+            procedureRepository.saveAll(procedureList);
+        }catch (Exception e){
+            e.printStackTrace();
         }
-        for (Procedure procedure : procedureList) {
-            System.out.println(procedure);
-        }
-        procedureRepository.saveAll(procedureList);
-    }catch (Exception e){
-        e.printStackTrace();
+        return null;
     }
-    return null;
-}
 }
