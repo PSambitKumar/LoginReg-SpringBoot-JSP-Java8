@@ -12,7 +12,7 @@ package com.sambit.CompetitvePractice.Algorithms;
 	   a multiple of 3 AND 5, the number is replaced with "fizz buzz." In essence, it emulates the famous children game"fizz buzz".*/
 
 public class FizzBuzz {
-	    public static void main(String[] args) {
+	public static void fizzBuzz() {
 	   for (int i = 1; i <= 100; i++) {
 		  if (i % 3 == 0 && i % 5 == 0) {
 			 System.out.println("FizzBuzz");

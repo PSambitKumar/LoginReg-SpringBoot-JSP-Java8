@@ -1,5 +1,7 @@
 package com.sambit.Controller;
 
+import com.sambit.CompetitvePractice.Algorithms.FizzBuzz;
+import com.sambit.CompetitvePractice.Algorithms.Greedy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -452,6 +454,21 @@ public class RandomQuestions {
 		}else {
 			System.out.println("Invalid Annual Salary");
 		}
+		return null;
+	}
+
+	@GetMapping("/greedyAlgorithm")
+	public String callGreedyAlgo(){
+		int[] arr = {1, 2, 5, 10, 20, 50, 100, 200, 500, 2000};
+		int n = arr.length;
+		int amount = 93;
+		Greedy.greedy(arr, n, amount);
+		return null;
+	}
+
+	@GetMapping("/FizzBuzzAlgorthm")
+	public String callFizzBuzzAlgorithm(){
+		FizzBuzz.fizzBuzz();
 		return null;
 	}
 
