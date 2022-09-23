@@ -18,7 +18,11 @@
     <link href="https://fonts.googleapis.com/css2?family=Festive&family=Lato&family=Nunito+Sans&display=swap" rel="stylesheet">
 
     <link rel="canonical" href="https://themesberg.com/product/ui-kits/neumorphism-ui/" />
-
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+    <script type="text/javascript" src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" >
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Home</title>
     <style>
         .countup {
@@ -46,7 +50,7 @@
 </head>
 <body>
 
-<div style="background-color: #ecf2f4" class="col-12">
+<div id="containerData" style="background-color: #ecf2f4" class="col-12">
     <div class="card bg-primary shadow-soft border-light px-4 py-5 text-center mb-5">
 
 
@@ -173,10 +177,39 @@
         </div>
     </div>
 </div>
+<div id="editor"></div>
 
 
 </body>
 </html>
+
+<script>
+    $(document).ready(function(){
+        // alert("Download")
+        // // window.print();
+        // var divContents = document.getElementById("containerData").innerHTML;
+        // var prnt = window.open('', '', 'height=500, width=500');
+        // prnt .document.write(divContents);
+        // prnt .document.close();
+        // prnt .print();
+    });
+
+    function downloadPageAsPdf(){
+        let doc = new jsPDF();
+        let specialElementHandlers = {
+            '#editor': function (element, renderer) {
+                return true;
+            }
+        };
+        doc.fromHTML($('#containerData').html(), 15, 15, {
+            'width': 170,
+            'elementHandlers': specialElementHandlers
+        });
+        doc.save('Data.pdf');
+    }
+
+
+</script>
 
 <script>
     window.onload = function() {
@@ -210,3 +243,5 @@
         countUpFromTime.interval = setTimeout(function(){ countUpFromTime(countFrom, id); }, 1000);
     }
 </script>
+
+
