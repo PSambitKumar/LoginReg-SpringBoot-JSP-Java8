@@ -46,7 +46,7 @@ public class Mail {
         }
 
         public static void sendMailYahooTLS() {
-                final String to = "nobunagX.XXXXXXX@yahoo.com";
+                final String to = "nobody@yahoo.com";
                 final String from = "sambitkumar_pradhan@yahoo.in";
 
                 String host = "smtp.mail.yahoo.com";
@@ -69,11 +69,11 @@ public class Mail {
                         message.setFrom(new InternetAddress(from));
                         message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
                         message.setSubject("This is the Subject Line!");
-                        message.setText("This is actual message");
+                        message.setText("This is Actual Message");
 
                         System.out.println("Sending...");
                         Transport.send(message);
-                        System.out.println("Sent message successfully....");
+                        System.out.println("Sent Message Successfully....");
                 } catch (MessagingException mex) {
                         mex.printStackTrace();
                 }
