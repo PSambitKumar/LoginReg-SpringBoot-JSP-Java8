@@ -16,10 +16,9 @@ public class MainController {
 
 	@ResponseBody
 	@GetMapping(value = "/sortIntegerArray")
-	public String printSortArray(){
+	public int[] printSortArray(){
 		int[] unSortArray = {5, 4, 3, 2, 1, 0, 9, 8, 7, 6};
 		int n = unSortArray.length;
-		Sorting.sort(unSortArray, n);
-		return "Sorting";
+		return Sorting.sort(unSortArray, n);
 	}
 }

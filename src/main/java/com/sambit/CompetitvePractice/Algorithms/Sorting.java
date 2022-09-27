@@ -10,15 +10,16 @@ import java.util.Arrays;
 public class Sorting {
 
 //	Sorting Using sort()
-	public static void sort(int[] arr, int n) {
+	public static int[] sort(int[] arr, int n) {
 		Arrays.sort(arr);
 		for (int i = 0; i < n; i++) {
 			System.out.print(arr[i] + " ");
 		}
+		return arr;
 	}
 
 //	Sorting Array Using Bubble Sort
-	public static void bubbleSort(int[] arr, int n) {
+	public static int[] bubbleSort(int[] arr, int n) {
 		for (int i = 0; i < n - 1; i++) {
 			for (int j = 0; j < n - i - 1; j++) {
 				if (arr[j] > arr[j + 1]) {
@@ -31,10 +32,11 @@ public class Sorting {
 		for (int i = 0; i < n; i++) {
 			System.out.print(arr[i] + " ");
 		}
+		return arr;
 	}
 
 //	Sorting Array Using Selection Sort
-	public static void selectionSort(int[] arr, int n) {
+	public static int[] selectionSort(int[] arr, int n) {
 		for (int i = 0; i < n - 1; i++) {
 			int min = i;
 			for (int j = i + 1; j < n; j++) {
@@ -49,5 +51,6 @@ public class Sorting {
 		for (int i = 0; i < n; i++) {
 			System.out.print(arr[i] + " ");
 		}
+		return arr;
 	}
 }
