@@ -6,6 +6,7 @@ import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
 import com.sambit.Entity.*;
 
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 public interface RegService {
@@ -29,6 +30,7 @@ public interface RegService {
     String recieveIntData(String x);
 //    List<String> findAllName();
     List<Reg> getAllRegList();
+    void downloadCancelledPdf(HttpServletResponse httpServletResponse);
 
 
 }
