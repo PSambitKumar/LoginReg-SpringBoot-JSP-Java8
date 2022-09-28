@@ -570,5 +570,11 @@ public class RegController {
         CommonFileUpload.downloadFileUsingCompletePath(httpServletResponse, filePath12);
     }
 
+    @GetMapping(value = "downloadDcocument")
+    public String downloadDocument(HttpServletResponse httpServletResponse){
+        regService.downloadCancelledPdf(httpServletResponse);
+        return null;
+    }
+
 
 }

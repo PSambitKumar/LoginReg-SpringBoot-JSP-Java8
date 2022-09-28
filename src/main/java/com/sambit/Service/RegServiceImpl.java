@@ -252,7 +252,7 @@ public class RegServiceImpl implements RegService{
 
 //		          Adding Space
             myDoc.add(new Paragraph("\n"));
-            String licenseeNmae=null;
+            String licenseeNmae="Sambit Kumar Pradhan";
             String sonOrCeo=null;
 
 
