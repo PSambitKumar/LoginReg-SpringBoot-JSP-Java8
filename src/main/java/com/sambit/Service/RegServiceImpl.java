@@ -312,4 +312,30 @@ public class RegServiceImpl implements RegService{
         }
     }
 
+    @Override
+    public boolean checkUserIsPresentOrNot(String userName) {
+        return regRepository.existsDistinctByUsername(userName);
+    }
+
+    @Override
+    public Reg saveReg(Reg reg) {
+        return regRepository.save(reg);
+    }
+
+    @Override
+    public boolean deleteReg(int slNo) {
+        Reg reg = regRepository.getById(slNo);
+        regRepository.delete(reg);
+        return !regRepository.existsById(slNo);
+    }
+
+    @Override
+    public Reg getRegBySlNo(int slNo) {
+        return regRepository.getById(slNo);
+    }
+
+    @Override
+    public boolean checkRegIsPresentOrNotBySlNo(int slNo) {
+        return regRepository.existsById(slNo);
+    }
 }

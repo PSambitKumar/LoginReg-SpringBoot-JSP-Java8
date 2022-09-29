@@ -1,10 +1,13 @@
 package com.sambit.Controller;
 
 import com.sambit.CompetitvePractice.JDBC.MysqlConnection;
+import com.sambit.Entity.BlobDataUpload;
 import com.sambit.Entity.MultiFileUpload;
 import com.sambit.Entity.SingleFileUpload;
+import com.sambit.Repository.BlobDataUploadRepository;
 import com.sambit.Repository.MultiFileUploadRepository;
 import com.sambit.Repository.SingleFileUploadRepository;
+import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -42,6 +45,8 @@ public class FileHandlerController {
 	private SingleFileUploadRepository singleFileUploadRepository;
 	@Autowired
 	private MultiFileUploadRepository multiFileUploadRepository;
+	@Autowired
+	private BlobDataUploadRepository blobDataUploadRepository;
 
 
 //	Single File Upload
@@ -121,7 +126,7 @@ public class FileHandlerController {
 		}
 	}
 
-//	Method 3 To Download Single File
+//	Method 3 To Download Single File (Data Present in Database as ByteArray Format(BLOB))
 	@GetMapping(value = "/downloadSingleFile2/{singleFileUploadId}")
 	public void downloadSingleFile2(@PathVariable(value = "singleFileUploadId")int singleFileUploadId) throws SQLException, IOException {
 		System.out.println("Inside Download Single File Method 3---------->>");
@@ -225,5 +230,39 @@ public class FileHandlerController {
 		System.out.println("Path : " + path);
 		return null;
 	}
+
+//	Process a BLOB Text File From Local File Server and Save Data Into Database Byte Array(BLOB)
+	@GetMapping(value = "/processTextFileDataSave")
+	public String processDataOfFilesSave() throws IOException {
+		String fileName = "C:\\Users\\sambit.pradhan\\Downloads\\2.txt";
+		Path path = Paths.get(fileName);
+		System.out.println("File Content1 : " + Files.readString(path));
+		BlobDataUpload blobDataUpload = new BlobDataUpload();
+		byte[] bytes = Files.readAllBytes(path);
+		blobDataUpload.setData(bytes);
+		blobDataUploadRepository.save(blobDataUpload);
+		return null;
+	}
+
+//	Custom Sql Query Call Using Prepared Statement
+	@GetMapping(value = "/getClaimId")
+	public void getClaimId() {
+		System.out.println("Inside process And Download3 Method-------->>");
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
+			Connection con= DriverManager.getConnection("jdbc:oracle:thin:@ora3.corp.csmpl.com:1521:ora3","bskyv1","OdishaBsky$907e#");
+			PreparedStatement preparedStatement = con.prepareStatement("SELECT CLAIMID FROM TXNCLAIM_APPLICATION WHERE TRANSACTIONDETAILSID =?");
+			preparedStatement.setInt(1, 217225);
+			ResultSet resultSet = preparedStatement.executeQuery();
+			while (resultSet.next()){
+				int claimId = resultSet.getInt(1);
+				System.out.println("Claim Id : " + claimId);
+			}
+
+		} catch (SQLException | ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
 }
 

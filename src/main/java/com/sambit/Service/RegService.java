@@ -32,5 +32,9 @@ public interface RegService {
     List<Reg> getAllRegList();
     void downloadCancelledPdf(HttpServletResponse httpServletResponse);
 
-
+    boolean checkUserIsPresentOrNot(String userName);
+    Reg saveReg(Reg reg);
+    boolean deleteReg(int slNo);
+    Reg getRegBySlNo(int slNo);
+    boolean checkRegIsPresentOrNotBySlNo(int slNo);
 }

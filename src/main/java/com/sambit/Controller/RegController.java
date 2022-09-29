@@ -468,7 +468,7 @@ public class RegController {
     }
 
     @GetMapping(value = "/objectClassTest")
-    public String objectClassTest() throws JSONException, IOException {
+    public String objectClassTest() throws JSONException {
         Gson gson = new Gson();
         Object[] allData = regRepository.findAll().toArray();
         for (Object allDatum : allData) {

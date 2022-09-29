@@ -19,4 +19,5 @@ public interface RegRepository extends JpaRepository<Reg, Integer> {
 //    @Query("SELECT Reg.name FROM Reg")
 //    List<String> findAllName();
 
+    boolean existsDistinctByUsername(String userName);
 }
