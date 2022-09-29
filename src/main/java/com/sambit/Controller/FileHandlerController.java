@@ -244,6 +244,22 @@ public class FileHandlerController {
 		return null;
 	}
 
+//	Process a Text File From Local Dir. Contains BLOB Data, Covert to Image File and Save to Local Dir.
+//	Not Working
+	@GetMapping(value = "/processTextFileDataConvertImage")
+	public String processDataOfFilesConvertImage() throws IOException {
+		String fileName = "C:\\Users\\sambit.pradhan\\Downloads\\data.txt";
+		Path path = Paths.get(fileName);
+		System.out.println("File Content1 : " + Files.readString(path));
+		byte[] bytes = Files.readAllBytes(path);
+		System.out.println("Bytes : " + Arrays.toString(bytes));
+		String imageFileName = "C:\\Users\\sambit.pradhan\\Downloads\\2.jpg";
+		Path imagePath = Paths.get(imageFileName);
+		Files.write(imagePath, bytes);
+		return null;
+	}
+
+
 //	Custom Sql Query Call Using Prepared Statement
 	@GetMapping(value = "/getClaimId")
 	public void getClaimId() {
