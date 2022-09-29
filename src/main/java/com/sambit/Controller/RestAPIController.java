@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Statement;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -74,6 +75,32 @@ public class RestAPIController {
 				} else {
 					map.put("status", HttpStatus.NOT_FOUND.value());
 					map.put("message", "User Deletion Failed");
+				}
+			}else {
+				map.put("status", HttpStatus.NOT_FOUND.value());
+				map.put("message", "User is Not Present");
+			}
+		} catch (Exception e) {
+			map.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			map.put("message", "Something Went Wrong");
+			throw new RuntimeException(e);
+		}
+		return map;
+	}
+
+	@PutMapping(value = "/updateUser")
+	public Map<String, Object> updateUser(@RequestBody Reg reg){
+		Map<String, Object> map = new HashMap<>();
+		try {
+			boolean isPresent = regService.checkRegIsPresentOrNotBySlNo(reg.getSlno());
+			if (isPresent) {
+				Reg saveReg = regService.saveReg(reg);
+				if (saveReg != null && saveReg.getSlno() > 0) {
+					map.put("status", HttpStatus.OK.value());
+					map.put("message", "User Updated Successfully");
+				} else {
+					map.put("status", HttpStatus.NOT_FOUND.value());
+					map.put("message", "User Updation Failed");
 				}
 			}else {
 				map.put("status", HttpStatus.NOT_FOUND.value());
