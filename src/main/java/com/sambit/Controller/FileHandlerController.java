@@ -274,7 +274,6 @@ public class FileHandlerController {
 				int claimId = resultSet.getInt(1);
 				System.out.println("Claim Id : " + claimId);
 			}
-
 		} catch (SQLException | ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
