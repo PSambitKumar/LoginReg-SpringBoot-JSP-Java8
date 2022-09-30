@@ -629,4 +629,14 @@ public class RegServiceImpl implements RegService{
 
         myDoc.close();
     }
+
+    @Override
+    public boolean checkRegIsPresentOrNotByUserCode(String userCode) {
+        return regRepository.existsDistinctByUserCode(userCode);
+    }
+
+    @Override
+    public Reg getRegByUserCode(String userCode) {
+        return regRepository.findByUserCode(userCode);
+    }
 }

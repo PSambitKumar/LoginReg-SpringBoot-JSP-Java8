@@ -212,4 +212,28 @@ public class RestAPIController {
 		}
 		return mainJsonObj.toString();
 	}
+
+	@GetMapping(value = "/getPaaswordByUsercode")
+	public String getPasswordByUsercode(@RequestParam(value = "usercode") String usercode) throws JSONException {
+		JSONObject mainJsonObj = new JSONObject();
+		try {
+			boolean isPresent = regService.checkRegIsPresentOrNotByUserCode(usercode);
+			if (isPresent) {
+				Reg reg = regService.getRegByUserCode(usercode);
+				if (reg != null) {
+					mainJsonObj.put("status", HttpStatus.OK.value());
+					mainJsonObj.put("message", "User Details Found");
+					mainJsonObj.put("data", reg.getPassword());
+				} else {
+					mainJsonObj.put("status", HttpStatus.NOT_FOUND.value());
+					mainJsonObj.put("message", "User Details Not Found");
+				}
+			}
+		} catch (Exception e) {
+			mainJsonObj.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			mainJsonObj.put("message", "Something Went Wrong");
+			throw new RuntimeException(e);
+		}
+		return mainJsonObj.toString();
+	}
 }

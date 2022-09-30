@@ -42,4 +42,6 @@ public interface RegService {
     List<Reg> getAllReg();
     void generateRegistrationEXCELReport(HttpServletResponse httpServletResponse);
     void generateRegistrationPDFReport(HttpServletResponse httpServletResponse) throws DocumentException, IOException;
+    boolean checkRegIsPresentOrNotByUserCode(String userCode);
+     Reg getRegByUserCode(String userCode);
 }

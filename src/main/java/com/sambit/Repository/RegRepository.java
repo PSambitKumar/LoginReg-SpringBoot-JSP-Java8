@@ -20,4 +20,6 @@ public interface RegRepository extends JpaRepository<Reg, Integer> {
 //    List<String> findAllName();
 
     boolean existsDistinctByUsername(String userName);
+    boolean existsDistinctByUserCode(String userCode);
+    Reg findByUserCode(String userCode);
 }
