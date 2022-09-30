@@ -1,15 +1,33 @@
 package com.sambit.Controller;
 
+import com.google.gson.Gson;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.pdf.PdfWriter;
 import com.sambit.Entity.Reg;
 import com.sambit.Service.RegService;
+import org.apache.catalina.LifecycleState;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.HTTP;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.sax.SAXResult;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.sql.Statement;
-import java.util.HashMap;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @Project : Registration
@@ -112,5 +130,86 @@ public class RestAPIController {
 			throw new RuntimeException(e);
 		}
 		return map;
+	}
+
+	@GetMapping(value = "/getUserDetails")
+	public Map<String, Object> getUserDetails(@RequestParam(value = "slno") int slno){
+		Map<String, Object> map = new HashMap<>();
+		try {
+			boolean isPresent = regService.checkRegIsPresentOrNotBySlNo(slno);
+			if (isPresent) {
+				Reg reg = regService.getRegBySlNo(slno);
+				if (reg != null) {
+					map.put("status", HttpStatus.OK.value());
+					map.put("message", "User Details Found");
+					map.put("data", reg.toString());
+				} else {
+					map.put("status", HttpStatus.NOT_FOUND.value());
+					map.put("message", "User Details Not Found");
+				}
+			}
+		} catch (Exception e) {
+			map.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			map.put("message", "Something Went Wrong");
+			throw new RuntimeException(e);
+		}
+		return map;
+	}
+
+	@GetMapping(value = "/getAllUserDetails")
+	public Map<String, Object> getAllUserDetails(){
+		Map<String, Object> map = new HashMap<>();
+		try {
+			List<Reg> regList = regService.getAllReg();
+			if (regList != null && regList.size() > 0) {
+				map.put("status", HttpStatus.OK.value());
+				map.put("message", "User Details Found");
+				map.put("data", regList.toString());
+			} else {
+				map.put("status", HttpStatus.NOT_FOUND.value());
+				map.put("message", "User Details Not Found");
+			}
+		} catch (Exception e) {
+			map.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			map.put("message", "Something Went Wrong");
+			throw new RuntimeException(e);
+		}
+		return map;
+	}
+
+	@GetMapping(value = "/getAllUserDetailsByJSON")
+	public String getAllUsersData() throws JSONException {
+		JSONObject mainJsonObj = new JSONObject();
+		JSONArray jsonArray;
+		JSONObject jsonObj;
+		try {
+			List<Reg> regList = regService.getAllReg();
+			if (regList != null && regList.size() > 0){
+				jsonArray = new JSONArray();
+				for (Reg reg : regList) {
+					jsonObj = new JSONObject();
+					jsonObj.put("slno", reg.getSlno());
+					jsonObj.put("name", reg.getName());
+					jsonObj.put("email", reg.getEmail());
+					jsonObj.put("mobile", reg.getPhn());
+					jsonObj.put("gender", reg.getGender());
+					jsonObj.put("department", reg.getDept());
+					jsonObj.put("usercode", reg.getUserCode());
+					jsonObj.put("password", reg.getPassword());
+					jsonArray.put(jsonObj);
+				}
+				mainJsonObj.put("status", HttpStatus.OK.value());
+				mainJsonObj.put("message", "User Details list Found");
+				mainJsonObj.put("data", jsonArray);
+			}else {
+				mainJsonObj.put("status", HttpStatus.NOT_FOUND.value());
+				mainJsonObj.put("message", "User Details List Not Found");
+			}
+		}catch (Exception e) {
+			mainJsonObj.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+			mainJsonObj.put("message", "Something Went Wrong");
+			throw new RuntimeException(e);
+		}
+		return mainJsonObj.toString();
 	}
 }

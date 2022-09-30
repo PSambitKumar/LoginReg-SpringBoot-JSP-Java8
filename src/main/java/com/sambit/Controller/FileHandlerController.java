@@ -7,12 +7,8 @@ import com.sambit.Entity.SingleFileUpload;
 import com.sambit.Repository.BlobDataUploadRepository;
 import com.sambit.Repository.MultiFileUploadRepository;
 import com.sambit.Repository.SingleFileUploadRepository;
-import org.apache.poi.openxml4j.opc.OPCPackage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -49,7 +45,7 @@ public class FileHandlerController {
 	private BlobDataUploadRepository blobDataUploadRepository;
 
 
-//	Single File Upload
+	//	Single File Upload
 	@GetMapping(value = "/singleFileUpload")
 	public String singleFileUpload(Model model) {
 		System.out.println("Inside Single File Upload---------->>");
@@ -59,8 +55,8 @@ public class FileHandlerController {
 	}
 
 	@PostMapping(value = "/singleFileUpload")
-	public String saveSingleFileUpload(@RequestParam(value = "fullName", required = false)String fullName,
-	                                   @RequestParam(value = "document", required = false)MultipartFile document,
+	public String saveSingleFileUpload(@RequestParam(value = "fullName", required = false) String fullName,
+	                                   @RequestParam(value = "document", required = false) MultipartFile document,
 	                                   SingleFileUpload singleFileUpload) {
 		System.out.println("Inside Save Single File Upload---------->>");
 		System.out.println("Full Name : " + fullName);
@@ -75,7 +71,7 @@ public class FileHandlerController {
 			singleFileUpload = singleFileUploadRepository.save(singleFileUpload);
 			if (singleFileUpload.getSingleFileUploadId() > 0) {
 				System.out.println("File Uploaded Successfully");
-			}else {
+			} else {
 				System.out.println("File Uploaded Failed");
 			}
 		} catch (IOException e) {
@@ -84,10 +80,10 @@ public class FileHandlerController {
 		return "redirect:/singleFileUpload";
 	}
 
-//	Method 1 To Download Single File
+	//	Method 1 To Download Single File
 	@GetMapping(value = "/downloadSingleFile/{singleFileUploadId}")
-	public void downloadSingleFile(@PathVariable(value = "singleFileUploadId")int singleFileUploadId,
-	                                 HttpServletResponse httpServletResponse) {
+	public void downloadSingleFile(@PathVariable(value = "singleFileUploadId") int singleFileUploadId,
+	                               HttpServletResponse httpServletResponse) {
 		System.out.println("Inside Download Single File Method 1---------->>");
 		System.out.println("Single File Upload Id : " + singleFileUploadId);
 		try {
@@ -105,9 +101,9 @@ public class FileHandlerController {
 		}
 	}
 
-//	Method 2 To Download Single File
+	//	Method 2 To Download Single File
 	@GetMapping(value = "/downloadSingleFile1/{singleFileUploadId}")
-	public ResponseEntity<ByteArrayResource> downloadSingleFile1(@PathVariable(value = "singleFileUploadId")int singleFileUploadId) {
+	public ResponseEntity<ByteArrayResource> downloadSingleFile1(@PathVariable(value = "singleFileUploadId") int singleFileUploadId) {
 		System.out.println("Inside Download Single File Method 2---------->>");
 		System.out.println("Single File Upload Id : " + singleFileUploadId);
 		try {
@@ -118,22 +114,22 @@ public class FileHandlerController {
 			ByteArrayResource byteArrayResource = new ByteArrayResource(bytes);
 
 			return ResponseEntity.ok()
-					.contentType(MediaType.parseMediaType(singleFileUpload.getFileContentType()))
-					.header("Content-Disposition", "attachment;filename=" + singleFileUpload.getOriginalFileName())
-					.body(byteArrayResource);
+				   .contentType(MediaType.parseMediaType(singleFileUpload.getFileContentType()))
+				   .header("Content-Disposition", "attachment;filename=" + singleFileUpload.getOriginalFileName())
+				   .body(byteArrayResource);
 		} catch (Exception e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-//	Method 3 To Download Single File (Data Present in Database as ByteArray Format(BLOB))
+	//	Method 3 To Download Single File (Data Present in Database as ByteArray Format(BLOB))
 	@GetMapping(value = "/downloadSingleFile2/{singleFileUploadId}")
-	public void downloadSingleFile2(@PathVariable(value = "singleFileUploadId")int singleFileUploadId) throws SQLException, IOException {
+	public void downloadSingleFile2(@PathVariable(value = "singleFileUploadId") int singleFileUploadId) throws SQLException, IOException {
 		System.out.println("Inside Download Single File Method 3---------->>");
 		System.out.println("Single File Upload Id : " + singleFileUploadId);
 
 		Connection connection = MysqlConnection.getConnection("spring", "root", "");
-		Statement statement =connection.createStatement();
+		Statement statement = connection.createStatement();
 		ResultSet resultSet = statement.executeQuery("SELECT * FROM single_file_upload WHERE single_file_upload_id = " + singleFileUploadId);
 
 		while (resultSet.next()) {
@@ -156,7 +152,7 @@ public class FileHandlerController {
 	}
 
 
-//	Multi File Upload
+	//	Multi File Upload
 	@GetMapping(value = "/multiFileUpload")
 	public String multiFileUpload(Model model) {
 		System.out.println("Inside Multi File Upload---------->>");
@@ -166,8 +162,8 @@ public class FileHandlerController {
 	}
 
 	@PostMapping(value = "/multiFileUpload")
-	public String saveMultiFileUpload(@RequestParam(value = "fullName", required = false)String fullName,
-	                                  @RequestParam(value = "document", required = false)MultipartFile[] document) {
+	public String saveMultiFileUpload(@RequestParam(value = "fullName", required = false) String fullName,
+	                                  @RequestParam(value = "document", required = false) MultipartFile[] document) {
 		System.out.println("Inside Save Multi File Upload---------->>");
 		System.out.println("Full Name : " + fullName);
 		System.out.println("Document : " + Arrays.toString(document));
@@ -183,7 +179,7 @@ public class FileHandlerController {
 			}
 			if (multiFileUpload.getMultiFileUploadId() > 0) {
 				System.out.println("File Uploaded Successfully");
-			}else {
+			} else {
 				System.out.println("File Uploaded Failed");
 			}
 		} catch (IOException e) {
@@ -193,8 +189,8 @@ public class FileHandlerController {
 	}
 
 	@GetMapping(value = "/downloadMultipleFile/{multiFileUploadId}")
-	public void downloadMultipleFile(@PathVariable(value = "multiFileUploadId")int multiFileUploadId,
-	                               HttpServletResponse httpServletResponse) {
+	public void downloadMultipleFile(@PathVariable(value = "multiFileUploadId") int multiFileUploadId,
+	                                 HttpServletResponse httpServletResponse) {
 		System.out.println("Inside Download Multiple File Method---------->>");
 		System.out.println("Multi File Upload Id : " + multiFileUploadId);
 		try {
@@ -213,7 +209,7 @@ public class FileHandlerController {
 	}
 
 
-//	File Read And Write
+	//	File Read And Write
 	@GetMapping(value = "/processTextFileData")
 	public String processDataOfFiles() throws IOException {
 		System.out.println("Inside Process Data Of Files---------->>");
@@ -231,7 +227,7 @@ public class FileHandlerController {
 		return null;
 	}
 
-//	Process a BLOB Text File From Local File Server and Save Data Into Database Byte Array(BLOB)
+	//	Process a BLOB Text File From Local File Server and Save Data Into Database Byte Array(BLOB)
 	@GetMapping(value = "/processTextFileDataSave")
 	public String processDataOfFilesSave() throws IOException {
 		String fileName = "C:\\Users\\sambit.pradhan\\Downloads\\2.txt";
@@ -244,7 +240,7 @@ public class FileHandlerController {
 		return null;
 	}
 
-//	Process a Text File From Local Dir. Contains BLOB Data, Covert to Image File and Save to Local Dir.
+	//	Process a Text File From Local Dir. Contains BLOB Data, Covert to Image File and Save to Local Dir.
 //	Not Working
 	@GetMapping(value = "/processTextFileDataConvertImage")
 	public String processDataOfFilesConvertImage() throws IOException {
@@ -260,17 +256,17 @@ public class FileHandlerController {
 	}
 
 
-//	Custom Sql Query Call Using Prepared Statement
+	//	Custom Sql Query Call Using Prepared Statement
 	@GetMapping(value = "/getClaimId")
 	public void getClaimId() {
 		System.out.println("Inside process And Download3 Method-------->>");
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			Connection con= DriverManager.getConnection("jdbc:oracle:thin:@ora3.corp.csmpl.com:1521:ora3","bskyv1","OdishaBsky$907e#");
+			Connection con = DriverManager.getConnection("jdbc:oracle:thin:@ora3.corp.csmpl.com:1521:ora3", "bskyv1", "OdishaBsky$907e#");
 			PreparedStatement preparedStatement = con.prepareStatement("SELECT CLAIMID FROM TXNCLAIM_APPLICATION WHERE TRANSACTIONDETAILSID =?");
 			preparedStatement.setInt(1, 217225);
 			ResultSet resultSet = preparedStatement.executeQuery();
-			while (resultSet.next()){
+			while (resultSet.next()) {
 				int claimId = resultSet.getInt(1);
 				System.out.println("Claim Id : " + claimId);
 			}
@@ -278,6 +274,5 @@ public class FileHandlerController {
 			throw new RuntimeException(e);
 		}
 	}
-
 }
 

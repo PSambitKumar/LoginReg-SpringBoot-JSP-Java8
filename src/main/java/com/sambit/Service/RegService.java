@@ -1,5 +1,6 @@
 package com.sambit.Service;
 
+import com.itextpdf.text.DocumentException;
 import com.sambit.Bean.ImageBean;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.PersonalDataBean;
@@ -7,6 +8,7 @@ import com.sambit.Bean.RegBean;
 import com.sambit.Entity.*;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 public interface RegService {
@@ -37,4 +39,7 @@ public interface RegService {
     boolean deleteReg(int slNo);
     Reg getRegBySlNo(int slNo);
     boolean checkRegIsPresentOrNotBySlNo(int slNo);
+    List<Reg> getAllReg();
+    void generateRegistrationEXCELReport(HttpServletResponse httpServletResponse);
+    void generateRegistrationPDFReport(HttpServletResponse httpServletResponse) throws DocumentException, IOException;
 }

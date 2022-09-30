@@ -576,5 +576,15 @@ public class RegController {
         return null;
     }
 
+//    Excel File Generation
+    @GetMapping(value = "generateRegistrationEXCELReport")
+    public void generateRegistrationEXCELReport(HttpServletResponse httpServletResponse){
+        regService.generateRegistrationEXCELReport(httpServletResponse);
+    }
+
+    @GetMapping(value = "generateRegistrationPDFReport")
+    public void generateRegistrationPDFReport(HttpServletResponse httpServletResponse){
+        regService.generateRegistrationPDFReport(httpServletResponse);
+    }
 
 }
