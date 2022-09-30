@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.itextpdf.text.DocumentException;
 import com.sambit.Bean.*;
 import com.sambit.Entity.*;
 import com.sambit.Repository.PostalRepository;
@@ -583,7 +584,7 @@ public class RegController {
     }
 
     @GetMapping(value = "generateRegistrationPDFReport")
-    public void generateRegistrationPDFReport(HttpServletResponse httpServletResponse){
+    public void generateRegistrationPDFReport(HttpServletResponse httpServletResponse) throws DocumentException, IOException {
         regService.generateRegistrationPDFReport(httpServletResponse);
     }
 
