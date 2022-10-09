@@ -161,8 +161,5 @@
         $('#viewId').addClass("active");
     }
 
-
-
-
 </script>
 </html>

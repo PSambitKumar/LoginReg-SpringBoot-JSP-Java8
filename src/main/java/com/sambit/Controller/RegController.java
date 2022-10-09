@@ -523,7 +523,7 @@ public class RegController {
         System.out.println("Current Sql Date : " + currentSqlDate);
 
         LocalDate dob1 = java.sql.Date.valueOf(dateOfBirth1.toString()).toLocalDate();
-        System.out.println(dob1 + "<=======Sam======>" +  LocalDate.now());
+        System.out.println(dob1 + "<----------Sambit----------->" +  LocalDate.now());
         int age1 = AgeCalculator.calculateAge(dob1, LocalDate.now());
         System.out.println("Age : " + age);
         return null;

@@ -333,7 +333,7 @@ public class Sorting {
 	}
 
 //	Sorting Array Using Cycle Sort
-	public static int[] cycleSort(int[] arr, int n) {
+	public static int[] cycleSort1(int[] arr, int n) {
 		for (int cycleStart = 0; cycleStart <= n - 2; cycleStart++) {
 			int item = arr[cycleStart];
 			int pos = cycleStart;
@@ -515,5 +515,109 @@ public class Sorting {
 			System.out.print(arr[i] + " ");
 		}
 		return arr;
+	}
+
+//	Sorting Array Using Cycle Sort
+	public static int[] cycleSort(int[] arr, int n) {
+		for (int cycle_start = 0; cycle_start <= n - 2; cycle_start++) {
+			int item = arr[cycle_start];
+			int pos = cycle_start;
+			for (int i = cycle_start + 1; i < n; i++) {
+				if (arr[i] < item) {
+					pos++;
+				}
+			}
+			if (pos == cycle_start) {
+				continue;
+			}
+			while (item == arr[pos]) {
+				pos += 1;
+			}
+			if (pos != cycle_start) {
+				int temp = item;
+				item = arr[pos];
+				arr[pos] = temp;
+			}
+			while (pos != cycle_start) {
+				pos = cycle_start;
+				for (int i = cycle_start + 1; i < n; i++) {
+					if (arr[i] < item) {
+						pos += 1;
+					}
+				}
+				while (item == arr[pos]) {
+					pos += 1;
+				}
+				if (item != arr[pos]) {
+					int temp = item;
+					item = arr[pos];
+					arr[pos] = temp;
+				}
+			}
+		}
+		for (int i = 0; i < n; i++) {
+			System.out.print(arr[i] + " ");
+		}
+		return arr;
+	}
+
+//	Sorting Array Using Pancake Sort
+	public static int[] pancakeSort(int[] arr, int n) {
+		for (int curr_size = n; curr_size > 1; --curr_size) {
+			int mi = findMax(arr, curr_size);
+			if (mi != curr_size - 1) {
+				flip(arr, mi);
+				flip(arr, curr_size - 1);
+			}
+		}
+		for (int i = 0; i < n; i++) {
+			System.out.print(arr[i] + " ");
+		}
+		return arr;
+	}
+
+	public static int findMax(int[] arr, int n) {
+		int mi, i;
+		for (mi = 0, i = 0; i < n; ++i) {
+			if (arr[i] > arr[mi]) {
+				mi = i;
+			}
+		}
+		return mi;
+	}
+
+	public static void flip(int[] arr, int i) {
+		int temp, start = 0;
+		while (start < i) {
+			temp = arr[start];
+			arr[start] = arr[i];
+			arr[i] = temp;
+			start++;
+			i--;
+		}
+	}
+
+//	Sorting Array Using Bitonic Sort
+	public static int[] bitonicSort(int[] arr, int n, int up) {
+		if (n > 1) {
+			int m = n / 2;
+			for (int i = 0; i < m; i++) {
+				compare(arr, i, i + m, up);
+			}
+			bitonicSort(arr, m, up);
+			bitonicSort(arr, n - m, up);
+		}
+		for (int i = 0; i < n; i++) {
+			System.out.print(arr[i] + " ");
+		}
+		return arr;
+	}
+
+	public static void compare(int[] arr, int i, int j, int up) {
+		if ((arr[i] > arr[j]) && arr[i] == up) {
+			int temp = arr[i];
+			arr[i] = arr[j];
+			arr[j] = temp;
+		}
 	}
 }
