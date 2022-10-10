@@ -21,7 +21,7 @@ public class Prims {
 		  int u = minKey(key, mstSet, n);
 		  mstSet[u] = true;
 		  for (int v = 0; v < n; v++) {
-			 if (graph[u][v] != 0 && mstSet[v] == false && graph[u][v] < key[v]) {
+			 if (graph[u][v] != 0 && !mstSet[v] && graph[u][v] < key[v]) {
 				parent[v] = u;
 				key[v] = graph[u][v];
 			 }
@@ -33,7 +33,7 @@ public class Prims {
 	private static int minKey(int[] key, boolean[] mstSet, int n) {
 	   int min = Integer.MAX_VALUE, min_index = -1;
 	   for (int v = 0; v < n; v++) {
-		  if (mstSet[v] == false && key[v] < min) {
+		  if (!mstSet[v] && key[v] < min) {
 			 min = key[v];
 			 min_index = v;
 		  }

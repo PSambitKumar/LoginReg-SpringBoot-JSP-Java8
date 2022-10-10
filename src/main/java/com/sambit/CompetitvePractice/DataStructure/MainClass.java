@@ -1,5 +1,6 @@
 package com.sambit.CompetitvePractice.DataStructure;
 
+import com.sambit.Utils.ANSIColors;
 import net.bytebuddy.asm.Advice;
 import org.hibernate.event.spi.SaveOrUpdateEvent;
 
@@ -16,7 +17,7 @@ public class MainClass {
 	public static void main(String[] args) {
 		System.out.println("Play With Data Structure.");
 		System.out.println("Select Your Choice?");
-		System.out.println("1. Stack");
+		System.out.println("1. Stack\n2. Linked List");
 		int input = new Scanner(System.in).nextInt();
 		if (input == 1){
 			System.out.println("Enter Size of Stack?");
@@ -45,7 +46,25 @@ public class MainClass {
 					System.out.println("Invalid Option.");
 				}
 			}
-		}else
+		} else if (input == 2) {
+			SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
+			char response1;
+			while(true){
+				System.out.println("a. add Node\nb. Delete Node\nc. Size\nd. Display\nf. Display Using Specific Node Number\ne. Exit");
+				System.out.println("Choose Your Option?");
+				response1 = new Scanner(System.in).next().charAt(0);
+				if (response1 == 'a' || response1 == 'A'){
+					System.out.println("Enter Data For Node?");
+					singlyLinkedList.addNode(new Scanner(System.in).nextInt());
+				} else if (response1 == 'c' || response1 == 'C') {
+					System.out.println(ANSIColors.ansiRed + "Size of The Linked List : " + ANSIColors.ansiReset + singlyLinkedList.sizeOfLinkedList());
+				} else if (response1 == 'D' || response1 == 'd') {
+					singlyLinkedList.display();
+				} else if (response1 == 'f' || response1 =='F'){
+					System.out.println(singlyLinkedList.displaySpecificNodeData(new Scanner(System.in).nextInt()));
+				}
+			}
+		} else
 			System.out.println("Invalid Option.");
 	}
 }
