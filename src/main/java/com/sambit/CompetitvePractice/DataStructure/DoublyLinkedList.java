@@ -76,4 +76,21 @@ public class DoublyLinkedList {
 			tail = current;
 		}
 	}
+
+//	Delete Node At The End
+	void deleteNodeEnd(){
+		if (head == null){
+			System.out.println("Node is Empty!");
+		}else {
+			Node prev = null;
+			Node current = head;
+			while (current.next != null){
+				prev = current;
+				current = current.next;
+			}
+			prev.next = null;
+			tail = prev;
+			System.out.println("Last Node Deleted Successfully.");
+		}
+	}
 }

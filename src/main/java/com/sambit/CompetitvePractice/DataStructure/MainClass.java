@@ -97,6 +97,8 @@ public class MainClass {
 					   "d. Display\n" +
 					   "f. Add Node At The Beginning\n" +
 					   "g. Add Node At The Ending\n" +
+					   "h. Delete Node At The Ending\n" +
+					   "i. Delete Node At The Beginning\n" +
 					   "e. Exit"
 				);
 				System.out.println("Choose Your Option?");
