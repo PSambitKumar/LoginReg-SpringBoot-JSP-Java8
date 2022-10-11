@@ -6,11 +6,11 @@ package com.sambit.CompetitvePractice.HackerRank.JavaBasicCertification;
  * @Created On : 10/10/2022 - 10:30 PM
  */
 
-class SampleDemo implements Runnable {
+class ThreadExample implements Runnable {
 	private Thread t;
 	private String threadName;
 
-	SampleDemo(String name) {
+	ThreadExample(String name) {
 		threadName = name;
 		System.out.println("Creating " + threadName);
 	}
@@ -30,11 +30,11 @@ class SampleDemo implements Runnable {
 
 	public static class testThread{
 		public static void main(String[] args) {
-			SampleDemo sampleDemo = new SampleDemo("A");
-			sampleDemo.start();
+			ThreadExample threadExample1 = new ThreadExample("A");
+			threadExample1.start();
 
-			SampleDemo sampleDemo1 = new SampleDemo("B");
-			sampleDemo1.start();
+			ThreadExample threadExample2 = new ThreadExample("B");
+			threadExample2.start();
 		}
 	}
 
