@@ -19,7 +19,7 @@ public class MainClass {
 		System.out.println("Select Your Choice?");
 		System.out.println(
 			   "1. Stack\n" +
-			   "2. Linked List" +
+			   "2. Linked List\n" +
 			   "3. Doubly Linked List"
 		);
 		int input = new Scanner(System.in).nextInt();
@@ -87,7 +87,34 @@ public class MainClass {
 				}
 			}
 		} else if (input == 3){
-			System.out.println("Doubly Linked List");
+			DoublyLinkedList doublyLinkedList = new DoublyLinkedList();
+			char response2;
+			while (true){
+				System.out.println(
+					   "a. Add Node\n" +
+					   "b. Delete Node\n" +
+					   "c. Size\n" +
+					   "d. Display\n" +
+					   "f. Add Node At The Beginning\n" +
+					   "g. Add Node At The Ending\n" +
+					   "e. Exit"
+				);
+				System.out.println("Choose Your Option?");
+				response2 = new Scanner(System.in).next().charAt(0);
+				if (response2 == 'a' || response2 == 'A'){
+					System.out.println("Enter Data For Node?");
+					doublyLinkedList.addNode(new Scanner(System.in).nextInt());
+				} else if (response2 == 'd' || response2 == 'D'){
+					System.out.println("Displaying Node Data.");
+					doublyLinkedList.display();
+				} else if (response2 == 'f' || response2 == 'F'){
+					System.out.println("Enter Data For Node?");
+					doublyLinkedList.addNodeBegin(new Scanner(System.in).nextInt());
+				} else if (response2 == 'g' || response2 == 'G'){
+					System.out.println("Enter Data For Node?");
+					doublyLinkedList.addNodeEnd(new Scanner(System.in).nextInt());
+				}
+			}
 		}else
 			System.out.println("Invalid Option.");
 	}
