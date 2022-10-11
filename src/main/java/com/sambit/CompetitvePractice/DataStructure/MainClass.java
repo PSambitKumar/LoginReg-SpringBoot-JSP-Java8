@@ -17,7 +17,11 @@ public class MainClass {
 	public static void main(String[] args) {
 		System.out.println("Play With Data Structure.");
 		System.out.println("Select Your Choice?");
-		System.out.println("1. Stack\n2. Linked List");
+		System.out.println(
+			   "1. Stack\n" +
+			   "2. Linked List" +
+			   "3. Doubly Linked List"
+		);
 		int input = new Scanner(System.in).nextInt();
 		if (input == 1){
 			System.out.println("Enter Size of Stack?");
@@ -50,7 +54,17 @@ public class MainClass {
 			SinglyLinkedList singlyLinkedList = new SinglyLinkedList();
 			char response1;
 			while(true){
-				System.out.println("a. add Node\nb. Delete Node\nc. Size\nd. Display\nf. Display Using Specific Node Number\ne. Exit");
+				System.out.println(
+					   "a. add Node\n" +
+					   "b. Delete Node\n" +
+					   "c. Size\n" +
+					   "d. Display\n" +
+					   "f. Display Using Specific Node Number\n" +
+					   "g. Delete Last Node\n" +
+					   "h.Delete First Node\n" +
+					   "i.Delete Node Using Specific Node Number\n" +
+					   "e. Exit"
+				);
 				System.out.println("Choose Your Option?");
 				response1 = new Scanner(System.in).next().charAt(0);
 				if (response1 == 'a' || response1 == 'A'){
@@ -58,13 +72,23 @@ public class MainClass {
 					singlyLinkedList.addNode(new Scanner(System.in).nextInt());
 				} else if (response1 == 'c' || response1 == 'C') {
 					System.out.println(ANSIColors.ansiRed + "Size of The Linked List : " + ANSIColors.ansiReset + singlyLinkedList.sizeOfLinkedList());
-				} else if (response1 == 'D' || response1 == 'd') {
+				} else if (response1 == 'd' || response1 == 'D') {
 					singlyLinkedList.display();
 				} else if (response1 == 'f' || response1 =='F'){
 					System.out.println(singlyLinkedList.displaySpecificNodeData(new Scanner(System.in).nextInt()));
+				} else if (response1 == 'g' || response1 == 'G') {
+					singlyLinkedList.deleteNodeAtEnd();
+				} else if (response1 == 'h' || response1 == 'H') {
+					singlyLinkedList.deleteFirstNode();
+				} else if (response1 == 'i' || response1 == 'I') {
+					singlyLinkedList.deleteSpecificNode(new Scanner(System.in).nextInt());
+				} else if (response1 == 'e' || response1 == 'E'){
+					System.exit(0);
 				}
 			}
-		} else
+		} else if (input == 3){
+			System.out.println("Doubly Linked List");
+		}else
 			System.out.println("Invalid Option.");
 	}
 }
