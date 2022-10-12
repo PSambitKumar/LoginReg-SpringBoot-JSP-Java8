@@ -153,6 +153,11 @@ public class RegController {
 //        return "Success";
 //    }
 
+    @GetMapping(value = "/heavyValidation")
+    public String heavyValidation(){
+        return "heavyValidation";
+    }
+
     @PostMapping("AddPersonalData")
     public String addPersonalData(PersonalDataBean personalDataBean, Model model){
         //System.out.println(personalDataBean);
@@ -310,6 +315,8 @@ public class RegController {
             System.out.println("GepNIC ID Must First 7 Must be Alphabetic, Next 7 Must be Numbers, and Next 1 Must Be AlphaNumeric!");
         return null;
     }
+
+
 
     @GetMapping(value = "/imageUpload")
     public String imageUpload(Model model){
@@ -587,5 +594,8 @@ public class RegController {
     public void generateRegistrationPDFReport(HttpServletResponse httpServletResponse) throws DocumentException, IOException {
         regService.generateRegistrationPDFReport(httpServletResponse);
     }
+
+
+
 
 }
