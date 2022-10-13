@@ -20,7 +20,8 @@ public class MainClass {
 		System.out.println(
 			   "1. Stack\n" +
 			   "2. Linked List\n" +
-			   "3. Doubly Linked List"
+			   "3. Doubly Linked List\n" +
+			   "4. Circular Linked List"
 		);
 		int input = new Scanner(System.in).nextInt();
 		if (input == 1){
@@ -117,7 +118,45 @@ public class MainClass {
 					doublyLinkedList.addNodeEnd(new Scanner(System.in).nextInt());
 				}
 			}
-		}else
+		} else if (input == 4) {
+			CircularLinkedList circularLinkedList = new CircularLinkedList();
+			char response3;
+			while (true){
+				System.out.println(
+					   "a. Add Node\n" +
+					   "b. Delete Node\n" +
+					   "c. Delete Node\n" +
+					   "d. Display\n" +
+					   "e. Size\n" +
+					   "f. Add Node at The Beginning\n" +
+					   "g. Add Node at The End\n" +
+					   "h. Add Node at Node Number\n" +
+					   "i. Delete Node at Node Number\n"
+				);
+				System.out.println("Choose Your Option?");
+				response3 = new Scanner(System.in).next().charAt(0);
+				if (response3 == 'a' || response3 == 'A'){
+					System.out.println("Enter Value For Node Data?");
+					circularLinkedList.addNode(new Scanner(System.in).nextInt());
+				}else if (response3 == 'd' || response3 == 'D'){
+					circularLinkedList.displayData();
+				}else if (response3 == 'g' || response3 == 'G'){
+					System.out.println("Enter Value For Node Data?");
+					circularLinkedList.addNodeAtEnd(new Scanner(System.in).nextInt());
+				}else if (response3 == 'f' || response3 == 'F'){
+					System.out.println("Enter Value For Node Data?");
+					circularLinkedList.addNodeAtBegin(new Scanner(System.in).nextInt());
+				} else if (response3 == 'i' || response3 == 'I'){
+					System.out.println("Enter Node Number to Delete?");
+					circularLinkedList.deleteNodeWithNodeNumber(new Scanner(System.in).nextInt());
+				}else if (response3 == 'h' || response3 == 'H'){
+					System.out.println("Enter Node Number to Add Data?");
+					circularLinkedList.addNodeUsingNodeNumber(new Scanner(System.in).nextInt(), new Scanner(System.in).nextInt());
+				}else {
+					System.out.println("Invalid Input");
+				}
+			}
+		} else
 			System.out.println("Invalid Option.");
 	}
 }

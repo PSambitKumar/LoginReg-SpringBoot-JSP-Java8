@@ -1,4 +1,4 @@
-package com.sambit.CompetitvePractice.Arrays;
+package com.sambit.CompetitvePractice.HackerRank.ProblemSolving;
 
 import java.util.*;
 
