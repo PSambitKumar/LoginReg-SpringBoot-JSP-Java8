@@ -1,4 +1,4 @@
-package com.sambit.CompetitvePractice.HackerRank.JavaBasicCertification;
+package com.sambit.CompetitvePractice.HackerRank.Certification.JavaBasic;
 
 /**
  * @Project : Registration

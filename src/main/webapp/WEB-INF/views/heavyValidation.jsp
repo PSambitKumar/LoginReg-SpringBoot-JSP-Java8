@@ -68,6 +68,9 @@
     function validateData() {
         let val = $('#val').val();
 
+        let empNameValid = false;
+        let empEmailValid = false;
+
         let empName = $('#empFullName').val();
         let empEmail = $('#empEmail').val();
 
@@ -98,8 +101,9 @@
             }
         }else {
             // $('#empFullName').css('border', '2px solid green');
-            $('#empFullName').addClass('is-valid');
+            $('#empFullName').removeClass("is-invalid").addClass('is-valid');
             $('#empNameAlert').html('<span style="color: green">Name is valid</span>');
+            empNameValid = true;
         }
 
 
@@ -128,8 +132,9 @@
             }
         }else {
             // $('#empEmail').css('border', '2px solid green');
-            $('#empEmail').addClass('is-valid');
+            $('#empEmail').removeClass("is-invalid").addClass('is-valid');
             $('#empEmailAlert').html('<span style="color: green">Email is valid</span>');
+            empEmailValid = true;
         }
     }
 </script>

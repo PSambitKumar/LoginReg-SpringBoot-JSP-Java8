@@ -1,4 +1,4 @@
-package com.sambit.CompetitvePractice.HackerRank.ProblemSolvingBasicCertification;
+package com.sambit.CompetitvePractice.HackerRank.Certification.ProblemSolvingBasic;
 
 import java.util.*;
 

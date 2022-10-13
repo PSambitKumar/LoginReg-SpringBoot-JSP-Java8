@@ -1,7 +1,7 @@
 package com.sambit.CompetitvePractice.HackerRank.InterviewPreparationKit.WarmupChallenges;
 
-import javax.swing.plaf.PanelUI;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @Project : Registration
@@ -9,15 +9,13 @@ import java.util.List;
  * @Created On : 12/10/2022 - 10:00 AM
  */
 public class SalesByMatch {
-//	Sales By Match
-
-//	There is a large pile of socks that must be paired by color. Given an array of integers representing the color of each sock, determine how many pairs of socks with matching colors there are.
+//	Question : There is a large pile of socks that must be paired by color. Given an array of integers representing the color of each sock, determine how many pairs of socks with matching colors there are.
 
 	public static int stockMerchant(int n, List<Integer> ar){
 		int count = 0;
 		for (int i = 0; i < n; i++) {
 			for (int j = i+1; j < n; j++) {
-				if (ar.get(i) == ar.get(j)){
+				if (Objects.equals(ar.get(i), ar.get(j))){
 					count++;
 					ar.remove(j);
 					n--;
