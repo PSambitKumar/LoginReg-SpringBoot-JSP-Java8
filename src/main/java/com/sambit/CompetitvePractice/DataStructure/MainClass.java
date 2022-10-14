@@ -1,12 +1,7 @@
 package com.sambit.CompetitvePractice.DataStructure;
 
 import com.sambit.Utils.ANSIColors;
-import net.bytebuddy.asm.Advice;
-import org.hibernate.event.spi.SaveOrUpdateEvent;
-
-import javax.security.auth.callback.CallbackHandler;
 import java.util.Scanner;
-import java.util.Stack;
 
 /**
  * @Project : Registration
@@ -21,7 +16,8 @@ public class MainClass {
 			   "1. Stack\n" +
 			   "2. Linked List\n" +
 			   "3. Doubly Linked List\n" +
-			   "4. Circular Linked List"
+			   "4. Circular Linked List\n" +
+			   "5. Stack Using Linked List\n"
 		);
 		int input = new Scanner(System.in).nextInt();
 		if (input == 1){
@@ -156,7 +152,36 @@ public class MainClass {
 					System.out.println("Invalid Input");
 				}
 			}
-		} else
+		}else if (input == 5){
+			StackLinkedList stackLinkedList = new StackLinkedList();
+			char response4;
+			while(true){
+				System.out.println(
+					     "a. Push Data\n" +
+						"b. Pop Data\n" +
+						"c. Size of Stack\n" +
+						"d. Display Data\n" +
+						"e. Peak Data\n" +
+						"0. Exit"
+				);
+				System.out.println("Choose Your Option?");
+				response4 = new Scanner(System.in).next().charAt(0);
+				if (response4 == 'a' || response4 == 'A'){
+					System.out.println("Enter Data For Push?");
+					stackLinkedList.push(new Scanner(System.in).nextInt());
+				}else if (response4 == 'b' || response4 == 'B') {
+					stackLinkedList.pop();
+				}else if (response4 == 'c' || response4 == 'C') {
+					System.out.println("Size of Stack is " + stackLinkedList.length);
+				}else if (response4 == 'd' || response4 == 'D') {
+					stackLinkedList.display();
+				}else if (response4 == 'e' || response4 == 'E') {
+					stackLinkedList.peek();
+				}else{
+					System.out.println("Invalid Input");
+				}
+			}
+		}else
 			System.out.println("Invalid Option.");
 	}
 }

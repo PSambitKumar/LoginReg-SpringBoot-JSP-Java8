@@ -47,7 +47,11 @@
         <input type="hidden" id="val" value="0">
 
     </form>
+
 </div>
+
+<div id="javaIntro" class="text-center form-control" style="width: 20%; margin-left: 43%"></div>
+
 
 </body>
 </html>
@@ -56,6 +60,7 @@
 
     // Prevent Submitting Form on Enter Key Press
     $(document).ready(function() {
+        display();
         $(window).keydown(function(event){
             if(event.keyCode === 13) {
                 // alert("Enter Key Is Pressed");
@@ -64,6 +69,16 @@
             }
         });
     });
+
+    function display(){
+        let javaIntro = "JAVA was developed by James Gosling at Sun Microsystems Inc in the year 1995, later acquired by Oracle Corporation. It is a simple programming language. Java makes writing, compiling, and debugging programming easy. It helps to create reusable code and modular programs. Java is a class-based, object-oriented programming language and is designed to have as few implementation dependencies as possible. A general-purpose programming language made for developers to write once run anywhere that is compiled Java code can run on all platforms that support Java. Java applications are compiled to byte code that can run on any Java Virtual Machine. The syntax of Java is similar to c/c++."
+        $('#javaIntro').html(javaIntro.substring(0, 9) + "<span onclick='displayFullText()' style='cursor: pointer'>...</span>");
+    }
+
+    function displayFullText(){
+        $('#javaIntro').html("JAVA was developed by James Gosling at Sun Microsystems Inc in the year 1995, later acquired by Oracle Corporation. It is a simple programming language. Java makes writing, compiling, and debugging programming easy. It helps to create reusable code and modular programs. Java is a class-based, object-oriented programming language and is designed to have as few implementation dependencies as possible. A general-purpose programming language made for developers to write once run anywhere that is compiled Java code can run on all platforms that support Java. Java applications are compiled to byte code that can run on any Java Virtual Machine. The syntax of Java is similar to c/c++." + "<span onclick='display()' style='cursor: pointer'>⇱</span>");
+    }
+
 
     function validateData() {
         let val = $('#val').val();
@@ -80,7 +95,7 @@
         if (empName === "" || empName == null){
             // $('#empFullName').css('border', '2px solid red');
             $('#empFullName').addClass('is-invalid');
-            $('#empNameAlert').html("<span style='color: red'>Please Enter Employee Name</span>");
+            $('#empNameAlert').html("<span style='color: #d21010'>Please Enter Employee Name</span>");
             if (val == 0) {
                 $('#submitBtn').css('margin-left', '7rem');
                 $('#val').val(1);
@@ -91,7 +106,7 @@
         }else if (!nameRegex.test(empName)){
             // $('#empFullName').css('border', '2px solid red');
             $('#empFullName').addClass('is-invalid');
-            $('#empNameAlert').html('<span style="color: red">Name must be 5-30 characters long</span>');
+            $('#empNameAlert').html('<span style="color: #d21010">Name must be 5-30 characters long</span>');
             if (val == 0) {
                 $('#submitBtn').css('margin-left', '7rem');
                 $('#val').val(1);
@@ -111,7 +126,7 @@
         if (empEmail === "" || empEmail == null){
             // $('#empEmail').css('border', '2px solid red');
             $('#empEmail').addClass('is-invalid');
-            $('#empEmailAlert').html('<span style="color: red">Please Enter Email Address</span>');
+            $('#empEmailAlert').html('<span style="color: #d21010">Please Enter Email Address</span>');
             if (val == 0) {
                 $('#submitBtn').css('margin-left', '7rem');
                 $('#val').val(1);
@@ -122,7 +137,7 @@
         }else if (!emailRegEx.test(empEmail)){
             // $('#empEmail').css('border', '2px solid red');
             $('#empEmail').addClass('is-invalid');
-            $('#empEmailAlert').html('<span style="color: red">Email is not valid</span>');
+            $('#empEmailAlert').html('<span style="color: #d21010">Email is not valid</span>');
             if (val == 0) {
                 $('#submitBtn').css('margin-left', '7rem');
                 $('#val').val(1);
