@@ -1,4 +1,4 @@
-package com.sambit.CompetitvePractice.HackerRank.WeekPreparationKit;
+package com.sambit.CompetitvePractice.HackerRank.WeekPreparationKit.Week1;
 
 import java.lang.reflect.Array;
 import java.util.Arrays;
