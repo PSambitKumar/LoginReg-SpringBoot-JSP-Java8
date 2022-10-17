@@ -1,4 +1,4 @@
-package com.sambit.CompetitvePractice.HackerRank.WeekPreparationKit.Week2;
+package com.sambit.CompetitvePractice.HackerRank.WeekPreparationKit.Day2;
 
 import java.util.List;
 

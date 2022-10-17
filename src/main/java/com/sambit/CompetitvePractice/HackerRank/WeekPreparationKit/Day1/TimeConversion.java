@@ -1,4 +1,4 @@
-package com.sambit.CompetitvePractice.HackerRank.WeekPreparationKit.Week1;
+package com.sambit.CompetitvePractice.HackerRank.WeekPreparationKit.Day1;
 
 /**
  * @Project : Registration
