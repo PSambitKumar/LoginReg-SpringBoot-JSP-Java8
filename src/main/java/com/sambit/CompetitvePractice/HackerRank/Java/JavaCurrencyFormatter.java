@@ -1,5 +1,7 @@
 package com.sambit.CompetitvePractice.HackerRank.Java;
 
+import java.text.NumberFormat;
+import java.util.Locale;
 import java.util.Scanner;
 
 /**
@@ -44,15 +46,15 @@ public class JavaCurrencyFormatter {
 
 
 //		Using Of Unicode Character
-		String us = String.format("US: $%,.2f", payment);
-		String india = String.format("India: Rs.%,.2f", payment);
-		String china = String.format("China: \u00A5%,.2f", payment);
-		String france = String.format("France: %,.2f \u20AC", payment);
-
-		System.out.println(us);
-		System.out.println(india);
-		System.out.println(china);
-		System.out.println(france);
+//		String us = String.format("US: $%,.2f", payment);
+//		String india = String.format("India: Rs.%,.2f", payment);
+//		String china = String.format("China: \u00A5%,.2f", payment);
+//		String france = String.format("France: %,.2f \u20AC", payment);
+//
+//		System.out.println(us);
+//		System.out.println(india);
+//		System.out.println(china);
+//		System.out.println(france);
 
 
 //		Using of Util.Currency
@@ -66,5 +68,17 @@ public class JavaCurrencyFormatter {
 //		System.out.println("India: " + india + String.format("%,.2f", payment));
 //		System.out.println("China: " + china + String.format("%,.2f", payment));
 //		System.out.println("France: " + france + String.format("%,.2f", payment));
+
+
+		NumberFormat nF1 = NumberFormat.getCurrencyInstance(Locale.US);
+		Locale IND = new Locale("en","in");
+		NumberFormat nF2 = NumberFormat.getCurrencyInstance(IND);
+		NumberFormat nF3 = NumberFormat.getCurrencyInstance(Locale.CHINA);
+		NumberFormat nF4 = NumberFormat.getCurrencyInstance(Locale.FRANCE);
+
+		System.out.println("US: " + nF1.format(payment));
+		System.out.println("India: " + nF2.format(payment));
+		System.out.println("China: " + nF3.format(payment));
+		System.out.println("France: " + nF4.format(payment));
 	}
 }

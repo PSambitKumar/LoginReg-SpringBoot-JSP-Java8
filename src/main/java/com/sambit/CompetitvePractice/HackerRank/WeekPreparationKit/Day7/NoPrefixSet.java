@@ -36,4 +36,8 @@ public class NoPrefixSet {
 		}
 		System.out.println("GOOD SET");
 	}
+
+	public static void main(String[] args) {
+		noPrefix(List.of("aab", "aac", "aacghgh"));
+	}
 }
