@@ -30,7 +30,7 @@
     <form>
         <div class="form-group col-md-4">
             <label class="form-label">Full Name</label>
-            <input class="form-control" type="text" id="empFullName" name="empFullName" placeholder="Enter Full Name">
+            <input class="form-control" type="text" id="empFullName" name="empFullName" placeholder="Enter Full Name" autocomplete="off">
             <div id="empNameAlert"></div>
         </div>
 
@@ -50,7 +50,7 @@
 
 </div>
 
-<div id="javaIntro" class="text-center form-control" style="width: 20%; margin-left: 43%"></div>
+<%--<div id="javaIntro" class="text-center form-control" style="width: 20%; margin-left: 43%"></div>--%>
 
 
 </body>

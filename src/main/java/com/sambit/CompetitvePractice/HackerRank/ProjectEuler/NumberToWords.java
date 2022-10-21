@@ -57,6 +57,4 @@ public class NumberToWords {
 		}
 		return result;
 	}
-
-
 }
