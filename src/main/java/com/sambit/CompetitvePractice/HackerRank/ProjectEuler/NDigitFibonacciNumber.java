@@ -21,10 +21,13 @@ public class NDigitFibonacciNumber {
 		for (int i = 3; i <= 5000; i++) {
 			map.put(i, map.get(i - 1) + map.get(i - 2));
 		}
-		while (t-- > 0) {
+		while (t --> 0) {
 			int n = in.nextInt();
 			for (int i = 1; i <= 5000; i++) {
 				if (map.get(i).toString().length() == n) {
+					if (i == 5000){
+
+					}
 					System.out.println(i);
 					break;
 				}
