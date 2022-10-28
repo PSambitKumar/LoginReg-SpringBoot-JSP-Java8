@@ -11,8 +11,28 @@ import java.util.Scanner;
  */
 public class NDigitFibonacciNumber {
 
-//	Two Test Case Wrong Answer
 	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		int t = in.nextInt();
+		Map<Integer, Integer> map = new HashMap<>();
+		map.put(1, 1);
+		map.put(2, 1);
+		for (int i = 3; i <= 5000; i++) {
+			map.put(i, (map.get(i - 1) + map.get(i - 2)) % 1000000000);
+		}
+		for (int a0 = 0; a0 < t; a0++) {
+			int n = in.nextInt();
+			for (int i = 1; i <= 5000; i++) {
+				if (map.get(i).toString().length() == n) {
+					System.out.println(i);
+					break;
+				}
+			}
+		}
+	}
+
+//	Two Test Case Wrong Answer
+	public static void main3(String[] args) {
 		Scanner in = new Scanner(System.in);
 		int t = in.nextInt();
 		Map<Integer, Integer> map = new HashMap<>();
@@ -25,9 +45,6 @@ public class NDigitFibonacciNumber {
 			int n = in.nextInt();
 			for (int i = 1; i <= 5000; i++) {
 				if (map.get(i).toString().length() == n) {
-					if (i == 5000){
-
-					}
 					System.out.println(i);
 					break;
 				}
