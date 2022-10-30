@@ -1,5 +1,7 @@
 package com.sambit.CompetitvePractice.HackerRank.Java;
 
+import org.springframework.http.HttpStatus;
+
 import java.util.Scanner;
 
 /**
