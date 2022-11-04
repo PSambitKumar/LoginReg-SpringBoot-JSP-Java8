@@ -1,6 +1,7 @@
 package com.sambit.CompetitvePractice.HackerRank.Java;
 
 import java.lang.reflect.Method;
+import java.text.ParseException;
 
 /**
  * @Project : Registration
@@ -8,7 +9,7 @@ import java.lang.reflect.Method;
  * @Created On : 03/11/2022 - 6:07 PM
  */
 public class JavaGenerics {
-	public static void main( String args[] ) {
+	public static void main( String args[] ) throws ParseException {
 		Printer myPrinter = new Printer();
 		Integer[] intArray = { 1, 2, 3 };
 		String[] stringArray = {"Hello", "World"};
@@ -27,10 +28,14 @@ public class JavaGenerics {
 }
 
 class Printer {
-	public <T> void printArray(T[] array){
+
+	public <T> void printArray(T[] array) throws ParseException {
 		for (T t : array) {
 			System.out.println(t);
 		}
+
 	}
+
+
 }
 
