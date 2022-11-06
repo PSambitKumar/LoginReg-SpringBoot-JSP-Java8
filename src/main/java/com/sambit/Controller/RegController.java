@@ -187,7 +187,7 @@ public class RegController {
         return "ViewPersonalDetails";
     }
 
-    @GetMapping("UploadImage")
+    @GetMapping("       ")
     public ModelAndView uploadImage(){
         ModelAndView mav = new ModelAndView("UploadImage");
 //        mav.addObject("uploadImage", new ImageBean());
