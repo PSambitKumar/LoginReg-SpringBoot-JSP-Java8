@@ -32,7 +32,7 @@ public class ZipFileController {
 
 
 //	Download Zip File Using Web Button Click
-	@GetMapping(value = "/downloadZipFile")
+	@PostMapping(value = "/downloadZipFile")
 	public void downloadZipFile(HttpServletResponse httpServletResponse) throws IOException {
 		String filePath = "C:\\Users\\sambit.pradhan\\Desktop\\Data\\Desktop.zip";
 
@@ -149,6 +149,7 @@ public class ZipFileController {
 		}
 	}
 
+//	Method 1
 	@GetMapping(value = "/readExcelFileFromZipFileUsingApachePOI")
 	public void readExcelFileFromZipFileUsingApachePOI() {
 		try {
@@ -177,6 +178,43 @@ public class ZipFileController {
 			zipInputStream.close();
 			fileInputStream.close();
 		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+//	Method 2
+	@GetMapping(value = "/readExcelFileFromZipFileUsingApachePOI2")
+	public void readExcelFileFromZipFileUsingApachePOI2() {
+		try {
+			ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream("C:\\Users\\sambit.pradhan\\Desktop\\Desktop.zip"));
+			ZipEntry zipEntry = zipInputStream.getNextEntry();
+			while (zipEntry != null) {
+				System.out.println("File Name: " + zipEntry.getName());
+
+				Workbook workbook = WorkbookFactory.create(zipInputStream);
+				System.out.println("Sheet Name: " + workbook.getSheetName(0));
+
+				int rows = workbook.getSheetAt(0).getLastRowNum();
+				System.out.println("Rows : " + rows);
+
+				int cols = workbook.getSheetAt(0).getRow(0).getLastCellNum();
+				System.out.println("Cols : " + cols);
+
+//				Printing Each Row
+				for (int i = 0; i < rows; i++) {
+					for (int j = 0; j < cols; j++) {
+						Sheet sheet = workbook.getSheetAt(0);
+						System.out.print(sheet.getRow(i).getCell(j) + " | ");
+					}
+					System.out.println("\n");
+				}
+				zipEntry = zipInputStream.getNextEntry();
+			}
+			zipInputStream.closeEntry();
+			zipInputStream.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		} catch (InvalidFormatException e) {
 			throw new RuntimeException(e);
 		}
 	}
