@@ -6,7 +6,7 @@ import java.util.Scanner;
  * @Project : Registration
  * @Auther : Sambit Kumar Pradhan
  * @Created On : 12/11/2022 - 9:54 PM
- */
+ **/
 public class LetsReview {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
