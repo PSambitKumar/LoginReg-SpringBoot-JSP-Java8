@@ -18,7 +18,7 @@ public class TestController {
 	public String getHospitalBySno() {
 		JSONObject jsonObject = new JSONObject();
 		RestTemplate restTemplate = new RestTemplate();
-		String response, requestURL = "http://localhost:8299/mobileApi/getHospitalBySNO1";
+		String response, requestURL = "http://localhost:8299/mobileApi/getHospitalBySNO";
 		try {
 			jsonObject.put("userId", 1914);
 			jsonObject.put("stateCode", "21");
