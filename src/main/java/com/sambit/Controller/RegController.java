@@ -400,7 +400,8 @@ public class RegController {
 //        Method 1
         JSONObject jsonObject = new JSONObject(bankDetails);
         System.out.println("Bank Details Data : " + jsonObject);
-        System.out.println(jsonObject.get("BANK"));
+        System.out.println(jsonObject.get("BANK"));//Can Get Using get
+        System.out.println(jsonObject.getString("BANK"));//Also Can Get Using getString
 
 //        Method 2
 //        Converting JSON String to ModeL Class
