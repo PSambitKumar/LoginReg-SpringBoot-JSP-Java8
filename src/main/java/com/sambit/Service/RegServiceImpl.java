@@ -16,6 +16,7 @@ import com.sambit.Repository.*;
 import com.sambit.Utils.UserCodeGeneration;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -639,4 +640,22 @@ public class RegServiceImpl implements RegService{
     public Reg getRegByUserCode(String userCode) {
         return regRepository.findByUserCode(userCode);
     }
+
+
+//    For Study Purpose of Joining Table
+//    public String study(){
+//        List<Object[]> objects = hospitalInformationRepository.getHospitalInformationByDcId(userId);
+//        System.out.println("objects::"+objects);
+//        for (Object[] object : objects) {
+//            JSONObject jsonObject1 = new JSONObject();
+//            jsonObject1.put("hospitalCode", object[0]);
+//            jsonObject1.put("hospitalName", object[1]);
+//            jsonObject1.put("stateName", object[2]);
+//            jsonObject1.put("districtName", object[3]);
+//            jsonObject1.put("status", object[4]);
+//            System.out.println("jsonObject1 : "+jsonObject1);
+//            jsonArray1.put(jsonObject1);
+//        }
+//        System.out.println("JSON Array1::" + jsonArray1);
+//    }
 }
