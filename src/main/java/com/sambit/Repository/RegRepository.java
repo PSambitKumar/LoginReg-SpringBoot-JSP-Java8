@@ -31,7 +31,7 @@ public interface RegRepository extends JpaRepository<Reg, Integer> {
 //            "FROM HospitalInformation h " +
 //            "LEFT JOIN State s ON h.stateCode=s.stateCode " +
 //            "LEFT JOIN DistrictMaster d ON h.districtcode=d.districtcode " +
-//            "WHERE h.assigned_dc=:userId ORDER BY h.hospitalId DESC")
+//            "WHERE h.assigned_dc = :userId ORDER BY h.hospitalId DESC")
 //    List<Object[]> getHospitalInformationByDcId(Long userId);
 
 //    NATIVE QUERY
