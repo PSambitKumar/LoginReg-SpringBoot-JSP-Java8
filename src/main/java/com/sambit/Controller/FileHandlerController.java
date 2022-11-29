@@ -26,6 +26,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.*;
 import java.util.Arrays;
+import java.util.Base64;
 import java.util.List;
 
 /**
@@ -275,6 +276,20 @@ public class FileHandlerController {
 		}
 	}
 
+	@GetMapping(value = "/encodedStringConvert")
+	public String encodedStringConvert(){
+		String uploadPath = "C:/BSKY/2022/21063021/surgery picture/PreSurgery/PRETSX_410944_20221110115413691743Pre Surgery.jpg";
+		System.out.println("Uploaded Path : " + uploadPath);
 
+		try {
+			byte[] fileContent = Files.readAllBytes(Paths.get(uploadPath));
+			System.out.println("File Content : " + Arrays.toString(fileContent));
+			String encodedString = Base64.getEncoder().encodeToString(fileContent);
+			System.out.println("Encoded String : " + encodedString);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
 

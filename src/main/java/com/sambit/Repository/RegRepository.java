@@ -41,4 +41,7 @@ public interface RegRepository extends JpaRepository<Reg, Integer> {
 //            "INNER JOIN DISTRICT on HOSPITAL_INFO.DISTRICT_CODE = DISTRICT.DISTRICTCODE " +
 //            "WHERE HOSPITAL_INFO.ASSIGNED_DC = ?1", nativeQuery = true)
 //    List<Object[]> getHospitalInformationList(Long userId);
+
+//    @Query(value = "FROM MobileVersion mv WHERE mv.id = (SELECT MAX(mv1.id) FROM MobileVersion mv1)")
+//    MobileVersion getMobileVersionByMaxId();
 }
