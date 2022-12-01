@@ -23,6 +23,8 @@ import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -596,7 +598,11 @@ public class RegController {
         regService.generateRegistrationPDFReport(httpServletResponse);
     }
 
-
-
-
+    @GetMapping(value = "storeDataInHash")
+    public void storeDataInHash(){
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("Name", "Sambit");
+        map.add("Name", "Sambit");
+        System.out.println("Map Data : " + map);
+    }
 }
