@@ -127,5 +127,11 @@ public class CircularLinkedList {
 		}
 	}
 
+//	Add Multiple Node
+	void addMultipleNode(int... data){
+		for (int i : data){
+			addNode(i);
+		}
+	}
 
 }
