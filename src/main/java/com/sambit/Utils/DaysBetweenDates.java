@@ -47,4 +47,23 @@ public class DaysBetweenDates {
 		}
 		return daysBetween;
 	}
+
+	public static int totalDaysBetweenDates(String fromDate, String toDate){
+		int daysBetween = 0;
+		SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
+		try {
+			Date createdDate1 = myFormat.parse(fromDate);
+			Date currentDate1 = myFormat.parse(toDate);
+			long difference = (createdDate1.getTime()-currentDate1.getTime());
+			daysBetween = (int)(difference / (1000*60*60*24));
+			System.out.println("Number of Days : "+daysBetween);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return daysBetween;
+	}
+
+	public static void main(String[] args) {
+		int totalDays = totalDaysBetweenDates("02 11 2021", "02 12 2022");
+	}
 }

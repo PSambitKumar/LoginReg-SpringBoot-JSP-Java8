@@ -1,5 +1,8 @@
 package com.sambit.CompetitvePractice.HackerRank.Java;
 
+import java.util.ArrayList;
+import java.util.Scanner;
+
 /**
  * @Project : Registration
  * @Auther : Sambit Kumar Pradhan
