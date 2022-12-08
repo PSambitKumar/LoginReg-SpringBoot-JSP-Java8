@@ -1,5 +1,6 @@
 package com.sambit.Utils;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -52,9 +53,9 @@ public class DaysBetweenDates {
 		int daysBetween = 0;
 		SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
 		try {
-			Date createdDate1 = myFormat.parse(fromDate);
-			Date currentDate1 = myFormat.parse(toDate);
-			long difference = (createdDate1.getTime()-currentDate1.getTime());
+			Date fromDate1 = myFormat.parse(fromDate);
+			Date toDate1 = myFormat.parse(toDate);
+			long difference = (toDate1.getTime()-fromDate1.getTime());
 			daysBetween = (int)(difference / (1000*60*60*24));
 			System.out.println("Number of Days : "+daysBetween);
 		} catch (Exception e) {
@@ -63,7 +64,12 @@ public class DaysBetweenDates {
 		return daysBetween;
 	}
 
-	public static void main(String[] args) {
-		int totalDays = totalDaysBetweenDates("02 11 2021", "02 12 2022");
+	public static void main(String[] args) throws ParseException {
+		String fromDate = "08 11 2021";
+//		Convert String fromDate to Date
+		SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
+		Date createdDate = myFormat.parse(fromDate);
+		float days = daysCountBetweenDates(createdDate);
+		System.out.println("Data : " + days);
 	}
 }
