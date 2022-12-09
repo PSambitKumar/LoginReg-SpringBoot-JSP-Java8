@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
+import java.util.concurrent.TimeUnit;
 
 //@Auther : Sambit Kumar Pradhan
 public class DaysBetweenDates {
@@ -51,7 +52,8 @@ public class DaysBetweenDates {
 
 	public static int totalDaysBetweenDates(String fromDate, String toDate){
 		int daysBetween = 0;
-		SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
+		SimpleDateFormat myFormat = new SimpleDateFormat("ddMMyyyy");
+//		SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
 		try {
 			Date fromDate1 = myFormat.parse(fromDate);
 			Date toDate1 = myFormat.parse(toDate);
@@ -64,6 +66,20 @@ public class DaysBetweenDates {
 		return daysBetween;
 	}
 
+	public static long daysBetween(String dateOfAdmission, String dateOfDischarge) {
+		SimpleDateFormat myFormat = new SimpleDateFormat("dd/MM/yyyy");
+		long daysBetween = 0;
+		try {
+			Date date1 = myFormat.parse(dateOfAdmission);
+			Date date2 = myFormat.parse(dateOfDischarge);
+			long diff = date2.getTime() - date1.getTime();
+			daysBetween = TimeUnit.DAYS.convert(diff, TimeUnit.MILLISECONDS);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return daysBetween;
+	}
+
 	public static void main(String[] args) throws ParseException {
 		String fromDate = "08 11 2021";
 //		Convert String fromDate to Date
@@ -71,5 +87,8 @@ public class DaysBetweenDates {
 		Date createdDate = myFormat.parse(fromDate);
 		float days = daysCountBetweenDates(createdDate);
 		System.out.println("Data : " + days);
+
+		int days1 = totalDaysBetweenDates("01012022", "01022023");
+		System.out.println("Data 1 : " + days1);
 	}
 }
