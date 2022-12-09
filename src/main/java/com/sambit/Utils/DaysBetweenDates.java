@@ -8,6 +8,8 @@ import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
 //@Auther : Sambit Kumar Pradhan
+
+@SuppressWarnings("deprecation")
 public class DaysBetweenDates {
 	public static float daysCountBetweenDates(Date createdDate){
 		float daysBetween = 0;
@@ -80,15 +82,49 @@ public class DaysBetweenDates {
 		return daysBetween;
 	}
 
+	public static float totalYearsBetweenDates(String fromDate, String toDate){
+		float yearsBetween = 0;
+		SimpleDateFormat myFormat = new SimpleDateFormat("ddMMyyyy");
+		try {
+			Date fromDate1 = myFormat.parse(fromDate);
+			Date toDate1 = myFormat.parse(toDate);
+			long difference = (toDate1.getTime()-fromDate1.getTime());
+			yearsBetween = (float)(difference / (1000*60*60*24*365.25));
+			System.out.println("Number of Years : "+yearsBetween);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return yearsBetween;
+	}
+
+	public static int totalMonthsBetweenDates(String fromDate, String toDate){
+		int monthsBetween = 0;
+		SimpleDateFormat myFormat = new SimpleDateFormat("ddMMyyyy");
+		try {
+			Date fromDate1 = myFormat.parse(fromDate);
+			Date toDate1 = myFormat.parse(toDate);
+			monthsBetween = (toDate1.getYear() - fromDate1.getYear()) * 12 + (toDate1.getMonth() - fromDate1.getMonth());
+			System.out.println("Number of Months : "+monthsBetween);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return monthsBetween;
+	}
+
 	public static void main(String[] args) throws ParseException {
 		String fromDate = "08 11 2021";
-//		Convert String fromDate to Date
 		SimpleDateFormat myFormat = new SimpleDateFormat("dd MM yyyy");
 		Date createdDate = myFormat.parse(fromDate);
 		float days = daysCountBetweenDates(createdDate);
-		System.out.println("Data : " + days);
+		System.out.println("Number Of Days : " + days);
 
 		int days1 = totalDaysBetweenDates("01012022", "01022023");
-		System.out.println("Data 1 : " + days1);
+		System.out.println("Number Of Days : " + days1);
+
+		float years = totalYearsBetweenDates("01012022", "01022023");
+		System.out.println("Number Of Years : " + years);
+
+		int months = totalMonthsBetweenDates("01012022", "01022023");
+		System.out.println("Number Of Months : " + months);
 	}
 }
