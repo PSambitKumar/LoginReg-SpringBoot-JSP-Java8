@@ -134,4 +134,9 @@ public class CircularLinkedList {
 		}
 	}
 
+	void deleteAllNode(){
+		head = null;
+		tail = null;
+	}
+
 }

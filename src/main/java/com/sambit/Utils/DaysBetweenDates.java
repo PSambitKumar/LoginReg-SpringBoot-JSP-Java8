@@ -11,8 +11,8 @@ import java.util.concurrent.TimeUnit;
 
 @SuppressWarnings("deprecation")
 public class DaysBetweenDates {
-	public static float daysCountBetweenDates(Date createdDate){
-		float daysBetween = 0;
+	public static long daysCountBetweenDates(Date createdDate){
+		long daysBetween = 0;
 
 //		For Current Date Using LocalDateTime
 		DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd MM yyyy");
