@@ -597,7 +597,6 @@ public class RegController {
     public void generateRegistrationPDFReport(HttpServletResponse httpServletResponse) throws DocumentException, IOException {
         regService.generateRegistrationPDFReport(httpServletResponse);
     }
-
     @GetMapping(value = "storeDataInHash")
     public void storeDataInHash(){
         MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
