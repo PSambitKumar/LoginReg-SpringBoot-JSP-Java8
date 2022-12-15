@@ -30,4 +30,8 @@ public class StringManupulation {
         }
         return count;
     }
+
+    public int countTotalNoOfCharactersInAString(String str) {
+        return str.length();
+    }
 }
