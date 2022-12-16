@@ -87,7 +87,7 @@ public class VerifyGepNIC {
             return "Fail";
     }
 
-    public static JSONObject GepNIC(String gepNIC) throws IOException, JSONException {
+    public static String GepNIC(String gepNIC) throws IOException, JSONException {
         gepNIC = "DCAADPR2318544S";
         String panNumber = "CASPR2625C";
 //        SOAP API Calling
@@ -150,6 +150,6 @@ public class VerifyGepNIC {
         String jsonPrettyPrintString = xmlJSONObj.toString(4);
         System.out.println("JSON : " + jsonPrettyPrintString);
 
-        return xmlJSONObj;
+        return xmlJSONObj.toString();
     }
 }
