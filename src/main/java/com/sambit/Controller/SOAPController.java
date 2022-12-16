@@ -1,8 +1,9 @@
 package com.sambit.Controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import com.sambit.Utils.VerifyGepNIC;
+import org.json.JSONException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
@@ -87,6 +88,12 @@ public class SOAPController {
 
 
         return outputString.toString();
+    }
+
+    @PostMapping(value = "/verifyGepNIC")
+    public ResponseEntity<?> verifyGepNIC() throws JSONException, IOException {
+        System.out.println("Verify GepNIC");
+        return ResponseEntity.ok(VerifyGepNIC.GepNIC("DCAADPR2318544S"));
     }
 }
 
