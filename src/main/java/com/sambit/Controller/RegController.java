@@ -20,6 +20,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.XML;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -51,6 +52,7 @@ import static java.util.stream.Collectors.toCollection;
 @Controller
 public class RegController {
 
+    private static final int PRETTY_PRINT_INDENT_FACTOR = 4;
     @Autowired
     RegRepository regRepository;
 
@@ -603,5 +605,17 @@ public class RegController {
         map.add("Name", "Sambit");
         map.add("Name", "Sambit");
         System.out.println("Map Data : " + map);
+    }
+
+    public static void convertXMLtoJSON() throws IOException, JSONException {
+        String xml = "<note>\n" +
+                "  <to>Tove</to>\n" +
+                "  <from>Jani</from>\n" +
+                "  <heading>Reminder</heading>\n" +
+                "  <body>Don't forget me this weekend!</body>\n" +
+                "</note>";
+        JSONObject xmlJSONObj = XML.toJSONObject(xml);
+        String jsonPrettyPrintString = xmlJSONObj.toString(PRETTY_PRINT_INDENT_FACTOR);
+        System.out.println(jsonPrettyPrintString);
     }
 }
