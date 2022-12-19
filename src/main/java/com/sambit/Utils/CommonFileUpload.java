@@ -2,8 +2,10 @@ package com.sambit.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.FileCopyUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLConnection;
@@ -13,6 +15,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
+import java.util.ResourceBundle;
 import java.util.Scanner;
 
 public class CommonFileUpload {
@@ -22,6 +26,8 @@ public class CommonFileUpload {
     private static final String uploadedFolderInWindows="C://RegistrationData//Documents//";
     private static final String uploadedFolderInLinux="/opt/RegistrationData/Documents/";
     public static String operatingSystem = System.getProperty("os.name").toLowerCase().trim();
+
+    private static final ResourceBundle fileResourceBundle = ResourceBundle.getBundle("file.configuration");
 
 
 //    Color
@@ -322,5 +328,47 @@ public static String typeOfOperatingSystem(){
     }
     return filePath;
 }
+
+    public static void saveFileToServer(MultipartFile file, String folderPath, String customFileName){
+        byte[] bytes;
+        try {
+            bytes = file.getBytes();
+            Path path =  Paths.get(folderPath + "/" + customFileName);
+            Files.write(path, bytes);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static boolean saveFileHospitalImage(MultipartFile hospitalImageFile, String hospitalCode, String year) {
+        boolean isSaved = false;
+        String fileName, customFileName, folderName, filePath, docPath;
+        try {
+            fileName = StringUtils.cleanPath(Objects.requireNonNull(hospitalImageFile.getOriginalFilename()));
+            customFileName = fileResourceBundle.getString("file.hospitalImage.prefix") + "_" + year + "_" + hospitalCode + "_" + fileName;
+            folderName = fileResourceBundle.getString("file.path.HospitalImage");
+            filePath = year + "/" + hospitalCode + "/" + folderName;
+            docPath = getDocumentPath(filePath);
+            System.out.println("File Upload Full Path : " + docPath);
+            File file = new File(docPath + "/" + customFileName);
+            if (!file.exists()) {
+                System.out.println("File Not Exist");
+                boolean mkdirs = file.getParentFile().mkdirs();
+                if (mkdirs) {
+                    System.out.println("Missing Directory Created");
+                }
+                saveFileToServer(hospitalImageFile, docPath, customFileName);
+                if (file.exists()) {
+                    System.out.println("File Saved To Server, Path : " + docPath + "/" + customFileName);
+                    isSaved = true;
+                }
+            } else {
+                System.out.println("File Exist");
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return isSaved;
+    }
 }
 
