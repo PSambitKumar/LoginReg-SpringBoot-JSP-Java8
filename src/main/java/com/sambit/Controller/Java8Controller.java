@@ -24,6 +24,7 @@ import java.util.function.BiFunction;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import static java.util.function.UnaryOperator.identity;
@@ -446,6 +447,59 @@ public class Java8Controller {
 
 		return sum +", " + sum1;
 	}
+
+	public String removeDuplicateDataFromStringArray(){
+		String[] names = {"Sambit", "Debabrata", "Dillip", "Mohit", "Sambit", "Debabrata", "Dillip", "Mohit"};
+		List<String> list = Arrays.asList(names);
+		Set<String> set = new HashSet<>(list);
+		System.out.println("Set : " + set);
+		return null;
+	}
+
+	public String sortStringArray(){
+		String[] names = {"Sambit", "Debabrata", "Dillip", "Mohit", "Sambit", "Debabrata", "Dillip", "Mohit"};
+		List<String> list = Arrays.asList(names);
+		Collections.sort(list);
+		System.out.println("Sorted List : " + list);
+		return null;
+	}
+
+	public String sortStringArrayUsingStream(){
+		String[] names = {"Sambit", "Debabrata", "Dillip", "Mohit", "Sambit", "Debabrata", "Dillip", "Mohit"};
+		Stream<String> stream = Stream.of(names);
+		stream.sorted().forEach(System.out::println);
+		return null;
+	}
+
+	public String removeNullFromStringArray(){
+		String[] names = {"Sambit", "Debabrata", "Dillip", "Mohit", "Sambit", "Debabrata", "Dillip", "Mohit", null};
+		List<String> list = Arrays.asList(names);
+		List<String> list1 = list.stream().filter(Objects::nonNull).collect(Collectors.toList());
+		System.out.println("List : " + list1);
+		return null;
+	}
+
+	public String removeNullFromStringArrayUsingStream(){
+		String[] names = {"Sambit", "Debabrata", "Dillip", "Mohit", "Sambit", "Debabrata", "Dillip", "Mohit", null};
+		Stream<String> stream = Stream.of(names);
+		stream.filter(Objects::nonNull).forEach(System.out::println);
+		return null;
+	}
+
+	public String removeDuplicateDataFromStringArrayUsingStream(){
+		String[] names = {"Sambit", "Debabrata", "Dillip", "Mohit", "Sambit", "Debabrata", "Dillip", "Mohit"};
+		Stream<String> stream = Stream.of(names);
+		stream.distinct().forEach(System.out::println);
+		return null;
+	}
+
+	public String sortStringArrayUsingStreamAndComparator(){
+		String[] names = {"Sambit", "Debabrata", "Dillip", "Mohit", "Sambit", "Debabrata", "Dillip", "Mohit"};
+		Stream<String> stream = Stream.of(names);
+		stream.sorted(Comparator.reverseOrder()).forEach(System.out::println);
+		return null;
+	}
+
 
 }
 

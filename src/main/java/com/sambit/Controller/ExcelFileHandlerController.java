@@ -458,7 +458,9 @@ public class ExcelFileHandlerController {
 
 //            Removing Duplicate From List
             List<Postal> uniquePostal = postalList.stream()
-                    .collect(collectingAndThen(toCollection(() -> new TreeSet<>(comparingDouble(Postal::getOfcId))), ArrayList::new));
+                    .collect(collectingAndThen(toCollection(() -> new TreeSet<>(
+                            comparingDouble(Postal::getOfcId))), ArrayList::new)
+                    );
 
 //            Setting Null Value to the ID
             for (Postal postal1 : uniquePostal) {
