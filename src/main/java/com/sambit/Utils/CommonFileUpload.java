@@ -1,4 +1,5 @@
 package com.sambit.Utils;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.FileCopyUtils;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -369,6 +371,91 @@ public static String typeOfOperatingSystem(){
             throw new RuntimeException(e);
         }
         return isSaved;
+    }
+
+    public static String saveFileDCImage(MultipartFile dcImageFile, String hospitalCode,  Long dcUserId, String year)throws Exception {
+        String fileName, customFileName, folderName, filePath, docPath, responsePath = null;
+        try {
+            fileName = StringUtils.cleanPath(Objects.requireNonNull(dcImageFile.getOriginalFilename()));
+            String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
+            customFileName = "DCIM" + "_" + year + "_" + dcUserId + "." + fileExtension;
+            folderName = "DCImage";
+            filePath = year + "/" + hospitalCode + "/" + folderName;
+            docPath = getDocumentPath(filePath);
+			System.out.println("File Upload Full Path : " + docPath);
+            File file = new File(docPath + "/" + customFileName);
+            if (!file.exists()) {
+				System.out.println("File Not Exist");
+                boolean mkdirs = file.getParentFile().mkdirs();
+                if (mkdirs) {
+					System.out.println("Missing Directory Created");
+                }
+                saveFileToServer(dcImageFile, docPath, customFileName);
+                if (file.exists()) {
+					System.out.println("File Saved To Server, Path : " + docPath + "/" + customFileName);
+                    responsePath = docPath + "/" + customFileName;
+                }
+            } else {
+				System.out.println("File Exist");
+                responsePath = docPath + "/" + customFileName;
+                throw new Exception("Selfie Image Already Exist, You Can't Upload Same File Again");
+            }
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+        return responsePath;
+    }
+
+    public static String getDCImageCompletePath(String dcFileName, String Year, String hospitalCode) {
+        String folderName = "DCImage";
+        String filePath = Year + "/" + hospitalCode + "/" + folderName;
+        String docPath = getDocumentPath(filePath);
+        return docPath + "/" + dcFileName;
+    }
+
+    public static String getHospitalImageCompletePath(String hospitalFileName, String Year, String hospitalCode) {
+        String folderName = "HospitalImage";
+        String filePath = Year + "/" + hospitalCode + "/" + folderName;
+        String docPath = getDocumentPath(filePath);
+        return docPath + "/" + hospitalFileName;
+    }
+
+//    Can Check Using PostMan
+    public static void downloadDCUploadedFile(JSONObject jsonObject, HttpServletResponse httpServletResponse) throws Exception {
+        String filePath = null;
+
+        if (jsonObject.getString("imageFileName").split("_")[0].equalsIgnoreCase("HOSIMG")) {
+            filePath = CommonFileUpload.getHospitalImageCompletePath(
+                    jsonObject.getString("imageFileName"),
+                    jsonObject.getString("createdDate").substring(jsonObject.getString("createdDate").lastIndexOf("/") + 1),
+                    jsonObject.getString("hospitalCode")
+            );
+        } else if (jsonObject.getString("imageFileName").split("_")[0].equalsIgnoreCase("DCIMG")) {
+            filePath = CommonFileUpload.getDCImageCompletePath(
+                    jsonObject.getString("imageFileName"),
+                    jsonObject.getString("createdDate").substring(jsonObject.getString("createdDate").lastIndexOf("/") + 1),
+                    jsonObject.getString("hospitalCode")
+            );
+        }
+        File file = new File(filePath);
+
+        if (!file.exists()) {
+            String errorMessage = "Sorry! File You are Looking For Doesn't Exist";
+            OutputStream outputStream = httpServletResponse.getOutputStream();
+            outputStream.write(errorMessage.getBytes(StandardCharsets.UTF_8));
+            outputStream.close();
+        } else {
+            String mimeType = URLConnection.guessContentTypeFromName(file.getName());
+            if (mimeType == null) {
+                mimeType = "application/octet-stream";
+            }
+            httpServletResponse.setContentType(mimeType);
+            httpServletResponse.setHeader("Content-Disposition", String.format("inline; filename=\"" + file.getName() + "\""));
+            httpServletResponse.setContentLength((int) file.length());
+            InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
+
+            FileCopyUtils.copy(inputStream, httpServletResponse.getOutputStream());
+        }
     }
 }
 
