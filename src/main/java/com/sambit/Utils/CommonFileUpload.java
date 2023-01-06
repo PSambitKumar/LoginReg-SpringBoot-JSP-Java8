@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.PushBuilder;
 import java.io.*;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -457,5 +458,23 @@ public static String typeOfOperatingSystem(){
             FileCopyUtils.copy(inputStream, httpServletResponse.getOutputStream());
         }
     }
+
+    public String checkFileExtension(String fileName) {
+        String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        if (fileExtension.equalsIgnoreCase("jpg") || fileExtension.equalsIgnoreCase("jpeg") || fileExtension.equalsIgnoreCase("png")) {
+            return fileExtension;
+        } else {
+            return null;
+        }
+    }
+    public String checkDocumentExtension(String fileName) {
+        String fileExtension = fileName.substring(fileName.lastIndexOf(".") + 1);
+        if (fileExtension.equalsIgnoreCase("pdf") || fileExtension.equalsIgnoreCase("doc") || fileExtension.equalsIgnoreCase("docx")) {
+            return fileExtension;
+        } else {
+            return null;
+        }
+    }
+
 }
 
