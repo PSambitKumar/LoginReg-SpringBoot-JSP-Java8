@@ -1,4 +1,8 @@
 package com.sambit.Utils;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -6,9 +10,7 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.PushBuilder;
 import java.io.*;
 import java.net.URLConnection;
 import java.nio.charset.Charset;
@@ -44,9 +46,9 @@ public class CommonFileUpload {
     public static String createFolder(String folderName){
         String filePath = "";
         String result= null;
-//        System.out.println("Logger" + logger.toString() +  "Name: " +  logger.getName());
-//        System.out.println("Operating System--------------> " + ansiGreen + operatingSystem + ansiReset);
-//        System.out.println("System Properties--------------> " + ansiGreen + System.getProperties() + ansiReset);
+        System.out.println("Logger" + logger.toString() +  "Name: " +  logger.getName());
+        System.out.println("Operating System--------------> " + ansiGreen + operatingSystem + ansiReset);
+        System.out.println("System Properties--------------> " + ansiGreen + System.getProperties() + ansiReset);
 //        operatingSystem.indexOf("windows") >= 0 Instead of  operatingSystem.contains("windows")----------can Used but Not Appropriate
         if (operatingSystem.contains("windows")){
             logger.info("This is " + ansiGreen + System.getProperty("user.name") + " Windows" + ansiReset);
@@ -199,9 +201,9 @@ public class CommonFileUpload {
         String extension=originalFileName.substring(lastIndexOfDot,originalFileName.length());
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
         LocalDateTime now = LocalDateTime.now();
-        String numbers[] = dtf.format(now).split("\\s+");
-        String number1[] = numbers[0].split("/");
-        String number2[] = numbers[1].split(":");
+        String[] numbers = dtf.format(now).split("\\s+");
+        String[] number1 = numbers[0].split("/");
+        String[] number2 = numbers[1].split(":");
         String generateFileNoSuffix =number1[0]+number1[1]+number1[2]+number2[0]+number2[1]+number2[2];
         fileName=fileName+generateFileNoSuffix+extension;
         return fileName;
@@ -210,7 +212,7 @@ public class CommonFileUpload {
 
     public static File convert(MultipartFile file) throws IOException
     {
-        File convFile = new File(file.getOriginalFilename());
+        File convFile = new File(Objects.requireNonNull(file.getOriginalFilename()));
         convFile.createNewFile();
         FileOutputStream fos = new FileOutputStream(convFile);
         fos.write(file.getBytes());
@@ -221,12 +223,12 @@ public class CommonFileUpload {
 
     public static String getDocumentPath(String filePath){
         String docPath = "";
-        if (operatingSystem.indexOf("win") >= 0) {
+        if (operatingSystem.contains("win")) {
             logger.info("This is Windows");
             docPath = windowsRootFolder+filePath;
             System.out.println("Document Path : " + docPath);
         }
-        else if (operatingSystem.indexOf("nix") >= 0 || operatingSystem.indexOf("nux") >= 0 || operatingSystem.indexOf("aix") > 0 ) {
+        else if (operatingSystem.contains("nix") || operatingSystem.contains("nux") || operatingSystem.indexOf("aix") > 0 ) {
             logger.info("This is Unix or Linux");
             docPath = linuxRootFolder+filePath;
             System.out.println("Document Path : " + docPath);
@@ -321,11 +323,11 @@ public class CommonFileUpload {
 //    Operating Systems
 public static String typeOfOperatingSystem(){
     String filePath = "";
-    if (operatingSystem.indexOf("win") >= 0) {
+    if (operatingSystem.contains("win")) {
         logger.info("This is Windows");
         filePath = "Windows";
     }
-    else if (operatingSystem.indexOf("nix") >= 0 || operatingSystem.indexOf("nux") >= 0 || operatingSystem.indexOf("aix") > 0 ) {
+    else if (operatingSystem.contains("nix") || operatingSystem.contains("nux") || operatingSystem.indexOf("aix") > 0 ) {
         logger.info("This is Unix or Linux");
         filePath = "Linux";
     }
@@ -473,6 +475,52 @@ public static String typeOfOperatingSystem(){
             return fileExtension;
         } else {
             return null;
+        }
+    }
+
+    public static void mergeImageFiles() {
+        try {
+            String filePath = "C:\\BSKY\\2022\\21122004\\surgery picture\\IntraSurgeryPic\\INTR_213659_202301101712085049381.jpg";
+            String filePath1 = "C:\\BSKY\\2022\\21122004\\surgery picture\\PostSurgery\\POSTSX_213659_202301101712085049381.jpg";
+            String filePath2 = "C:\\BSKY\\2022\\21122004\\surgery picture\\PreSurgery\\PRETSX_213659_202301101712085049381.jpg";
+
+            PDDocument doc = new PDDocument();
+            PDPage page = new PDPage();
+            doc.addPage(page);
+            PDPageContentStream contentStream = new PDPageContentStream(doc, page);
+            PDImageXObject pdImage = PDImageXObject.createFromFile(filePath, doc);
+            PDImageXObject pdImage1 = PDImageXObject.createFromFile(filePath1, doc);
+            PDImageXObject pdImage2 = PDImageXObject.createFromFile(filePath2, doc);
+//			SET CENTER IMAGE
+            contentStream.drawImage(pdImage, 0, 0, 595, 842);
+////			SET LEFT IMAGE
+//			contentStream.drawImage(pdImage1, 0, 0, 297, 842);
+////			SET RIGHT IMAGE
+//			contentStream.drawImage(pdImage2, 297, 0, 297, 842);
+            contentStream.close();
+            doc.save("C:\\BSKY\\DATA1.pdf");
+            doc.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void mergePDFFiles() {
+        String filePath = "C:\\Users\\sambit.pradhan\\Desktop\\1.pdf";
+        String filePath1 = "C:\\Users\\sambit.pradhan\\Desktop\\2.pdf";
+        try {
+            System.out.println("Start");
+            PDDocument doc = new PDDocument();
+            PDDocument doc1 = new PDDocument();
+            doc = PDDocument.load(new File(filePath));
+            doc1 = PDDocument.load(new File(filePath1));
+            doc.addPage(doc1.getPage(0));
+            doc.save("C:\\Users\\sambit.pradhan\\Desktop\\3.pdf");
+            doc.close();
+            doc1.close();
+            System.out.println("End");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
