@@ -127,4 +127,8 @@ public class DaysBetweenDates {
 		int months = totalMonthsBetweenDates("01012022", "01022023");
 		System.out.println("Number Of Months : " + months);
 	}
+
+	public static int getDaysUsingMonthAndYear(int month, int year){
+		return new SimpleDateFormat("dd").format(new Date(year, month, 0)).equals("31") ? 31 : new SimpleDateFormat("dd").format(new Date(year, month, 0)).equals("30") ? 30 : new SimpleDateFormat("dd").format(new Date(year, month, 0)).equals("29") ? 29 : 28;
+	}
 }

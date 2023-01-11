@@ -16,6 +16,11 @@ public class Map {
             System.out.println(entry.getKey() + " = " + entry.getValue());
         }
 
+//        Iterate map using Java 8 forEach and lambda
+        map.forEach((k, v) -> {
+            System.out.println("Key : " + k + " Value : " + v);
+        });
+
         System.out.println("====================================");
     }
 }
