@@ -2,7 +2,9 @@ package com.sambit.Utils;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,11 +20,10 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
-import java.util.ResourceBundle;
-import java.util.Scanner;
+import java.util.*;
 
 public class CommonFileUpload {
     public static final Logger logger = LoggerFactory.getLogger(CommonFileUpload.class);
@@ -521,6 +522,169 @@ public static String typeOfOperatingSystem(){
             System.out.println("End");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+    }
+
+    public static void downloadAllMergedDocumentFiles() throws IOException {
+        List<String> pathList = new ArrayList<>();
+        PDDocument mergedPDFDocument = new PDDocument();
+        List<PDDocument> pdfDocuments = new ArrayList<>();
+        pathList.add("C:\\BSKY\\2022\\21122004\\surgery picture\\IntraSurgeryPic\\INTR_213659_202301101712085049381.jpg");
+        pathList.add("C:\\BSKY\\2022\\21122004\\surgery picture\\PostSurgery\\POSTSX_213659_202301101712085049381.jpg");
+        pathList.add("C:\\BSKY\\2022\\21122004\\surgery picture\\PreSurgery\\PRETSX_213659_202301101712085049381.jpg");
+        pathList.add("C:\\Users\\sambit.pradhan\\Desktop\\1.pdf");
+
+        for (String path : pathList) {
+//            String fullFilePath = CommonFileUpload.getFullDocumentPath(fileName, year, hospitalCode, CommonFileUpload.getFolderName(fileName));
+            System.out.println("Full File Path : " + path);
+
+            PDDocument doc = new PDDocument();
+            PDPage page = new PDPage();
+            doc.addPage(page);
+            PDPageContentStream contentStream = new PDPageContentStream(doc, page);
+            PDImageXObject pdImage = PDImageXObject.createFromFile(path, doc);
+            contentStream.drawImage(pdImage, 0, 0, 595, 842);
+            contentStream.close();
+            pdfDocuments.add(doc);
+        }
+
+        for (PDDocument pdfDocument : pdfDocuments) {
+            mergedPDFDocument.addPage(pdfDocument.getPage(0));
+        }
+
+        String destinationFilePath = "C:\\BSKY\\" + "mergedDocumentFile.pdf";
+        mergedPDFDocument.save(destinationFilePath);
+    }
+
+    public static String getDocumentPath1(String filePath){
+        String docPath = "";
+        if (operatingSystem.contains("win")) {
+            docPath = windowsRootFolder.trim()+filePath.trim();
+        }
+        else if (operatingSystem.contains("nix") || operatingSystem.contains("nux") || operatingSystem.indexOf("aix") > 0 ) {
+            docPath = linuxRootFolder.trim()+filePath.trim();
+        }
+        return docPath;
+    }
+
+    public static String getFullDocumentPath(String fileName, String year, String hospitalCode,  String folderName) {
+        return getDocumentPath1(year + "/" + hospitalCode + "/" + folderName.trim() + "/" + fileName);
+    }
+
+
+    public static String getFolderName(String fileName){
+        String newName = fileName.split("_")[0];
+//		System.out.println("File Prefix Name : "+newName);
+        String folderName;
+        if (newName.equals(fileResourceBundle.getString("file.presurgery-pic.prefix"))) {
+            folderName = fileResourceBundle.getString("folder.patient.presurg.photo");
+        } else if (newName.equals(fileResourceBundle.getString("file.postsurgery-pic.prefix"))) {
+            folderName = fileResourceBundle.getString("folder.patient.postsurg.photo");
+        } else if (newName.equals(fileResourceBundle.getString("file.DischargeSlip.prefix"))) {
+            folderName = fileResourceBundle.getString("folder.DischargeSlip");
+        } else if (newName.equals(fileResourceBundle.getString("file.AdditionalDoc.prefix"))) {
+            folderName = fileResourceBundle.getString("folder.AdditionalDoc");
+        } else if (newName.equals(fileResourceBundle.getString("file.Specimen.prefix"))) {
+            folderName = fileResourceBundle.getString("folder.patient.SpecimenRemovalPic.photo");
+        } else if (newName.equals(fileResourceBundle.getString("file.Patient.prefix"))) {
+            folderName = fileResourceBundle.getString("folder.PatientPic");
+        } else if (newName.equals(fileResourceBundle.getString("file.moredocument.prefix"))) {
+            folderName = fileResourceBundle.getString("folder.Additionaldoc1");
+        } else if (newName.equals(fileResourceBundle.getString("file.needmoredocument.prefix"))) {
+            folderName = fileResourceBundle.getString("folder.Additionaldoc2");
+        }else if (newName.equals(fileResourceBundle.getString("file.Intrasurgery.prefix"))) {
+            folderName = fileResourceBundle.getString("folder.patient.IntraSurgeryPic.photo");
+        } else {
+            folderName = "AdmissionSlip";
+        }
+//		System.out.println("Folder Name : "+folderName);
+        return folderName;
+    }
+
+    public void downloadDocuments(JSONArray jsonArray, HttpServletResponse response) {
+        String year = "";
+        PDDocument mergedPDFDocument = new PDDocument();
+        List<PDDocument> pdfDocuments = new ArrayList<>();
+        try {
+            for (int i = 0; jsonArray.length() > i; i++) {
+                String fileName = jsonArray.getJSONObject(i).getString("f");
+                String hospitalCode = jsonArray.getJSONObject(i).getString("h");
+                String date = jsonArray.getJSONObject(i).getString("d");
+                if (date.length() > 11) {
+                    String preAuthDate = new SimpleDateFormat("dd MMM yyyy")
+                            .format(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+                    year = preAuthDate.substring(6);
+                } else {
+                    year = date.substring(6);
+                }
+                    String fullFilePath = CommonFileUpload.getFullDocumentPath(fileName, year, hospitalCode, CommonFileUpload.getFolderName(fileName));
+                System.out.println("Full File Path : " + fullFilePath);
+
+                if (fileName.endsWith(".pdf")) {
+                    PDDocument doc = PDDocument.load(new File(fullFilePath));
+                    pdfDocuments.add(doc);
+                } else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")) {
+                    PDDocument doc = new PDDocument();
+                    PDPage page = new PDPage();
+                    doc.addPage(page);
+                    PDPageContentStream contentStream = new PDPageContentStream(doc, page);
+                    PDImageXObject pdImage = PDImageXObject.createFromFile(fullFilePath, doc);
+                    contentStream.beginText();
+                    contentStream.setFont(PDType1Font.TIMES_ROMAN, 18);
+                    contentStream.newLineAtOffset(250, 700);
+                    contentStream.showText( CommonFileUpload.getFolderName(fileName).substring(CommonFileUpload.getFolderName(fileName).indexOf("/") + 1));
+                    contentStream.endText();
+                    contentStream.drawImage(pdImage, 120, 150, 350, 450);
+                    contentStream.close();
+                    pdfDocuments.add(doc);
+                }
+            }
+
+            for (PDDocument pdfDocument : pdfDocuments) {
+                mergedPDFDocument.addPage(pdfDocument.getPage(0));
+            }
+
+//			Download This mergedPDFDocument
+            OutputStream out = response.getOutputStream();
+            response.setContentType("application/pdf");
+            response.setHeader("Content-Disposition", "attachment; filename=\"mergedDocument.pdf\"");
+            mergedPDFDocument.save(out);
+            out.flush();
+            out.close();
+
+
+//			String destinationFilePath = CommonFileUpload.getMergeDocumentPath() + "mergedDocumentFile.pdf";
+//			System.out.println("Destination File Path : " + destinationFilePath);
+//			mergedPDFDocument.save(destinationFilePath);
+//
+//			File mergedDocumentFilePDF = new File(destinationFilePath);
+//
+//			OutputStream out = response.getOutputStream();
+//			response.setContentType("application/pdf");
+//			response.setHeader("Content-Disposition", "attachment; filename=\"" + mergedDocumentFilePDF.getName() + "\"");
+//			FileInputStream in = new FileInputStream(mergedDocumentFilePDF);
+//			byte[] buffer = new byte[4096];
+//			int length;
+//			while ((length = in.read(buffer)) > 0) {
+//				out.write(buffer, 0, length);
+//			}
+//			in.close();
+
+
+
+//			if (mergedDocumentFilePDF.exists()) {
+//				System.out.println("File Exists");
+//				CommonFileUpload.downloadPDFFile(mergedDocumentFilePDF, response);
+//			} else {
+//				System.out.println("File Not Exists");
+//			}
+
+            for (PDDocument pdfDocument : pdfDocuments) {
+                pdfDocument.close();
+            }
+            mergedPDFDocument.close();
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 
