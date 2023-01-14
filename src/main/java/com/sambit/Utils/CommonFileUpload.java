@@ -688,5 +688,62 @@ public static String typeOfOperatingSystem(){
         }
     }
 
+//    public void downloadDocuments(JSONArray jsonArray, HttpServletResponse response) {
+//        String year = "";
+//        PDDocument mergedPDFDocument = new PDDocument();
+//        List<PDDocument> pdfDocuments = new ArrayList<>();
+//        try {
+//            for (int i = 0; jsonArray.length() > i; i++) {
+//                String fileName = jsonArray.getJSONObject(i).getString("f");
+//                String hospitalCode = jsonArray.getJSONObject(i).getString("h");
+//                String date = jsonArray.getJSONObject(i).getString("d");
+//                if (date.length() > 11) {
+//                    String preAuthDate = new SimpleDateFormat("dd MMM yyyy")
+//                            .format(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+//                    year = preAuthDate.substring(6);
+//                } else {
+//                    year = date.substring(6);
+//                }
+//                String fullFilePath = CommonFileUpload.getFullDocumentPath(fileName, year, hospitalCode, CommonFileUpload.getFolderName(fileName));
+////				System.out.println("Full File Path : " + fullFilePath);
+//
+//                if (fileName.endsWith(".pdf")) {
+//                    PDDocument doc = PDDocument.load(new File(fullFilePath));
+//                    pdfDocuments.add(doc);
+//                } else if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg") || fileName.endsWith(".png")) {
+//                    PDDocument doc = new PDDocument();
+//                    PDPage page = new PDPage();
+//                    doc.addPage(page);
+//                    PDPageContentStream contentStream = new PDPageContentStream(doc, page);
+//                    PDImageXObject pdImage = PDImageXObject.createFromFile(fullFilePath, doc);
+//                    contentStream.beginText();
+//                    contentStream.setFont(PDType1Font.TIMES_ROMAN, 18);
+//                    contentStream.newLineAtOffset(250, 700);
+//                    contentStream.showText( CommonFileUpload.getFolderName(fileName).substring(CommonFileUpload.getFolderName(fileName).indexOf("/") + 1));
+//                    contentStream.endText();
+//                    contentStream.drawImage(pdImage, 120, 150, 350, 450);
+//                    contentStream.close();
+//                    pdfDocuments.add(doc);
+//                }
+//            }
+//            for (PDDocument pdfDocument : pdfDocuments) {
+//                mergedPDFDocument.addPage(pdfDocument.getPage(0));
+//            }
+//            OutputStream out = response.getOutputStream();
+//            response.setContentType("application/pdf");
+//            response.setHeader("Content-Disposition", "inline; filename=\"mergedDocument.pdf\"");
+//            mergedPDFDocument.save(out);
+//            out.flush();
+//            out.close();
+//
+//            for (PDDocument pdfDocument : pdfDocuments) {
+//                pdfDocument.close();
+//            }
+//            mergedPDFDocument.close();
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
+
 }
 
