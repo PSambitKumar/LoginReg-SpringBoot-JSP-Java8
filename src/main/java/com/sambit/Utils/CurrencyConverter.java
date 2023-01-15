@@ -26,4 +26,5 @@ public class CurrencyConverter {
 		System.out.println(currency);
 		return currency;
 	}
+
 }

@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
@@ -130,5 +131,11 @@ public class DaysBetweenDates {
 
 	public static int getDaysUsingMonthAndYear(int month, int year){
 		return new SimpleDateFormat("dd").format(new Date(year, month, 0)).equals("31") ? 31 : new SimpleDateFormat("dd").format(new Date(year, month, 0)).equals("30") ? 30 : new SimpleDateFormat("dd").format(new Date(year, month, 0)).equals("29") ? 29 : 28;
+	}
+
+	public int daysOfMoth() {
+		Calendar cal = Calendar.getInstance();
+		int days = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		return days;
 	}
 }
