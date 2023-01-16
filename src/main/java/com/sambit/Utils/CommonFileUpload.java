@@ -744,6 +744,10 @@ public static String typeOfOperatingSystem(){
 //            throw new RuntimeException(e);
 //        }
 //    }
+	
+	public String getExtensionByApacheCommonLib(String filename) {
+    		return FilenameUtils.getExtension(filename);
+}
 
 }
 
