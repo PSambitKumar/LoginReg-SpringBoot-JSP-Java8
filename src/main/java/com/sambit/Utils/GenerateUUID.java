@@ -47,4 +47,10 @@ public class GenerateUUID {
 	private static UUID getUUIDForVersion4UsingUUIDClass() {
 		return UUID.randomUUID();
 	}
+
+	public static void main(String[] args) {
+		System.out.println(getUUID());
+		System.out.println(getUUIDForVersion4());
+		System.out.println(getUUIDForVersion4UsingUUIDClass());
+	}
 }
