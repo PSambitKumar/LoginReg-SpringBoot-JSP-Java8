@@ -52,5 +52,6 @@ public class GenerateUUID {
 		System.out.println(getUUID());
 		System.out.println(getUUIDForVersion4());
 		System.out.println(getUUIDForVersion4UsingUUIDClass());
+		System.out.println(UUID.randomUUID());
 	}
 }
