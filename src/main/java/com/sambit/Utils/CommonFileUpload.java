@@ -25,6 +25,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
 
+import static java.lang.System.out;
+
 public class CommonFileUpload {
     public static final Logger logger = LoggerFactory.getLogger(CommonFileUpload.class);
     public static final String windowsRootFolder = "C://RegistrationData//";
@@ -47,9 +49,9 @@ public class CommonFileUpload {
     public static String createFolder(String folderName){
         String filePath = "";
         String result= null;
-        System.out.println("Logger" + logger.toString() +  "Name: " +  logger.getName());
-        System.out.println("Operating System--------------> " + ansiGreen + operatingSystem + ansiReset);
-        System.out.println("System Properties--------------> " + ansiGreen + System.getProperties() + ansiReset);
+        out.println("Logger" + logger.toString() +  "Name: " +  logger.getName());
+        out.println("Operating System--------------> " + ansiGreen + operatingSystem + ansiReset);
+        out.println("System Properties--------------> " + ansiGreen + System.getProperties() + ansiReset);
 //        operatingSystem.indexOf("windows") >= 0 Instead of  operatingSystem.contains("windows")----------can Used but Not Appropriate
         if (operatingSystem.contains("windows")){
             logger.info("This is " + ansiGreen + System.getProperty("user.name") + " Windows" + ansiReset);
@@ -113,9 +115,9 @@ public class CommonFileUpload {
     public static String fileExistsOrNot(String folderName){
         String filePath = "";
         String result= null;
-        System.out.println("Logger" + logger.toString() +  "Name: " +  logger.getName());
-        System.out.println("Operating System--------------> " + ansiGreen + operatingSystem + ansiReset);
-        System.out.println("System Properties--------------> " + ansiGreen + System.getProperties() + ansiReset);
+        out.println("Logger" + logger.toString() +  "Name: " +  logger.getName());
+        out.println("Operating System--------------> " + ansiGreen + operatingSystem + ansiReset);
+        out.println("System Properties--------------> " + ansiGreen + System.getProperties() + ansiReset);
 //        operatingSystem.indexOf("windows") >= 0 Instead of  operatingSystem.contains("windows")----------can Used but Not Appropriate
         if (operatingSystem.contains("windows")){
             logger.info("This is " + ansiGreen + System.getProperty("user.name") + " Windows" + ansiReset);
@@ -182,12 +184,12 @@ public class CommonFileUpload {
     public static String singleFileUplaod(MultipartFile file, String filePath) throws IOException {
         String fileFlag = "";
         if (file.isEmpty()){
-        System.out.println("File Mustn't Be Empty!");
+        out.println("File Mustn't Be Empty!");
         fileFlag = "FileEmpty";
         }
         else {
             String folderPath = fileExistsOrNot(filePath);
-            System.out.println("Check Data-------------->" + folderPath);
+            out.println("Check Data-------------->" + folderPath);
             byte[] bytes =file.getBytes();
             Path path =Paths.get(folderPath + "//" + file.getOriginalFilename());
             Files.write(path, bytes);
@@ -227,12 +229,12 @@ public class CommonFileUpload {
         if (operatingSystem.contains("win")) {
             logger.info("This is Windows");
             docPath = windowsRootFolder+filePath;
-            System.out.println("Document Path : " + docPath);
+            out.println("Document Path : " + docPath);
         }
         else if (operatingSystem.contains("nix") || operatingSystem.contains("nux") || operatingSystem.indexOf("aix") > 0 ) {
             logger.info("This is Unix or Linux");
             docPath = linuxRootFolder+filePath;
-            System.out.println("Document Path : " + docPath);
+            out.println("Document Path : " + docPath);
         }
         return docPath;
     }
@@ -285,7 +287,7 @@ public class CommonFileUpload {
         response.setContentLength((int)file.length());
         InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
         FileCopyUtils.copy(inputStream, response.getOutputStream());
-        System.out.println("File Downloaded Successfully!");
+        out.println("File Downloaded Successfully!");
     }
 
 
@@ -299,14 +301,14 @@ public class CommonFileUpload {
                 }else{
                     try {
                         String filePath=fileExistsOrNot(folderPath.trim());
-                        System.out.println("FilePath length------------"+filePath.length());
+                        out.println("FilePath length------------"+filePath.length());
                         if(!filePath.isEmpty()){
                             // logic to save the corresponding file
                             byte[] bytes = file[i].getBytes();
                             Path path = Paths.get(filePath.trim());
                             Files.write(path, bytes);
                             fileFlag = filePath.trim()+"/"+file[i].getOriginalFilename();
-                             System.out.println("FilePath trim length------------"+filePath.trim().length());
+                             out.println("FilePath trim length------------"+filePath.trim().length());
                         }
                     }
                     catch (IOException e) {
@@ -355,21 +357,21 @@ public static String typeOfOperatingSystem(){
             folderName = fileResourceBundle.getString("file.path.HospitalImage");
             filePath = year + "/" + hospitalCode + "/" + folderName;
             docPath = getDocumentPath(filePath);
-            System.out.println("File Upload Full Path : " + docPath);
+            out.println("File Upload Full Path : " + docPath);
             File file = new File(docPath + "/" + customFileName);
             if (!file.exists()) {
-                System.out.println("File Not Exist");
+                out.println("File Not Exist");
                 boolean mkdirs = file.getParentFile().mkdirs();
                 if (mkdirs) {
-                    System.out.println("Missing Directory Created");
+                    out.println("Missing Directory Created");
                 }
                 saveFileToServer(hospitalImageFile, docPath, customFileName);
                 if (file.exists()) {
-                    System.out.println("File Saved To Server, Path : " + docPath + "/" + customFileName);
+                    out.println("File Saved To Server, Path : " + docPath + "/" + customFileName);
                     isSaved = true;
                 }
             } else {
-                System.out.println("File Exist");
+                out.println("File Exist");
             }
         } catch (Exception e) {
             throw new RuntimeException(e);
@@ -386,21 +388,21 @@ public static String typeOfOperatingSystem(){
             folderName = "DCImage";
             filePath = year + "/" + hospitalCode + "/" + folderName;
             docPath = getDocumentPath(filePath);
-			System.out.println("File Upload Full Path : " + docPath);
+			out.println("File Upload Full Path : " + docPath);
             File file = new File(docPath + "/" + customFileName);
             if (!file.exists()) {
-				System.out.println("File Not Exist");
+				out.println("File Not Exist");
                 boolean mkdirs = file.getParentFile().mkdirs();
                 if (mkdirs) {
-					System.out.println("Missing Directory Created");
+					out.println("Missing Directory Created");
                 }
                 saveFileToServer(dcImageFile, docPath, customFileName);
                 if (file.exists()) {
-					System.out.println("File Saved To Server, Path : " + docPath + "/" + customFileName);
+					out.println("File Saved To Server, Path : " + docPath + "/" + customFileName);
                     responsePath = docPath + "/" + customFileName;
                 }
             } else {
-				System.out.println("File Exist");
+				out.println("File Exist");
                 responsePath = docPath + "/" + customFileName;
                 throw new Exception("Selfie Image Already Exist, You Can't Upload Same File Again");
             }
@@ -510,7 +512,7 @@ public static String typeOfOperatingSystem(){
         String filePath = "C:\\Users\\sambit.pradhan\\Desktop\\1.pdf";
         String filePath1 = "C:\\Users\\sambit.pradhan\\Desktop\\2.pdf";
         try {
-            System.out.println("Start");
+            out.println("Start");
             PDDocument doc = new PDDocument();
             PDDocument doc1 = new PDDocument();
             doc = PDDocument.load(new File(filePath));
@@ -519,7 +521,7 @@ public static String typeOfOperatingSystem(){
             doc.save("C:\\Users\\sambit.pradhan\\Desktop\\3.pdf");
             doc.close();
             doc1.close();
-            System.out.println("End");
+            out.println("End");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -536,7 +538,7 @@ public static String typeOfOperatingSystem(){
 
         for (String path : pathList) {
 //            String fullFilePath = CommonFileUpload.getFullDocumentPath(fileName, year, hospitalCode, CommonFileUpload.getFolderName(fileName));
-            System.out.println("Full File Path : " + path);
+            out.println("Full File Path : " + path);
 
             PDDocument doc = new PDDocument();
             PDPage page = new PDPage();
@@ -618,7 +620,7 @@ public static String typeOfOperatingSystem(){
                     year = date.substring(6);
                 }
                     String fullFilePath = CommonFileUpload.getFullDocumentPath(fileName, year, hospitalCode, CommonFileUpload.getFolderName(fileName));
-                System.out.println("Full File Path : " + fullFilePath);
+                out.println("Full File Path : " + fullFilePath);
 
                 if (fileName.endsWith(".pdf")) {
                     PDDocument doc = PDDocument.load(new File(fullFilePath));
@@ -745,9 +747,23 @@ public static String typeOfOperatingSystem(){
 //        }
 //    }
 	
-	public String getExtensionByApacheCommonLib(String filename) {
-    		return FilenameUtils.getExtension(filename);
-}
+//	public String getExtensionByApacheCommonLib(String filename) {
+//    		return FilenameUtils.getExtension(filename);
+//    }
 
-}
+    public void downloadFile(File file) {
+        try {
+            FileInputStream in = new FileInputStream(file);
+            byte[] buffer = new byte[4096];
+            int length;
+            while ((length = in.read(buffer)) > 0) {
+                out.write(buffer, 0, length);
+            }
+
+    } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
 
