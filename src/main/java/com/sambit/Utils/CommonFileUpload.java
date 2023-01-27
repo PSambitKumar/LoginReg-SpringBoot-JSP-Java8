@@ -1,4 +1,8 @@
 package com.sambit.Utils;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Image;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.pdf.PdfWriter;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.pdmodel.PDPage;
 import org.apache.pdfbox.pdmodel.PDPageContentStream;
@@ -744,10 +748,41 @@ public static String typeOfOperatingSystem(){
 //            throw new RuntimeException(e);
 //        }
 //    }
-	
-	public String getExtensionByApacheCommonLib(String filename) {
-    		return FilenameUtils.getExtension(filename);
-}
+
+//    public void downloadDocuments1(JSONArray jsonArray, HttpServletResponse response) {
+//        String year = "";
+//        Document mergedDocument = new Document(PageSize.A4);
+//        mergedDocument.open();
+//        try {
+//            for (int i = 0; jsonArray.length() > i; i++) {
+//                String fileName = jsonArray.getJSONObject(i).getString("f");
+//                String hospitalCode = jsonArray.getJSONObject(i).getString("h");
+//                String date = jsonArray.getJSONObject(i).getString("d");
+//                if (date.length() > 11) {
+//                    String preAuthDate = new SimpleDateFormat("dd MMM yyyy")
+//                            .format(new SimpleDateFormat("yyyy-MM-dd").parse(date));
+//                    year = preAuthDate.substring(6);
+//                } else {
+//                    year = date.substring(6);
+//                }
+//                String fullFilePath = CommonFileUpload.getFullDocumentPath(fileName, year, hospitalCode, CommonFileUpload.getFolderName(fileName));
+//
+//                if (fileName.endsWith(".jpg") || fileName.endsWith(".jpeg")) {
+//                    Image image = Image.getInstance(fullFilePath);
+//                    image.scaleToFit(PageSize.A4.getWidth(), PageSize.A4.getHeight());
+//                    image.setAlignment(Image.ALIGN_CENTER);
+//                    mergedDocument.add(image);
+//                }
+//            }
+//            response.setContentType("application/pdf");
+//            response.setHeader("Content-Disposition", "attachment; filename=\"mergedDocument.pdf\"");
+//            PdfWriter.getInstance(mergedDocument, response.getOutputStream());
+//            OutputStream out = response.getOutputStream();
+//
+//        }catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 }
 
