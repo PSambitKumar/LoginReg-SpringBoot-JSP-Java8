@@ -7,6 +7,10 @@ import com.sambit.Entity.SingleFileUpload;
 import com.sambit.Repository.BlobDataUploadRepository;
 import com.sambit.Repository.MultiFileUploadRepository;
 import com.sambit.Repository.SingleFileUploadRepository;
+import com.sambit.Service.RegService;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.MediaType;
@@ -44,6 +48,8 @@ public class FileHandlerController {
 	private MultiFileUploadRepository multiFileUploadRepository;
 	@Autowired
 	private BlobDataUploadRepository blobDataUploadRepository;
+	@Autowired
+	private RegService regService;
 
 
 	//	Single File Upload
@@ -290,6 +296,19 @@ public class FileHandlerController {
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	@GetMapping(value = "/generatePDF")
+	public void generatePDF(@RequestParam("data") String data, HttpServletResponse httpServletResponse)  {
+		try {
+			System.out.println("Data : " + data);
+			byte[] bytes = Base64.getDecoder().decode(data);
+			JSONArray reports = new JSONObject(new String(bytes)).getJSONArray("report");
+			String headers = new JSONObject(new String(bytes)).getString("heading");
+			regService.generatePDF(reports, headers, httpServletResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 }
 

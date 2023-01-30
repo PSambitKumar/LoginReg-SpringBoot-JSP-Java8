@@ -16,7 +16,10 @@ import com.sambit.Repository.*;
 import com.sambit.Utils.UserCodeGeneration;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.JSONArray;
 import org.json.JSONObject;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -42,6 +45,8 @@ public class RegServiceImpl implements RegService{
     ImageRepository imageRepository;
     @Autowired
     private PostalRepository postalRepository;
+
+    private Logger logger = LoggerFactory.getLogger(RegServiceImpl.class);
 
     @Override
     public String saveRegLoginData(RegBean regBean) {
@@ -658,4 +663,59 @@ public class RegServiceImpl implements RegService{
 //        }
 //        System.out.println("JSON Array1::" + jsonArray1);
 //    }
+
+    @Override
+    public void generatePDF(JSONArray reports, String header, HttpServletResponse httpServletResponse) {
+        try {
+            Document myDoc=new Document(PageSize.A4);
+            String fileName="CPDApprovalClaimList.pdf";
+            PdfWriter writer=PdfWriter.getInstance(myDoc, httpServletResponse.getOutputStream());
+            httpServletResponse.setContentType("application/pdf");
+            httpServletResponse.addHeader("Content-Disposition", "inline; filename="+fileName);
+            myDoc.open();
+
+            Paragraph p = new Paragraph("CPD Approval Claim List", FontFactory.getFont("Arial", 14, Font.BOLD));
+            p.setAlignment(Element.ALIGN_CENTER);
+            myDoc.add(p);
+            myDoc.add(new Paragraph(" "));
+
+            com.itextpdf.text.Font headingfont= FontFactory.getFont(String.valueOf(FontFactory.getFont("Arial")), 12);
+            com.itextpdf.text.Font font= FontFactory.getFont(String.valueOf(FontFactory.getFont("Arial")), 10);
+
+            PdfPTable table = new PdfPTable(7);
+            table.setWidthPercentage(110);
+            table.setSpacingBefore(0);
+            table.setSpacingAfter(0);
+            table.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            String[] columns = new String[] { "Sl No", "Claim No", "URN", "Patient Name", "Invoice No", "Allotted Date", "Action to be Taken By"};
+
+            for (int i = 0; i < columns.length; i++) {
+                PdfPCell cell = new PdfPCell(new Paragraph(columns[i],headingfont));
+                cell.setBackgroundColor(new BaseColor(1, 200, 1));
+                cell.setPaddingLeft(4);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                table.addCell(cell);
+            }
+            int slNO=1;
+
+            for (int i = 0; i < reports.length(); i++) {
+                JSONObject jsonObject = reports.getJSONObject(i);
+                table.addCell(new Paragraph(String.valueOf(slNO),font));
+                table.addCell(new Paragraph(jsonObject.getString("Claim No"),font));
+                table.addCell(new Paragraph(jsonObject.getString("URN"),font));
+                table.addCell(new Paragraph(jsonObject.getString("Patient Name"),font));
+                table.addCell(new Paragraph(jsonObject.getString("Invoice No"),font));
+                table.addCell(new Paragraph(jsonObject.getString("Allotted Date"),font));
+                table.addCell(new Paragraph(jsonObject.getString("Action to be Taken By"),font));
+                slNO++;
+            }
+            myDoc.add(table);
+            myDoc.close();
+        } catch (Exception e) {
+            logger.error("Exception in generatePDF() method", e.getMessage());
+            throw new RuntimeException(e);
+        }
+    }
 }
