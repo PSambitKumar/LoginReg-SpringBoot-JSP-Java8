@@ -138,4 +138,15 @@ public class DaysBetweenDates {
 		int days = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
 		return days;
 	}
+
+	public static void daysPrintBetweenDates(Date fromDate, Date toDate) {
+		int days = (int) ((toDate.getTime() - fromDate.getTime()) / (1000 * 60 * 60 * 24));
+		System.out.println("Days : " + days);
+		for (int i = 0; i <= days; i++) {
+			Date tempDate = new Date(fromDate.getTime() + ((long) i * 24 * 60 * 60 * 1000));
+//				SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+//				Date tempDate = sdf.parse(sdf.format(fromDate.getTime() + ((long) i * 24 * 60 * 60 * 1000)));
+			System.out.println("Temp Date : " + tempDate);
+		}
+	}
 }
