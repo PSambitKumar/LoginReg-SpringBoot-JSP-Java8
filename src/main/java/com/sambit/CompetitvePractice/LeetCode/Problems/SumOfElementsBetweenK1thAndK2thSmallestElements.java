@@ -1,4 +1,4 @@
-package com.sambit.CompetitvePractice;
+package com.sambit.CompetitvePractice.LeetCode.Problems;
 
 import java.util.Arrays;
 import java.util.HashSet;
