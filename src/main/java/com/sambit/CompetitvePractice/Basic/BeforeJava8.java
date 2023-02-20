@@ -13,8 +13,8 @@ public class BeforeJava8 {
 
     public static void main(String[] args) {
 
-        List<String> lines = Arrays.asList("spring", "node", "mkyong");
-        List<String> result = getFilterOutput(lines, "mkyong");
+        List<String> lines = Arrays.asList("spring", "node", "Sambit");
+        List<String> result = getFilterOutput(lines, "Sambit");
         for (String temp : result) {
             System.out.println(temp);
         }
@@ -30,5 +30,6 @@ public class BeforeJava8 {
         }
         return result;
     }
+
 
 }
