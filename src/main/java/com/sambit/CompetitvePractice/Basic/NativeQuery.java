@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @Project : Registration
@@ -19,13 +22,33 @@ public class NativeQuery {
 
     public void createUniqueClaimNo() {
         String claim_No = "CL8223BC8D";
-
+        Map<String, Object> response = new LinkedHashMap<>();
         Query query = this.entityManager.createNativeQuery("SELECT COUNT(1) FROM TXNCLAIM_APPLICATION WHERE CLAIM_NO = ?1");
         query.setParameter(1, claim_No);
         Object result = query.getSingleResult();
 
         int count = ((Number) result).intValue();
         System.out.println("Result is " + count);
+
+
+        List<Object[]> results = entityManager.createNativeQuery(
+                        "SELECT\n" +
+                                "S.STATENAME,\n" +
+                                "D.DISTRICTNAME,\n" +
+                                "HOSPITAL_NAME\n" +
+                                "FROM  HOSPITAL_INFO H\n" +
+                                "INNER JOIN STATE S ON H.STATE_CODE = S.STATECODE\n" +
+                                "INNER JOIN DISTRICT D ON  H.DISTRICT_CODE = D.DISTRICTCODE\n" +
+                                "WHERE H.USER_ID = ?1")
+                .setParameter(1, 1512)
+                .getResultList();
+
+        for (Object[] row : results) {
+            response.put("stateName", row[0]);
+            response.put("districtName", row[1]);
+            response.put("hospitalName", row[2]);
+            System.out.println("Data : " + response);
+        }
     }
 
     public static void main(String[] args) {

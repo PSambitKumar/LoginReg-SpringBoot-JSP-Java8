@@ -291,7 +291,7 @@ public class RestAPIController {
 			String todayDate = simpleDateFormat.format(new Date());
 
 			requestBody = new JsonObject();
-			requestBody.addProperty("recordDate", todayDate);
+			requestBody.addProperty("recordDate", "2023-02-22");
 
 			HttpClient client = HttpClient.newHttpClient();
 			HttpRequest request = HttpRequest.newBuilder()
@@ -299,15 +299,20 @@ public class RestAPIController {
 					.header("Content-Type", "application/json")
 					.POST(HttpRequest.BodyPublishers.ofString(String.valueOf(requestBody)))
 					.build();
-			do {
-				String response = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+
+			String response = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+
+			while (response != null) {
+				System.out.println("Response: " + response);
 				List<?> responseList = new Gson().fromJson(response, List.class);
 
 				for (Object o : responseList) {
 					Map<?, ?> map = (Map<?, ?>) o;
-					System.out.println(map);
+					System.out.println("Map Details : " + map);
 				}
-			} while (client.send(request, HttpResponse.BodyHandlers.ofString()).body() == null);
+				response = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+			}
+
 		} catch (IOException | InterruptedException ex) {
 			throw new RuntimeException(ex);
 		}
