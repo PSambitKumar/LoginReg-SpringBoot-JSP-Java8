@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.html.Option;
 import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -310,5 +311,27 @@ public class FileHandlerController {
 			e.printStackTrace();
 		}
 	}
+
+//	@GetMapping(value = "/openWordDocs")
+//	public void openWordDocs(@RequestParam("data") String data, HttpServletResponse httpServletResponse)  {
+//		try {
+//			Options.WordProcessingLoadOptions loadOptions = new WordProcessingLoadOptions();
+//			loadOptions.setPassword("password-if-any");
+//
+//			Editor editor = new Editor("path/document.docx", loadOptions);
+//			EditableDocument defaultWordProcessingDoc = editor.edit();
+//
+//// Either edit using any WYSIWYG editor or edit programmatically
+//			String allEmbeddedInsideString = defaultWordProcessingDoc.getEmbeddedHtml();
+//			String allEmbeddedInsideStringEdited = allEmbeddedInsideString.replace("document", "edited document");
+//
+//// Save the edited document
+//			EditableDocument editedDoc = EditableDocument.fromMarkup(allEmbeddedInsideStringEdited, null);
+//			WordProcessingSaveOptions saveOptions = new WordProcessingSaveOptions(WordProcessingFormats.Docx);
+//			editor.save(editedDoc, "path/edited-document.docx", saveOptions);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//	}
 }
 
