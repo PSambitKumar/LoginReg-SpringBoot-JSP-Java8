@@ -8,13 +8,11 @@ package com.sambit.CompetitvePractice.Basic;
 class NumberToWordExample {
     static void numberToWords(char num[]) {
         int len = num.length;
-        if (len == 0)
-        {
+        if (len == 0) {
             System.out.println("The string is empty.");
             return;
         }
-        if (len > 4)
-        {
+        if (len > 4) {
             System.out.println("\n The given number has more than 4 digits.");
             return;
         }
@@ -23,38 +21,29 @@ class NumberToWordExample {
         String[] multipleoftens = new String[] {"",  "", "Twenty", "Thirty", "Forty", "Fifty", "Sixty", "Seventy", "Eighty", "Ninety"};
         String[] poweroftens = new String[] {"Hundred", "Thousand"};
         System.out.print(String.valueOf(num) + ": ");
-        if (len == 1)
-        {
+        if (len == 1) {
             System.out.println(onedigit[num[0]-'0']);
             return;
         }
         int x = 0;
-        while (x < num.length)
-        {
-            if (len >= 3)
-            {
-                if (num[x] - '0' != 0)
-                {
+        while (x < num.length) {
+            if (len >= 3) {
+                if (num[x] - '0' != 0) {
                     System.out.print(onedigit[num[x] - '0'] + " ");
                     System.out.print(poweroftens[len - 3]+ " ");
                 }
                 --len;
-            }
-            else
-            {
-                if (num[x] - '0' == 1)
-                {
+            } else {
+                if (num[x] - '0' == 1) {
                     int sum = num[x] - '0' + num[x + 1] - '0';
                     System.out.println(twodigits[sum]);
                     return;
                 }
-                else if (num[x] - '0' == 2 && num[x + 1] - '0' == 0)
-                {
+                else if (num[x] - '0' == 2 && num[x + 1] - '0' == 0) {
                     System.out.println("Twenty");
                     return;
                 }
-                else
-                {
+                else {
                     int i = (num[x] - '0');
                     if (i > 0)
                         System.out.print(multipleoftens[i]+ " ");
@@ -68,8 +57,7 @@ class NumberToWordExample {
             ++x;
         }
     }
-    public static void main(String args[])
-    {
+    public static void main(String args[]) {
         numberToWords("1111".toCharArray());
         numberToWords("673".toCharArray());
         numberToWords("85".toCharArray());
