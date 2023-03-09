@@ -14,5 +14,14 @@ class Testarray{
         a[3]=40;
         a[4]=50;
         for (int j : a) System.out.println(j);
+        System.out.println("Sum of the array is: "+sumTheArray(a));
+    }
+
+    public static int sumTheArray(int[] a){
+        int sum = 0;
+        for (int j : a) {
+            sum += j;
+        }
+        return sum;
     }
 }
