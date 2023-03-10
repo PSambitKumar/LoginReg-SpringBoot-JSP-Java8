@@ -24,4 +24,20 @@ class Testarray{
         }
         return sum;
     }
+
+    public static int sumTheArray(int[] a, int n){
+        int sum = 0;
+        for (int j : a) {
+            sum += j;
+        }
+        return sum;
+    }
+
+    public static int displayTheArray(int[] a){
+        int sum = 0;
+        for (int j : a) {
+            sum += j;
+        }
+        return sum;
+    }
 }
