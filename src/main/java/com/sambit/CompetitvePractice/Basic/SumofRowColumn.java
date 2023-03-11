@@ -11,7 +11,7 @@ public class SumofRowColumn
         int rows, cols, sumRow, sumCol;
 
         //Initialize matrix a
-        int a[][] = {
+        int[][] a = {
                 {1, 2, 3},
                 {4, 5, 6},
                 {7, 8, 9}
