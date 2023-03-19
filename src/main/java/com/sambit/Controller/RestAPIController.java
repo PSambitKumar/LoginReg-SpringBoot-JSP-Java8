@@ -1,6 +1,7 @@
 package com.sambit.Controller;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -14,6 +15,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.w3c.dom.Document;
@@ -25,8 +28,13 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.transform.sax.SAXResult;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.util.*;
 
 /**
@@ -40,6 +48,10 @@ public class RestAPIController {
 
 	@Autowired
 	private RegService regService;
+
+	@Value("${healthDepartmentMemberDetails.URL}")
+	private String healthDepartmentMemberDetailsURL;
+
 
 	@GetMapping(value = "/checkUserIsPresent")
 	public Map<String, Object> checkUserIsPresent(@RequestParam(value = "userName") String userName){
@@ -235,5 +247,74 @@ public class RestAPIController {
 			throw new RuntimeException(e);
 		}
 		return mainJsonObj.toString();
+	}
+
+	public void callMethod1() {
+		String url = "https://example.com/api";
+		HttpClient client = HttpClient.newHttpClient();
+		HttpRequest request = HttpRequest.newBuilder()
+				.uri(URI.create(url))
+				.timeout(Duration.ofSeconds(10))
+				.build();
+
+		while (true) {
+			HttpResponse<String> response;
+			try {
+				response = client.send(request, HttpResponse.BodyHandlers.ofString());
+				if (response.statusCode() == 200) {
+					System.out.println(response.body());
+				} else {
+					System.err.println("Unexpected status code: " + response.statusCode());
+				}
+			} catch (InterruptedException | IOException e) {
+				System.err.println("Error: " + e.getMessage());
+			}
+
+			// wait for a few seconds before calling the API again
+			try {
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				System.err.println("Error: " + e.getMessage());
+			}
+		}
+	}
+
+	@GetMapping(value = "/getHealthDepartmentMemberDetails")
+	public void getHealthDepartmentMemberDetails() {
+		System.out.println("Inside Get Health Department Member Details method");
+		String apiUrl;
+		JsonObject requestBody;
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+		try {
+			apiUrl = healthDepartmentMemberDetailsURL;
+			String todayDate = simpleDateFormat.format(new Date());
+
+			requestBody = new JsonObject();
+			requestBody.addProperty("recordDate", "2023-02-22");
+
+			HttpClient client = HttpClient.newHttpClient();
+			HttpRequest request = HttpRequest.newBuilder()
+					.uri(URI.create(apiUrl))
+					.header("Content-Type", "application/json")
+					.POST(HttpRequest.BodyPublishers.ofString(String.valueOf(requestBody)))
+					.build();
+
+			String response = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+
+			while (response != null) {
+				System.out.println("Response: " + response);
+				List<?> responseList = new Gson().fromJson(response, List.class);
+
+				for (Object o : responseList) {
+					Map<?, ?> map = (Map<?, ?>) o;
+					System.out.println("Map Details : " + map);
+				}
+				response = client.send(request, HttpResponse.BodyHandlers.ofString()).body();
+			}
+
+		} catch (IOException | InterruptedException ex) {
+			throw new RuntimeException(ex);
+		}
 	}
 }

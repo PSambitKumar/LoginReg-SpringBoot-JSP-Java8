@@ -81,7 +81,7 @@
                 <tbody>
                 <c:forEach items="${multiFileUploadList}" var="multiFileUpload" varStatus="count">
                     <tr>
-                        <td>${count.count}</td>
+                            <td>${count.count}</td>
                         <td>${multiFileUpload.fullName}</td>
                         <td><a  href="/downloadMultipleFile/+${multiFileUpload.multiFileUploadId}">${multiFileUpload.originalFileName}</a></td>
                         <td>
