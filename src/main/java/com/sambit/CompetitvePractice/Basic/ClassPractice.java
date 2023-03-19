@@ -7,4 +7,7 @@ public class ClassPractice {
         String rip = args[3];
         System.out.println("Arg is " + rip);
     }
+
+
+
 }
