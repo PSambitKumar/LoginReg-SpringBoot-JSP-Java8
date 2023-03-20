@@ -1,6 +1,7 @@
 package com.sambit.Utils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Base64;
@@ -17,5 +18,11 @@ public class GenerateEncodedString {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    public static void decodeEncodedString(){
+        String encodedString = "MjAtMDMtMjAyMyAxNToyNDoyMA==";
+        byte[] bytes = Base64.getDecoder().decode(encodedString);
+        String jsonString = new String(bytes, StandardCharsets.UTF_8);
     }
 }
