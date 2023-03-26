@@ -14,14 +14,14 @@ public class BeforeJava8 {
     public static void main(String[] args) {
 
         List<String> lines = Arrays.asList("spring", "node", "Sambit");
-        List<String> result = getFilterOutput(lines, "Sambit");
+        List<String> result = getFilterOutput(lines);
         for (String temp : result) {
             System.out.println(temp);
         }
 
     }
 
-    private static List<String> getFilterOutput(List<String> lines, String filter) {
+    private static List<String> getFilterOutput(List<String> lines) {
         List<String> result = new ArrayList<>();
         for (String line : lines) {
             if (!"Sambit".equals(line)) {
