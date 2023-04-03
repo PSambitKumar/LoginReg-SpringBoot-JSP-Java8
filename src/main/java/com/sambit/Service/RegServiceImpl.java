@@ -28,6 +28,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RegServiceImpl implements RegService{
@@ -123,6 +124,21 @@ public class RegServiceImpl implements RegService{
         String username = loginBean.getUsername();
         String password = loginBean.getPassword();
         List list = regRepository.findAllByUsernameAndPassword(username, password);
+
+//        Send Data Batch Wise
+//        int size = list.size();
+//        int start = 0;
+//        int end = 50;
+//        while (start < size) {
+//            System.out.println("start = " + start);
+//            if (end > size) {
+//                end = size;
+//            }
+//            List<Map<String, Object>> subList = list.subList(start, end);
+//            System.out.println("subList = " + subList);
+//            start = end;
+//            end += 50;
+//        }
         return list;
     }
 
