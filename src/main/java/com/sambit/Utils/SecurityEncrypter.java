@@ -8,7 +8,6 @@ import java.util.Random;
  * @Auther : Sambit Kumar Pradhan
  * @Created On : 20/03/2023 - 3:57 PM
  */
-
 public class SecurityEncrypter {
 
     public static String encryptMerchantName(String merchantName) {
