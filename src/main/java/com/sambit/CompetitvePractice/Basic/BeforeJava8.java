@@ -19,6 +19,20 @@ public class BeforeJava8 {
             System.out.println(temp);
         }
 
+        List<Integer> numbers = Arrays.asList(2, 3, 4, 5);
+        List<Integer> square = map(numbers);
+        for (Integer temp : square) {
+            System.out.println(temp);
+        }
+
+    }
+
+    private static List<Integer> map(List<Integer> numbers) {
+        List<Integer> result = new ArrayList<>();
+        for (Integer number : numbers) {
+            result.add(number * number);
+        }
+        return result;
     }
 
     private static List<String> getFilterOutput(List<String> lines) {
@@ -30,6 +44,8 @@ public class BeforeJava8 {
         }
         return result;
     }
+
+
 
 
 }
