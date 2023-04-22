@@ -33,6 +33,7 @@ public class SOAPController {
         String outputString = "";
         OutputStream outputStream = null;
         InputStreamReader inputStreamReader = null;
+        
         BufferedReader bufferedReader = null;
 
         String wsURL = "https://demoeproc.nic.in/nicgep_general_webservice/services/TechnicalService.TechnicalServiceHttpsSoap11Endpoint";
