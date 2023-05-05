@@ -513,6 +513,7 @@ public String sumOfIntegers(){
 		printFirstElementOfArrayList();
 	}
 
+	@GetMapping(value = "/removeDuplicateModelByModelData")
 	public List<PostalPo> removeDuplicateModelByModelData () {
 		List<PostalPo> filteredList = new ArrayList<>();
 		try {
