@@ -1,6 +1,8 @@
 package com.sambit.Controller;
 
+import com.sambit.Entity.PostalPo;
 import com.sambit.Entity.Reg;
+import com.sambit.Repository.PostalPoRepository;
 import com.sambit.Service.RegService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -97,6 +99,9 @@ public class Java8Controller {
 
 	@Autowired
 	private RegService regService;
+
+	@Autowired
+	private PostalPoRepository postalPoRepository;
 
 	@GetMapping(value = "/java8ArithmeticOperation")
 	public String arithmeticOperation(){
@@ -506,6 +511,20 @@ public String sumOfIntegers(){
 
 	public static void main(String[] args) {
 		printFirstElementOfArrayList();
+	}
+
+	public List<PostalPo> removeDuplicateModelByModelData () {
+		List<PostalPo> filteredList = new ArrayList<>();
+		try {
+			List<PostalPo> postalPoList = postalPoRepository.findAll();
+			Set<String> uniqueSet = new HashSet<>();
+			filteredList = postalPoList.stream()
+					.filter(w -> uniqueSet.add(w.getSoName()))
+					.collect(Collectors.toList());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return filteredList;
 	}
 
 

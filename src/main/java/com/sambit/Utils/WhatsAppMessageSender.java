@@ -56,7 +56,9 @@ public class WhatsAppMessageSender {
 //    }
 
     public static void main( String[] args ) {
-        sendWhatsAppMessage();
+        for (int i = 1; i < 2; i++) {
+            sendWhatsAppMessage();
+        }
     }
 
     public static void sendWhatsAppMessage1() {
@@ -86,7 +88,8 @@ public class WhatsAppMessageSender {
                     .uri(new URI("https://graph.facebook.com/v16.0/111606275260189/messages"))
                     .header("Authorization", "Bearer EAAILZB4d5eysBANDilQw6TnTEG9p5zHSstGj6eGDiZCMwsZAGWZAYnVdOi5v9plH1jXXJjqpheb8D5Tb8knIDBags4eHNYZCGn9yaCFVEvMngQOLSMVvoIuVFyBxBGhH2x4Ei7VMam7JmrRW6maVa6BorhAPJTQJ2osnoTZCg7Q1XtXhT69zrZCcyapRGr6ou8aoeFPclsHgQZDZD")
                     .header("Content-Type", "application/json")
-                    .POST(HttpRequest.BodyPublishers.ofString("{ \"messaging_product\": \"whatsapp\", \"to\": \"917605933282\", \"type\": \"template\", \"template\": { \"name\": \"hello_world\", \"language\": { \"code\": \"en_US\" }, \"namespace\": \"2F861A_Hello_World\", \"elements\": [ { \"default_action\": { \"type\": \"web_url\", \"url\": \"https://example.com\", \"messenger_extensions\": true, \"webview_height_ratio\": \"tall\" }, \"buttons\": [ { \"type\": \"web_url\", \"url\": \"https://example.com\", \"title\": \"View Website\" } ], \"title\": \"Happy Birthday\" } ] } }"))
+                    .POST(HttpRequest.BodyPublishers.ofString("{ \"messaging_product\": \"whatsapp\", \"recipient_type\": \"individual\", \"to\": \"916370928692\", \"type\": \"text\", \"text\": { \"preview_url\": false, \"body\": \"(◑‿◐).\" } }"))
+//                    .POST(HttpRequest.BodyPublishers.ofString("{ \"messaging_product\": \"whatsapp\", \"to\": \"917605933282\", \"type\": \"template\", \"template\": { \"name\": \"hello_world\", \"language\": { \"code\": \"en_US\" }, \"namespace\": \"2F861A_Hello_World\", \"elements\": [ { \"default_action\": { \"type\": \"web_url\", \"url\": \"https://example.com\", \"messenger_extensions\": true, \"webview_height_ratio\": \"tall\" }, \"buttons\": [ { \"type\": \"web_url\", \"url\": \"https://example.com\", \"title\": \"View Website\" } ], \"title\": \"Happy Birthday\" } ] } }"))
                     .build();
 
             HttpClient http = HttpClient.newHttpClient();
