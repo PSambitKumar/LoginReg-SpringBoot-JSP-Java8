@@ -7,10 +7,10 @@ import java.util.Properties;
 
 public class Mail {
 
-        //        public static final String username = "sambit.csmtechnologies@gmail.com";
-//        public static final String password = "iyilybecukfvlhoe";
-        public static final String username = "teamodishatourism16@gmail.com";
-        public static final String password = "qjqnhwsrvytkgblr";
+        public static final String username = "sambit.csmtechnologies@gmail.com";
+        public static final String password = "iyilybecukfvlhoe";
+//        public static final String username = "teamodishatourism16@gmail.com";
+//        public static final String password = "qjqnhwsrvytkgblr";
 
         public static void sendEmailGmailTLS(String email) {
 
@@ -34,7 +34,7 @@ public class Mail {
                                 InternetAddress.parse(email)
                         );
                         message.setSubject("Greeting From Sambit");
-                        message.setText("Hello, This is Random Mail Sending, For Testing Purpose.");
+                        message.setText("Delete Pro. Database Please.");
 
                         Transport.send(message);
                         System.out.println("Mail Sent Successfully.");

@@ -1,24 +1,16 @@
 package com.sambit.Controller;
 
+import com.sambit.Entity.PostalPo;
 import com.sambit.Entity.Reg;
+import com.sambit.Repository.PostalPoRepository;
 import com.sambit.Service.RegService;
-import org.apache.poi.xssf.usermodel.XSSFRow;
-import org.apache.poi.xssf.usermodel.XSSFSheet;
-import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.hibernate.annotations.GeneratorType;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.convert.ReadingConverter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import javax.servlet.SessionTrackingMode;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import javax.swing.*;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -107,6 +99,9 @@ public class Java8Controller {
 
 	@Autowired
 	private RegService regService;
+
+	@Autowired
+	private PostalPoRepository postalPoRepository;
 
 	@GetMapping(value = "/java8ArithmeticOperation")
 	public String arithmeticOperation(){
@@ -275,7 +270,7 @@ public class Java8Controller {
 
 //		With More Than One Parameters
 		printNameMultipleParameter prntNameMultipleParameter = (firstName, lastName) ->
-			   "My Name is : " + firstName + " " + lastName;//No Need to write return Statement
+				"My Name is : " + firstName + " " + lastName;//No Need to write return Statement
 		System.out.println(prntNameMultipleParameter.printName("Sambit", "Pradhan"));
 		return null;
 	}
@@ -289,9 +284,9 @@ public class Java8Controller {
 
 
 //	Using of Type 1 Method Reference to an instance method of an object
-	public String printSchoolName(){
-		return "Saraswati Shihu Vidya Mandir, Salipur";
-	}
+public String printSchoolName(){
+	return "Saraswati Shihu Vidya Mandir, Salipur";
+}
 
 	@GetMapping(value = "/methodReference1")
 	public String MethodReference1(){
@@ -302,40 +297,40 @@ public class Java8Controller {
 	}
 
 //	Using of Type 2 Method Reference to a static method of a class
-	@ResponseBody
-	@GetMapping(value = "methodReference2")
-	public String methodReference2(){
-		BiFunction<String, String, String> fullName = printFullName::printFullName;
-		System.out.println(fullName.apply("Sambit", "Pradhan"));
-		return fullName.apply("Dillip", "Suna");
-	}
+@ResponseBody
+@GetMapping(value = "methodReference2")
+public String methodReference2(){
+	BiFunction<String, String, String> fullName = printFullName::printFullName;
+	System.out.println(fullName.apply("Sambit", "Pradhan"));
+	return fullName.apply("Dillip", "Suna");
+}
 
 //	Using of Type 3 Method Reference to an instance method of an arbitrary object of a particular type
-	@ResponseBody
-	@GetMapping(value = "methodReference3")
-	public String methodReference3(){
+@ResponseBody
+@GetMapping(value = "methodReference3")
+public String methodReference3(){
 //		For String Array Sort Using Method Reference
-		String[] names = {"Sambit", "Dillip", "Mohit", "Jyoti", "Hrusikesh"};
-		Arrays.sort(names, String::compareToIgnoreCase);
-		for (int i = 0; i < names.length; i++) {
-			System.out.println(i + " :  " + names[i]);
-		}
+	String[] names = {"Sambit", "Dillip", "Mohit", "Jyoti", "Hrusikesh"};
+	Arrays.sort(names, String::compareToIgnoreCase);
+	for (int i = 0; i < names.length; i++) {
+		System.out.println(i + " :  " + names[i]);
+	}
 //		For Integer Array Sort Using Method Reference
-		Integer[] marks = {90, 89, 88, 87, 86};
+	Integer[] marks = {90, 89, 88, 87, 86};
 //		Arrays.sort(marks, Integer::compare);//Working
 //		Arrays.sort(marks, Integer::compareTo);//Working
 //		Arrays.sort(marks, Integer::max);//Woking Max to Min
-		Arrays.sort(marks, Integer::min);//Woking Min to Max
-		System.out.println(Arrays.toString(marks));
- 		return Arrays.toString(names);
-	}
+	Arrays.sort(marks, Integer::min);//Woking Min to Max
+	System.out.println(Arrays.toString(marks));
+	return Arrays.toString(names);
+}
 
 //	Using of Type 4 Method Reference to a constructor
-	public class printTechnology{
-		public printTechnology(String technology){
-			System.out.println("My Technology is = " + technology);
-		}
+public class printTechnology{
+	public printTechnology(String technology){
+		System.out.println("My Technology is = " + technology);
 	}
+}
 
 	public interface prntTechnology{
 		printTechnology technology(String technology);
@@ -381,8 +376,7 @@ public class Java8Controller {
 				if (names[i] == "Sambit") {
 					System.out.println("Present");
 					break;
-				}
-				else
+				} else
 					System.out.println("Absent");
 			}
 			return data.length;
@@ -400,53 +394,53 @@ public class Java8Controller {
 //	Letter Count Using Java8 Stream
 	@ResponseBody
 	@GetMapping("/letterCount")
-		public Map<String, Long> letterCount(){
+	public Map<String, Long> letterCount(){
 		System.out.println("Inside Letter Count Method--------->>");
 		Stream<String> words = Stream.of("Java", "is", "the", "best", "programming", "language");
 		Stream<String> name = Stream.of("Sambit", "Debabrata", "Dillip", "Mohit");
 		Stream<String> myName = Stream.of("Sambit Kumar Pradhan");
 
 		Map<String, Long> letterToCount = myName.map(w -> w.split(""))
-			   .flatMap(Arrays::stream)
-			   .collect(groupingBy(identity(), counting()));
+				.flatMap(Arrays::stream)
+				.collect(groupingBy(identity(), counting()));
 
 		System.out.println("Letter Count : " + letterToCount);
 		return letterToCount;
 	}
 
 //	Word Count
-	@ResponseBody
-	@GetMapping(value = "/wordCount")
-	public Map<String, Long> wordCount(){
-		System.out.println("Inside Word Count Method--------->>");
-		Stream<String> sentence = Stream.of("Java is the best programming language, Geek for Geeks is the best website to learn java");
+@ResponseBody
+@GetMapping(value = "/wordCount")
+public Map<String, Long> wordCount(){
+	System.out.println("Inside Word Count Method--------->>");
+	Stream<String> sentence = Stream.of("Java is the best programming language, Geek for Geeks is the best website to learn java");
 
-		Map<String, Long> wordToCount = sentence.map(word -> word.split(" "))
-			   .flatMap(Arrays::stream)
-			   .collect(groupingBy(identity(),counting()));
+	Map<String, Long> wordToCount = sentence.map(word -> word.split(" "))
+			.flatMap(Arrays::stream)
+			.collect(groupingBy(identity(),counting()));
 
-		System.out.println("Word Count : " + wordToCount);
-		return wordToCount;
-	}
+	System.out.println("Word Count : " + wordToCount);
+	return wordToCount;
+}
 
 
 //	Sum of Integers using Stram Java 8
-	@ResponseBody
-	@GetMapping(value = "/sumOfIntegers")
-	public String sumOfIntegers(){
-		System.out.println("Inside Sum Of Integers Method--------->>");
-		List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
-		Stream<Integer> stream = integers.stream();
-		int sum = stream.reduce(0, (a, b) -> a + b);
-		System.out.println("Sum Of Integers : " + sum);
+@ResponseBody
+@GetMapping(value = "/sumOfIntegers")
+public String sumOfIntegers(){
+	System.out.println("Inside Sum Of Integers Method--------->>");
+	List<Integer> integers = Arrays.asList(1, 2, 3, 4, 5);
+	Stream<Integer> stream = integers.stream();
+	int sum = stream.reduce(0, (a, b) -> a + b);
+	System.out.println("Sum Of Integers : " + sum);
 
 
-		Stream<Integer> numbers = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-		int sum1 = numbers.reduce(0, Integer::sum);//Using of Lambda Expression
-		System.out.println("Sum Of Integers : " + sum1);
+	Stream<Integer> numbers = Stream.of(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+	int sum1 = numbers.reduce(0, Integer::sum);//Using of Lambda Expression
+	System.out.println("Sum Of Integers : " + sum1);
 
-		return sum +", " + sum1;
-	}
+	return sum +", " + sum1;
+}
 
 	public String removeDuplicateDataFromStringArray(){
 		String[] names = {"Sambit", "Debabrata", "Dillip", "Mohit", "Sambit", "Debabrata", "Dillip", "Mohit"};
@@ -498,6 +492,40 @@ public class Java8Controller {
 		Stream<String> stream = Stream.of(names);
 		stream.sorted(Comparator.reverseOrder()).forEach(System.out::println);
 		return null;
+	}
+
+	public static void printFirstElementOfArrayList() {
+		List<Integer> integerList = Arrays.asList(5, 9, 0, 8, 6);
+		Optional<Integer> first = integerList.stream().findFirst();
+		System.out.println("First Element : " + first.get());
+
+		Optional<Integer> first1 = integerList.stream()
+				.filter(integer -> integer > 1).findFirst();
+		System.out.println("First Element1 : " + first1.get());
+
+		if (first1.isPresent())
+			System.out.println("Data Present.");
+		else
+			System.out.println("Data Absent.");
+	}
+
+	public static void main(String[] args) {
+		printFirstElementOfArrayList();
+	}
+
+	@GetMapping(value = "/removeDuplicateModelByModelData")
+	public List<PostalPo> removeDuplicateModelByModelData () {
+		List<PostalPo> filteredList = new ArrayList<>();
+		try {
+			List<PostalPo> postalPoList = postalPoRepository.findAll();
+			Set<String> uniqueSet = new HashSet<>();
+			filteredList = postalPoList.stream()
+					.filter(w -> uniqueSet.add(w.getSoName()))
+					.collect(Collectors.toList());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return filteredList;
 	}
 
 
