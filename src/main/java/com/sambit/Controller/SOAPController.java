@@ -30,7 +30,7 @@ public class SOAPController {
 
 //        SOAP API Calling
         String responseString = "";
-        String outputString = "";
+        StringBuilder outputString = new StringBuilder();
         OutputStream outputStream = null;
         InputStreamReader inputStreamReader = null;
         
@@ -76,12 +76,12 @@ public class SOAPController {
         bufferedReader = new BufferedReader( inputStreamReader);
 
         while ((responseString = bufferedReader.readLine()) != null) {
-            outputString = outputString + responseString ;
+            outputString.append(responseString);
         }
 
 
-        System.out.println("String : " + outputString.toString());
-        if (outputString.contains("GePID Verified Successfully")){
+        System.out.println("String : " + outputString);
+        if (outputString.toString().contains("GePID Verified Successfully")){
             System.out.println("Success");
         }
         else
