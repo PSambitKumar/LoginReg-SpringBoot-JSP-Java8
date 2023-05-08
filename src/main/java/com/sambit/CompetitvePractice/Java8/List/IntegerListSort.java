@@ -42,8 +42,8 @@ public class IntegerListSort {
                 .filter(Objects::nonNull)
                 .collect(Collectors.toList());
         System.out.println("Non Null Integer List : " + Arrays.toString(nonNullIntegerList.toArray()));
-        Collections.sort(nonNullIntegerList, Comparator.naturalOrder());//This Can Used
-        nonNullIntegerList.sort(Comparator.naturalOrder());//This also can used
+        Collections.sort(nonNullIntegerList, Comparator.naturalOrder());//This Can Use
+        nonNullIntegerList.sort(Comparator.naturalOrder());//This also can use
         nonNullIntegerList.sort(Comparator.reverseOrder());//This used for Reverse Order
         System.out.println("Reversed Order Integer List3 : " + nonNullIntegerList);
 
