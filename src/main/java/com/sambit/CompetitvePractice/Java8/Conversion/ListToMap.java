@@ -30,7 +30,7 @@ public class ListToMap {
         personalDataBean1.setPanId("DFHPP5027N");
         personalDataBean1.setAdharNo("220778011304");
 
-        List<PersonalDataBean> personalDataBeanList = List.of(personalDataBean, personalDataBean1, personalDataBean2);
+        List<PersonalDataBean> personalDataBeanList = List.of(personalDataBean, personalDataBean1);
 
         Map<String, String> deatilsMap = personalDataBeanList.stream()
                 .collect(Collectors.toMap(map -> map.getName(), map -> map.getAdharNo()));
