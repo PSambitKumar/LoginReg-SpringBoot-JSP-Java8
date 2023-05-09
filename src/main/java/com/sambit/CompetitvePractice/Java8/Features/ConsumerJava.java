@@ -7,7 +7,9 @@ import java.util.function.Consumer;
  * @Project : Registration
  * @Auther : Sambit Kumar Pradhan
  * @Created On : 08/05/2023 - 10:29 AM
+ * @Description : Consumer is a feature of Java 8. It is a functional interface which takes an argument and returns nothing.
  */
+
 public class ConsumerJava {
     public static void main(String[] args) {
         mapConsumer();
