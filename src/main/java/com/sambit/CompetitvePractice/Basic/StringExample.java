@@ -14,4 +14,9 @@ public class StringExample{
         System.out.println(s1);
         System.out.println(s2);
         System.out.println(s3);
+
+        String s4="Sambit";
+        StringBuffer sb=new StringBuffer(s4);
+        sb.reverse();
+        System.out.println(sb);
     }}
