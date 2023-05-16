@@ -22,5 +22,16 @@ public class Map {
         });
 
         System.out.println("====================================");
+
+        java.util.Map<String, String> map1 = new java.util.LinkedHashMap<>();
+        map1.put("id", "1");
+        map1.put("name", "Sambit");
+        map1.put("age", "26");
+
+        for (java.util.Map.Entry<String, String> entry : map1.entrySet()) {
+            System.out.println(entry.getKey() + " = " + entry.getValue());
+        }
+
+        System.out.println("====================================");
     }
 }
