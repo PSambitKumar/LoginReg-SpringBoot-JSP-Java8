@@ -36,5 +36,10 @@ public class HashMapExample {
         for(Integer integer : hashMap.keySet()){
             System.out.println("Key is: " + integer + ", Value is: " + hashMap.get(integer));
         }
+
+//        Printing each element of hashset using entrySet
+        for(HashMap.Entry<Integer, String> entry : hashMap.entrySet()){
+            System.out.println("Key is: " + entry.getKey() + ", Value is: " + entry.getValue());
+        }
     }
 }
