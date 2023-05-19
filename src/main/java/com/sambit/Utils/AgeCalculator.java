@@ -11,4 +11,10 @@ public class AgeCalculator {
 			return 0;
 		}
 	}
+
+	public static void main(String[] args) {
+		LocalDate birthDate = LocalDate.of(1999, 10, 10);
+		LocalDate currentDate = LocalDate.now();
+		System.out.println("Age is: " + calculateAge(birthDate, currentDate));
+	}
 }
