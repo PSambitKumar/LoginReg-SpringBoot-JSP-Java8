@@ -17,4 +17,20 @@ public class AgeCalculator {
 		LocalDate currentDate = LocalDate.now();
 		System.out.println("Age is: " + calculateAge(birthDate, currentDate));
 	}
+
+	public static int calculateAge(int birthYear, int currentYear) {
+		return currentYear - birthYear;
+	}
+
+	public static int calculateAge(int birthYear) {
+		return LocalDate.now().getYear() - birthYear;
+	}
+
+	public static int calculateAge(String birthYear) {
+		return LocalDate.now().getYear() - Integer.parseInt(birthYear);
+	}
+
+	public static int calculateAge(String birthYear, String currentYear) {
+		return Integer.parseInt(currentYear) - Integer.parseInt(birthYear);
+	}
 }
