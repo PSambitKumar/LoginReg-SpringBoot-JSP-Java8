@@ -46,15 +46,15 @@ public class AgeCalculator {
 		return Period.between(birthDate, LocalDate.now()).getYears();
 	}
 
-	public static int calculateAge(String birthDate) {
+	public static int calculateAge2(String birthDate) {
 		return Period.between(LocalDate.parse(birthDate), LocalDate.now()).getYears();
 	}
 
-	public static int calculateAge(int birthDate) {
+	public static int calculateAge1(int birthDate) {
 		return Period.between(LocalDate.of(birthDate, 1, 1), LocalDate.now()).getYears();
 	}
 
-	public static int calculateAge(String birthDate, LocalDate currentDate) {
+	public static int calculateAge3(String birthDate, LocalDate currentDate) {
 		return Period.between(LocalDate.parse(birthDate), currentDate).getYears();
 	}
 }
