@@ -41,5 +41,20 @@ public class HashMapExample {
         for(HashMap.Entry<Integer, String> entry : hashMap.entrySet()){
             System.out.println("Key is: " + entry.getKey() + ", Value is: " + entry.getValue());
         }
+
+        for (String s : hashMap.values()) {
+            System.out.println(s);
+        }
+
+        for (Integer integer : hashMap.keySet()) {
+            System.out.println(integer);
+        }
+
+        for (HashMap.Entry<Integer, String> entry : hashMap.entrySet()) {
+            System.out.println(entry);
+        }
+
+        hashMap.forEach((integer, s) -> System.out.println("Key is: " + integer + ", Value is: " + s));
+
     }
 }
