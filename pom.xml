@@ -129,11 +129,11 @@
             <artifactId>json</artifactId>
             <version>20080701</version>
         </dependency>
-        <dependency>
+<!--         <dependency>
             <groupId>com.twilio.sdk</groupId>
             <artifactId>twilio</artifactId>
             <version>8.1.0</version>
-        </dependency>
+        </dependency> -->
 
         <dependency>
             <groupId>com.squareup.okhttp3</groupId>
