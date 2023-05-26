@@ -56,5 +56,26 @@ public class HashMapExample {
 
         hashMap.forEach((integer, s) -> System.out.println("Key is: " + integer + ", Value is: " + s));
 
+        System.out.println(hashMap.size());
+        System.out.println(hashMap.isEmpty());
+        System.out.println(hashMap.containsKey(2));
+        System.out.println(hashMap.containsValue("Sambit"));
+        System.out.println(hashMap.get(2));
+        System.out.println(hashMap.remove(2));
+        System.out.println(hashMap);
+        System.out.println(hashMap.replace(3, "Sambit"));
+        System.out.println(hashMap);
+        System.out.println(hashMap.replace(3, "Sambit", "Sambit Kumar Pradhan"));
+        System.out.println(hashMap);
+        System.out.println(hashMap.keySet());
+        System.out.println(hashMap.values());
+        System.out.println(hashMap.entrySet());
+        System.out.println(hashMap.getOrDefault(2, "Sambit"));
+        System.out.println(hashMap.getOrDefault(4, "Sambit"));
+        System.out.println(hashMap.putIfAbsent(4, "Sambit"));
+        System.out.println(hashMap);
+        System.out.println(hashMap.putIfAbsent(4, "Sambit Kumar Pradhan"));
+        System.out.println(hashMap);
+
     }
 }
