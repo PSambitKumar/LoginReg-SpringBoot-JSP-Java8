@@ -74,6 +74,8 @@ public class NativeQuery {
         }
     }
 
+
+
     public static void main(String[] args) {
         NativeQuery nativeQuery = new NativeQuery();
         nativeQuery.createUniqueClaimNo();

@@ -21,6 +21,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,14 +53,18 @@ import static java.util.stream.Collectors.toCollection;
 @Controller
 public class RegController {
 
+    private final Logger logger;
+
+    @Autowired
+    public RegController(Logger logger) {
+        this.logger = logger;
+    }
+
     private static final int PRETTY_PRINT_INDENT_FACTOR = 4;
     @Autowired
     RegRepository regRepository;
-
-    final RegService regService;
-    public RegController(RegService regService) {
-        this.regService = regService;
-    }
+    @Autowired
+    RegService regService;
 
 
     @GetMapping("Registration")
@@ -617,5 +622,11 @@ public class RegController {
         JSONObject xmlJSONObj = XML.toJSONObject(xml);
         String jsonPrettyPrintString = xmlJSONObj.toString(PRETTY_PRINT_INDENT_FACTOR);
         System.out.println(jsonPrettyPrintString);
+    }
+
+    @GetMapping(value = "test")
+    public String test() {
+        logger.info("Inside Test Method------->>");
+        return "test";
     }
 }

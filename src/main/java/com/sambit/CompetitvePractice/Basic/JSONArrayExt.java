@@ -39,5 +39,15 @@ public class JSONArrayExt {
 //            System.out.println("JSON Object: " + jsonObject);
 //            System.out.println("CTRL Id : " + jsonObject.getString("addmoreDetails"));
 //        }
+
+        for (int i = 0; i < jsonArray.length(); i++) {
+            JSONArray jsonArray3 = jsonArray.getJSONArray(i);
+            System.out.println("JSON Array 1: " + jsonArray1);
+            for (int j = 0; j < jsonArray1.length(); j++) {
+                JSONObject jsonObject = jsonArray1.getJSONObject(j);
+                System.out.println("JSON Object: " + jsonObject);
+                System.out.println("CTRL Id : " + jsonObject.getString("addmoreDetails"));
+            }
+        }
     }
 }
