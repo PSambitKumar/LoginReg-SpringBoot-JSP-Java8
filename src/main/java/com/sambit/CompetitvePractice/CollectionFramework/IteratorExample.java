@@ -37,5 +37,6 @@ public class IteratorExample {
         Student studentPrint = studentIterator.next();
         System.out.println(studentPrint);
         System.out.println(studentPrint.getStream());
+        System.out.println(studentPrint.getSdob());
     }
 }
