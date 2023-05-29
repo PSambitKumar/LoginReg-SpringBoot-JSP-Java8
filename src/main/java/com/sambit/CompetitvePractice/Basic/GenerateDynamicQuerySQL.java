@@ -70,6 +70,10 @@ public class GenerateDynamicQuerySQL {
         return "SELECT * FROM " + tableName + " WHERE " + whereClause + " ORDER BY " + orderByClause + " GROUP BY " + groupByClause + " HAVING " + havingClause + " LIMIT " + limitClause + " OFFSET " + offsetClause + " FETCH " + fetchClause + " FOR " + forClause + " ONLY " + onlyClause + " WITH " + withClause + " NOWAIT " + nowaitClause + " SKIP " + skipClause + " UPDATE " + updateClause + " SHARE " + shareClause + " KEYSHARE " + keyshareClause;
     }
 
+    public static String selectQuery(String tableName, String whereClause, String orderByClause, String groupByClause, String havingClause, String limitClause, String offsetClause, String fetchClause, String forClause, String onlyClause, String withClause, String nowaitClause, String skipClause, String updateClause, String shareClause, String keyshareClause, String lockClause) {
+        return "SELECT * FROM " + tableName + " WHERE " + whereClause + " ORDER BY " + orderByClause + " GROUP BY " + groupByClause + " HAVING " + havingClause + " LIMIT " + limitClause + " OFFSET " + offsetClause + " FETCH " + fetchClause + " FOR " + forClause + " ONLY " + onlyClause + " WITH " + withClause + " NOWAIT " + nowaitClause + " SKIP " + skipClause + " UPDATE " + updateClause + " SHARE " + shareClause + " KEYSHARE " + keyshareClause + " LOCK " + lockClause;
+    }
+
     public static void main(String[] args) {
         System.out.println(selectQuery("table", "where", "order", "group", "having", "limit", "offset", "fetch", "for", "only", "with", "nowait", "skip", "update", "share", "keyshare"));
     }

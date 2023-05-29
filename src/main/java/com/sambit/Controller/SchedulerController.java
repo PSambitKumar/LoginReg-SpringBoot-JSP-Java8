@@ -19,4 +19,10 @@ public class SchedulerController {
         logger.info("Scheduler is running in every minute");
     }
 
+//    Run Every 3 hours
+    @Scheduled(cron = "0 0 */3 * * ?")
+    public void runScheduler3(){
+        logger.info("Scheduler is running in every 3 hours");
+    }
+
 }
