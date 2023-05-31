@@ -76,15 +76,12 @@ public class GoldRateController {
                 for (int j = 0; j < columnCount; j++) {
                     if (j == 0)
                         productDtl = productDtlRepository.getById(Integer.parseInt(Integer.toString((int)sheet.getRow(i).getCell(j).getNumericCellValue())));
-
                     if (j == 1)
                         makingCharge = sheet.getRow(i).getCell(j).getNumericCellValue() * productDtl.getWeight();
-
                     if (j == 2) {
                         net = makingCharge + (goldRate * productDtl.getWeight());
                         gst = net * sheet.getRow(i).getCell(j).getNumericCellValue() / 100;
                     }
-
                     if (j == 3)
                         discountOnMakingCharge = makingCharge * sheet.getRow(i).getCell(j).getNumericCellValue() / 100;
 

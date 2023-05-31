@@ -1,10 +1,6 @@
 package com.sambit.Utils;
 
-import com.twilio.Twilio;
-import com.twilio.twiml.MessagingResponse;
-import com.twilio.twiml.messaging.Message;
-import com.twilio.twiml.messaging.Body;
-import com.twilio.type.PhoneNumber;
+
 import okhttp3.*;
 
 import java.io.IOException;
