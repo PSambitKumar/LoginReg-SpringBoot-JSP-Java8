@@ -74,6 +74,28 @@ public class NativeQuery {
         }
     }
 
+    public void getHospitalData() {
+        Map<String, Object> response = new LinkedHashMap<>();
+        List<Object[]> results = entityManager.createNativeQuery(
+                        "SELECT\n" +
+                                "            *\n" +
+                                "        FROM TXNTRANSACTIONDETAILS T\n" +
+                                "                 INNER JOIN HOSPITAL_INFO H ON T.HOSPITALCODE = H.HOSPITAL_CODE\n" +
+                                "                 INNER JOIN STATE S ON H.STATE_CODE = S.STATECODE\n" +
+                                "                 INNER JOIN DISTRICT D ON S.STATECODE = D.STATECODE AND H.DISTRICT_CODE = D.DISTRICTCODE\n" +
+                                "                 INNER JOIN PACKAGEDETAILS P ON P.PROCEDURECODE = SUBSTR(T.PACKAGECODE, 5, 10) AND P.HOSPITALCATEGORYID = H.HOSPITAL_CATEGORYID\n" +
+                                "        WHERE\n" +
+                                "          AND H.STATUS_FLAG = 0")
+                .getResultList();
+
+        for (Object[] row : results) {
+            response.put("stateName", row[0]);
+            response.put("districtName", row[1]);
+            response.put("hospitalName", row[2]);
+            System.out.println("Data : " + response);
+        }
+    }
+
 
 
     public static void main(String[] args) {
