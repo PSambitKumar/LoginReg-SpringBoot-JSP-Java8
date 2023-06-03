@@ -101,5 +101,9 @@ public class NativeQuery {
     public static void main(String[] args) {
         NativeQuery nativeQuery = new NativeQuery();
         nativeQuery.createUniqueClaimNo();
+
+        nativeQuery.getHospitalDetails();
+        nativeQuery.getHospitalDetails1();
+        nativeQuery.getHospitalData();
     }
 }
