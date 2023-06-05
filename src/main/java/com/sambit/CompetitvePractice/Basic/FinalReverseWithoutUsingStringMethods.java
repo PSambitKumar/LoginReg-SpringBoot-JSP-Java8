@@ -14,6 +14,15 @@ public class FinalReverseWithoutUsingStringMethods {
         str2.append(str);
         str2 = str2.reverse();
         System.out.println(str2);
+
     }
+
+    public static void reverseString(String str) {
+        char[] strArray = str.toCharArray();
+        for (int i = strArray.length - 1; i >= 0; i--) {
+            System.out.print(strArray[i]);
+        }
+    }
+
 
 }

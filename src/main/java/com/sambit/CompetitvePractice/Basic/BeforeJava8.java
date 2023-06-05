@@ -44,8 +44,4 @@ public class BeforeJava8 {
         }
         return result;
     }
-
-
-
-
 }
