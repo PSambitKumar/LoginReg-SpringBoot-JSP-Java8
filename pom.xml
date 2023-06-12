@@ -163,6 +163,7 @@
     </dependencies>
 
     <build>
+             <finalName>Reg</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
