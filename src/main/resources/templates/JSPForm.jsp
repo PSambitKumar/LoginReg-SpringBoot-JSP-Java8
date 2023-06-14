@@ -80,6 +80,45 @@
                 </div>
             </form>
         </div>
+
+
+
+    <div id="view">
+        <h3 class="card-title">Employee Details</h3>
+
+        <table class="table table-bordered" width="90%">
+            <thead>
+            <tr>
+                <th>Sl.No</th>
+                <th>Batch Name</th>
+                <th>Batch Start Date</th>
+                <th>Technology Name</th>
+                <th>Employee Name</th>
+                <th>Employee Phone</th>
+                <th>Mark</th>
+                <th>Grade</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <c:forEach items="${tableListDTOList}" var="table" varStatus="count">
+                <tr>
+                    <td>${count.count}</td>
+                    <td>${table.batchName}</td>
+                    <td>${table.batchStartDate}</td>
+                    <td>${table.technologyName}</td>
+                    <td>${table.employeeName}</td>
+                    <td>${table.employeePhone}</td>
+                    <td>${table.mark}</td>
+                    <td>${table.grade}</td>
+                    <td>${table.status}</td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+
+
     </div>
 </div>
 

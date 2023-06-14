@@ -1,5 +1,6 @@
 package com.sambit.CompetitvePractice.Basic;
 
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.EntityManager;
@@ -95,6 +96,12 @@ public class NativeQuery {
             System.out.println("Data : " + response);
         }
     }
+
+//    Query(value = "SELECT * FROM API_SERVICE_LOG ASL\n" +
+//            "WHERE ASL.API_ID =:apiId\n" +
+//            "AND EXTRACT(YEAR FROM ASL.CREATED_ON) =:year\n" +
+//            "AND EXTRACT(MONTH FROM ASL.CREATED_ON) =:month", nativeQuery = true)
+//    List<Object[]> getReportList(@Param(value = "apiId") Long apiId, @Param(value = "year") int year, @Param(value = "month") int month);
 
 
 
