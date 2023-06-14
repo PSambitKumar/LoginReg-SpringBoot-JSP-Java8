@@ -61,4 +61,8 @@ public class AgeCalculator {
 	public static int calculateAge4(LocalDate birthDate, String currentDate) {
 		return Period.between(birthDate, LocalDate.parse(currentDate)).getYears();
 	}
+
+	public static int calculateAge5(LocalDate birthDate, int currentDate) {
+		return Period.between(birthDate, LocalDate.of(currentDate, 1, 1)).getYears();
+	}
 }
