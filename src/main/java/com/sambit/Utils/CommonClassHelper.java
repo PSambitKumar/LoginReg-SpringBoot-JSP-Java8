@@ -2,6 +2,7 @@ package com.sambit.Utils;
 
 import com.sambit.Entity.BasicDetails;
 import com.sambit.Entity.MemberDetails;
+import org.springframework.beans.BeanUtils;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -48,9 +49,9 @@ public class CommonClassHelper {
                             map.put("createdOn", model.getCreatedOn() != null ? DateFormat.formatDate(model.getCreatedOn()) : "NA");
                             map.put("createdBy", model.getCreatedBy() != null ? model.getCreatedBy() : "NA");
                             map.put("dataStatus", model.getDataStatus() == 0 ? "Inserted" : "Updated");
-//                            map.put("updatedOn", model.getUpdatedOn() != null ? model.getUpdatedOn() : "NA");
-//                            map.put("updatedBy", model.getUpdatedBy() != null ? model.getUpdatedBy() : "NA");
-//                            map.put("statusFlag", model.getStatusFlag() != null ? model.getStatusFlag() : "NA");
+                            map.put("updatedOn", model.getUpdatedOn() != null ? model.getUpdatedOn() : "NA");
+                            map.put("updatedBy", model.getUpdatedBy() != null ? model.getUpdatedBy() : "NA");
+                            map.put("statusFlag", model.getStatusFlag() != null ? model.getStatusFlag() : "NA");
                             map.put("oldData", model.getOldDataId());
                     return map;
                 })
@@ -80,9 +81,9 @@ public class CommonClassHelper {
                             map.put("createdOn", model.getCreatedOn() != null ? model.getCreatedOn() : "NA");
                             map.put("createdBy", model.getCreatedBy() != null ? model.getCreatedBy() : "NA");
                             map.put("dataStatus", model.getDataStatus() == 0 ? "Inserted" : "Updated");
-//                            map.put("updatedOn", model.getUpdatedOn());
-//                            map.put("updatedBy", model.getUpdatedBy());
-//                            map.put("statusFlag", model.getStatusFlag());
+                            map.put("updatedOn", model.getUpdatedOn());
+                            map.put("updatedBy", model.getUpdatedBy());
+                            map.put("statusFlag", model.getStatusFlag());
                             map.put("oldData", model.getOldDataId());
                             return map;
                     })
@@ -97,5 +98,17 @@ public class CommonClassHelper {
             keyNames.add(field.getName());
         }
         return keyNames;
+    }
+
+    public static Map<String, Object> ConvertModelToMap(BasicDetails basicDetails) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        BeanUtils.copyProperties(basicDetails, map);
+        return map;
+    }
+
+    public static Map<String, Object> ConvertModelToMap(MemberDetails memberDetails) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        BeanUtils.copyProperties(memberDetails, map);
+        return map;
     }
 }
