@@ -26,6 +26,22 @@ public class CommonUtils {
         }
     }
 
+    public static String convertClobToString1(Clob data) {
+        try {
+            StringBuilder sb = new StringBuilder(); try (Reader reader = data.getCharacterStream();
+                                                         BufferedReader br = new BufferedReader(reader)) {
+                char[] charBuffer = new char[4096];
+                int bytesRead;
+                while ((bytesRead = br.read(charBuffer)) != -1) {
+                    sb.append(charBuffer, 0, bytesRead);
+                }
+            }
+            return sb.toString();
+        } catch (Exception e) {
+            return null;
+        }
+    }
+
     public static Map<String, Object> convertStringToMap(String data) {
         try {
             return new ObjectMapper().readValue(data, new TypeReference<Map<String, Object>>() {
