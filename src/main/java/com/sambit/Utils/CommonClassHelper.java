@@ -106,9 +106,13 @@ public class CommonClassHelper {
         return map;
     }
 
-    public static Map<String, Object> ConvertModelToMap(MemberDetails memberDetails) {
-        Map<String, Object> map = new LinkedHashMap<>();
-        BeanUtils.copyProperties(memberDetails, map);
-        return map;
+    public static Class<?> converMapToModelClass(String modelName) {
+        Class<?> modelClass = null;
+        try {
+            modelClass = Class.forName("com.odisha.rationcard.model." + modelName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return modelClass;
     }
 }
