@@ -3,6 +3,7 @@ package com.sambit.Utils;
 import com.sambit.Entity.BasicDetails;
 import com.sambit.Entity.MemberDetails;
 import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.BeanUtils;
 
@@ -140,6 +141,8 @@ public class CommonClassHelper {
 
             Cell headingCell = headerRow.createCell(0);
             headingCell.setCellValue(fileName);
+            CellRangeAddress mergedRegion = new CellRangeAddress(0, 0, 0, columns.size() - 1);//Merging Rows / Columns
+            sheet.addMergedRegion(mergedRegion);
             headingCell.setCellStyle(headerCellStyle);
 
             Row generatedRow = sheet.createRow(1);

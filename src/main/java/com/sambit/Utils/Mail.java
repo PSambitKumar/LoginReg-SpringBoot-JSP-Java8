@@ -78,4 +78,34 @@ public class Mail {
                         mex.printStackTrace();
                 }
         }
+
+        public static void sendMail(String subject,String body,String recipientMail) {
+                try {
+                        Properties prop = new Properties();
+                        prop.put("mail.smtp.host", "apps.odishaone.gov.in");
+                        prop.put("mail.smtp.port", "25");
+                        prop.put("mail.smtp.auth", "enable");
+                        prop.put("mail.smtp.starttls.enable", "enable");
+
+                        Session session = Session.getInstance(prop,new Authenticator() {
+                                protected PasswordAuthentication getPasswordAuthentication() {
+                                        return new PasswordAuthentication("bsky@odishaone.gov.in", "m658P6@iQK9l");
+                                }
+                        });
+
+                        try {
+                                Message message = new MimeMessage(session);
+                                message.setFrom(new InternetAddress("bsky@odishaone.gov.in"));
+                                message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(recipientMail));
+                                message.setSubject(subject);
+                                message.setText(body);
+                                Transport.send(message);
+                                System.out.println("Mail Sent Successfully.");
+                        } catch (MessagingException e) {
+                                System.out.println(e);
+                        }
+                }catch (Exception e) {
+                        e.printStackTrace();
+                }
+        }
 }
