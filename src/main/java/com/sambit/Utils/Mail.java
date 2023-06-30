@@ -1,8 +1,13 @@
 package com.sambit.Utils;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 public class Mail {
@@ -13,6 +18,7 @@ public class Mail {
 //        public static final String password = "qjqnhwsrvytkgblr";
 
         public static void sendEmailGmailTLS(String email) {
+                String filePath = "C:/BSKY/Daily Basis CPD Allotment Report.xlsx";
 
                 Properties prop = new Properties();
                 prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -35,6 +41,20 @@ public class Mail {
                         );
                         message.setSubject("Greeting From Sambit");
                         message.setText("Delete Pro. Database Please.");
+
+                        MimeBodyPart messageBodyPart = new MimeBodyPart();
+                        messageBodyPart.setText("Body Part");
+
+                        MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+                        DataSource source = new FileDataSource(filePath);
+                        attachmentBodyPart.setDataHandler(new DataHandler(source));
+                        attachmentBodyPart.setFileName(source.getName());
+
+                        Multipart multipart = new MimeMultipart();
+                        multipart.addBodyPart(messageBodyPart);
+                        multipart.addBodyPart(attachmentBodyPart);
+
+                        message.setContent(multipart);
 
                         Transport.send(message);
                         System.out.println("Mail Sent Successfully.");

@@ -8,6 +8,10 @@ import com.sambit.Repository.BlobDataUploadRepository;
 import com.sambit.Repository.MultiFileUploadRepository;
 import com.sambit.Repository.SingleFileUploadRepository;
 import com.sambit.Service.RegService;
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.font.PDType1Font;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -333,6 +337,31 @@ public class FileHandlerController {
 //			e.printStackTrace();
 //		}
 //	}
+
+	@GetMapping(value = "blobFileProcessing")
+	public void blobFileProcessing() {
+		String rapFilePath = "C:\\Users\\sambit.pradhan\\IdeaProjects\\Registration\\src\\main\\resources\\static\\assets\\BLOB File\\RAP5";
+		String ticketFilePath = "C:\\Users\\sambit.pradhan\\IdeaProjects\\Registration\\src\\main\\resources\\static\\assets\\BLOB File\\ticket";
+		try {
+			File inputFile = new File(rapFilePath);
+
+			FileInputStream inputStream = new FileInputStream(inputFile);
+			byte[] fileContent = new byte[(int) inputFile.length()];
+			inputStream.read(fileContent);
+			String encodedString = Base64.getEncoder().encodeToString(fileContent);
+			System.out.println("Encoded String : " + encodedString);
+			byte[] decodedBytes = Base64.getDecoder().decode(encodedString);
+			FileOutputStream outputStream = new FileOutputStream("C:\\Users\\sambit.pradhan\\Desktop\\convertedFile.pdf");
+			outputStream.write(decodedBytes);
+			inputStream.close();
+			outputStream.close();
+
+			System.out.println("File Content : " + Arrays.toString(fileContent));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 
 
 }
