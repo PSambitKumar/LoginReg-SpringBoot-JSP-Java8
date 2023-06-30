@@ -37,6 +37,7 @@ public class CommonFileUpload {
     public static final String linuxRootFolder = "/opt/RegistrationData/";
     private static final String uploadedFolderInWindows = "C://RegistrationData//Documents//";
     private static final String uploadedFolderInLinux = "/opt/RegistrationData/Documents/";
+    private static final String home = System.getProperty("user.home");
     public static String operatingSystem = System.getProperty("os.name").toLowerCase().trim();
 
     private static final ResourceBundle fileResourceBundle = ResourceBundle.getBundle("file.configuration");
