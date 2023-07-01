@@ -27,4 +27,9 @@ public class CurrencyConverter {
 		return currency;
 	}
 
+	public static void main(String[] args) {
+		indianCurrencyFormat("123456789");
+		currencyFormat("123456789", "IN");
+	}
+
 }
