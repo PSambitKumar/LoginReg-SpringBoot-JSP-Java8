@@ -58,5 +58,73 @@
     </form>
 </div>
 
+
+
+
+<div class="content-box">
+    <form [formGroup]="mailServiceForm" autocomplete="off">
+        <div class="row">
+
+            <div class="col">
+                <div class="row">
+                    <div class="col">
+                        <label for="mailServiceName" class="form-label">Mail Service Name<span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" name="mailServiceName" placeholder="Enter Mail Service Name"
+                               formControlName="mailServiceName" id="mailServiceName" maxlength="40"
+                               onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+                    </div>
+
+                    <div class="col">
+                        <label for="mailDescription" class="form-label">Service Description<span class="text-danger">*</span></label>
+                        <input type="text" class="form-control" maxlength="100" name="mailDescription" id="mailDescription"
+                               formControlName="mailDescription" placeholder="Enter Mail Desc."
+                               onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9 ]/g,'');"/>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 7px;">
+                    <div class="col">
+                        <label for="mailCCRecipient" class="form-label">Mail CC Recipients<span class="text-danger">*</span></label>
+                        <textarea class="form-control" type="text" name="mailCCRecipient" placeholder="Enter CC Email Address"
+                                  formControlName="mailCCRecipient" id="mailCCRecipient" maxlength="40" rows="7" cols="50"></textarea>
+                    </div>
+
+                    <div class="col">
+                        <label for="mailBCCRecipient" class="form-label">Mail CC Recipients<span class="text-danger">*</span></label>
+                        <textarea type="text" class="form-control" maxlength="100" name="mailBCCRecipient" id="mailBCCRecipient"
+                                  formControlName="mailBCCRecipient" placeholder="Enter BCC Email Address" rows="7" cols="50"></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col">
+
+                <div class="row">
+                    <div class="col">
+                        <label for="mailSubject" class="form-label">Mail Subject<span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" name="mailSubject" placeholder="Enter Mail Subject"
+                               formControlName="mailSubject" id="mailSubject" maxlength="40"
+                               onkeyup="this.value=this.value.replace(/[^0-9]/g,'');"/>
+                    </div>
+                </div>
+
+                <div class="row" style="margin-top: 7px;">
+                    <div class="col">
+                        <label for="mailBody" class="form-label">Mail Body<span class="text-danger">*</span></label>
+                        <textarea type="text" class="form-control" name="mailBody" id="mailBody"
+                                  formControlName="mailBody" placeholder="Enter Mail Body"
+                                  onkeyup="this.value=this.value.replace(/[^a-zA-Z0-9 ]/g,'');" rows="7" cols="50"></textarea>
+                    </div>
+                </div>
+
+
+            </div>
+
+        </div>
+    </form>
+</div>
+</div>
+
 </body>
 </html>

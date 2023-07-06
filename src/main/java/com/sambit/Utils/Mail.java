@@ -129,5 +129,23 @@ public class Mail {
                 }
         }
 
+        public static String generateEmailBodyForCPDAllotment(String name) {
+                return "Dear " + name + ",\n\n" +
+                        "CPD claims allotment report has been generated.\n" +
+                        "This report contains the list of the claims that have been allotted to you.\n" +
+                        "Please find the attached report.\n" +
+                        "\n\n" +
+                        "Regards,\n" +
+                        "BSKY Team\n\n" +
+                        "This is a system-generated mail. Please do not reply.\n\n";
+        }
 
+        public static String generateEmailBodyForCPDUnAllotment(String name) {
+                return "Dear " + name + ",\n\n" +
+                        "You have no claims allotted to you for today.\n" +
+                        "\n\n" +
+                        "Regards,\n" +
+                        "BSKY Team\n\n" +
+                        "This is a system-generated mail. Please do not reply.\n\n";
+        }
 }
