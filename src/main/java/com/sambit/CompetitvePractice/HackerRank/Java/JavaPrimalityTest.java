@@ -7,7 +7,7 @@ import java.math.BigInteger;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 21/10/2022 - 11:44 AM
  */
 public class JavaPrimalityTest {

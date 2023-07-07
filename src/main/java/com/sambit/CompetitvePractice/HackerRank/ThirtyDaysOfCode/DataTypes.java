@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 07/11/2022 - 9:05 AM
  */
 public class DataTypes {

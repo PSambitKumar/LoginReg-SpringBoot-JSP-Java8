@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.Basic;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 17/04/2023 - 10:20 AM
  */
 public class DynamicQueryForARangeOfList {

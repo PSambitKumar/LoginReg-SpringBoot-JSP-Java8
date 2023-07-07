@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.CollectionFramework;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 13/12/2022 - 5:35 PM
  */
 public class AllTypesOfHashMapExamples {

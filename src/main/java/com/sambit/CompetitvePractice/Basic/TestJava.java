@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 21/04/2023 - 12:42 PM
  */
 public class TestJava {

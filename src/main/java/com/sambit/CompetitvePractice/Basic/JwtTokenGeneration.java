@@ -6,7 +6,7 @@ import java.util.Base64;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 03/04/2023 - 11:41 AM
  */
 public class JwtTokenGeneration {

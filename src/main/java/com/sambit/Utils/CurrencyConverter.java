@@ -5,7 +5,7 @@ import java.util.Locale;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 08/11/2022 - 3:02 PM
  */
 public class CurrencyConverter {

@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.Algorithms;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 28/01/2023 - 11:23 PM
  */
 public class PetersonNumber {

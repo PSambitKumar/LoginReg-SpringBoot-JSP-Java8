@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 26/10/2022 - 5:25 PM
  */
 public class NameScores {

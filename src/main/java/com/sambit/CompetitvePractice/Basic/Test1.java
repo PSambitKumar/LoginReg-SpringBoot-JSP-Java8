@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 21/06/2023 - 11:51 AM
  */
 public class Test1 {

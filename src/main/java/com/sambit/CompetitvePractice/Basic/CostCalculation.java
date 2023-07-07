@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 06/05/2023 - 11:44 PM
  */
 public class CostCalculation {

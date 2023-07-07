@@ -8,7 +8,7 @@ import java.util.Set;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 26/12/2022 - 6:39 PM
  */
 

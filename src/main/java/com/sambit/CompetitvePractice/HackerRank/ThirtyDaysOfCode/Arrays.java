@@ -10,7 +10,7 @@ import static java.util.stream.Collectors.toList;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 14/11/2022 - 9:37 AM
  */
 public class Arrays {

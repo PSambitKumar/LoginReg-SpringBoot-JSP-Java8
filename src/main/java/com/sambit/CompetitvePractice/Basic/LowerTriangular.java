@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.Basic;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 28/02/2023 - 9:33 PM
  */
 public class LowerTriangular

@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.GFG;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 17/01/2023 - 9:57 PM
  */
 class Node

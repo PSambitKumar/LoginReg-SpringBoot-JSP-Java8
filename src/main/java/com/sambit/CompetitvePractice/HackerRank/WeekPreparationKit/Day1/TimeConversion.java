@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.WeekPreparationKit.Day1;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 13/10/2022 - 1:49 PM
  */
 public class TimeConversion {

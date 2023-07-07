@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @Project : FileUploadDownload
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 06/09/2022 - 12:48 PM
  */
 public interface BlobDataUploadRepository extends JpaRepository<BlobDataUpload, Integer> {

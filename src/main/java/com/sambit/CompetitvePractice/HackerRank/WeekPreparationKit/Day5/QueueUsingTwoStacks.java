@@ -9,7 +9,7 @@ import java.util.Stack;
 
 /**
     *@Project : Registration
-    *@Auther : Sambit Kumar Pradhan
+    *@Author : Sambit Kumar Pradhan
     *@Created On : 17/10/2022 - 12:12 PM
 */public class QueueUsingTwoStacks {
 	private static class StackQueue<T> {

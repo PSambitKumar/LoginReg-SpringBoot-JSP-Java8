@@ -5,7 +5,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 22/02/2023 - 9:52 PM
  */
 class Product{

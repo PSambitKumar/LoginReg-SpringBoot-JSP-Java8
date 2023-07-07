@@ -11,7 +11,7 @@ import java.net.URLConnection;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 16/12/2022 - 11:20 PM
  */
 public class VerifyGepNIC {

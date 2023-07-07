@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 05/11/2022 - 10:44 PM
  */
 public class JavaBitSet {

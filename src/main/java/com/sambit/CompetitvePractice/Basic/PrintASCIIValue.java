@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.Basic;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 15/02/2023 - 5:25 PM
  */
 public class PrintASCIIValue {

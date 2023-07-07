@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 19/02/2023 - 11:11 PM
  */
 public class BeforeJava8 {

@@ -40,7 +40,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 07/09/2022 - 11:15 AM
  */
 

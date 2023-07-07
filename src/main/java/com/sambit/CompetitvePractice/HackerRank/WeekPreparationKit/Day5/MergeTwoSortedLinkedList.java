@@ -6,7 +6,7 @@ import java.io.IOException;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 17/10/2022 - 10:09 PM
  */
 public class MergeTwoSortedLinkedList {

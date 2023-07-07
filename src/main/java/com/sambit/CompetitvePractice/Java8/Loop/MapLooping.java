@@ -7,7 +7,7 @@ import java.util.*;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 13/04/2023 - 2:48 PM
  */
 public class MapLooping {

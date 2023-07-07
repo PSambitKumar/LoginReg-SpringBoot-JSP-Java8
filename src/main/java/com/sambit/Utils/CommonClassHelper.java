@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 /**
  * @Project : BSKY Backend
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 23/06/2023 - 11:51 AM
  */
 public class CommonClassHelper {

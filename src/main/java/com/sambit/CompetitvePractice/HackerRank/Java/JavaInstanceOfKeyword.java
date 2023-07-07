@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 05/12/2022 - 5:09 PM
  */
 public class JavaInstanceOfKeyword {

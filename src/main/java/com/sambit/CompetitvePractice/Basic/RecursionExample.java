@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.Basic;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 06/03/2023 - 10:58 PM
  */
 public class RecursionExample {

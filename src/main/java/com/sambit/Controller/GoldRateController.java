@@ -27,7 +27,7 @@ import java.util.Optional;
 
 /**
  * @Project : GoldJewelleryPriceCalculator
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 18/02/2023 - 10:26 AM
  */
 @Controller

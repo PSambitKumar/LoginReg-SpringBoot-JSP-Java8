@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 11/10/2022 - 3:44 PM
  */
 public class BreakingTheRecords {

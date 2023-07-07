@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.Java;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 21/11/2022 - 10:09 AM
  */
 public class JavaInheritanceII {

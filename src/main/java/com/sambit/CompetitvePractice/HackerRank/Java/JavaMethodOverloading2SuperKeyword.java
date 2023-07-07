@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.Java;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 01/12/2022 - 9:38 AM
  */
 class BiCycle{

@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 07/11/2022 - 10:26 AM
  */
 public class InterQuartileRange {

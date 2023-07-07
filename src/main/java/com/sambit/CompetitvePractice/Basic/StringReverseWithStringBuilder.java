@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.Basic;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 11/04/2023 - 4:59 PM
  */
 public class StringReverseWithStringBuilder {

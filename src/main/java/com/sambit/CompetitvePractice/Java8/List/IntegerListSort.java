@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 03/05/2023 - 12:09 PM
  */
 public class IntegerListSort {

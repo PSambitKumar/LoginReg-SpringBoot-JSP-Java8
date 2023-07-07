@@ -6,7 +6,7 @@ import java.sql.SQLException;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 07/09/2022 - 10:44 AM
  */
 

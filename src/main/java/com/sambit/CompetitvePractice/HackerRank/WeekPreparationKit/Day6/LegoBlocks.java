@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.WeekPreparationKit.Day6;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 17/10/2022 - 8:56 PM
  */
 public class LegoBlocks {

@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 19/10/2022 - 10:58 AM
  */
 public class BillDivision {

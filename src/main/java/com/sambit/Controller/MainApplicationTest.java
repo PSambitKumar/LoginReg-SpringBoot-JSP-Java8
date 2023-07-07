@@ -4,7 +4,7 @@ import com.sambit.Utils.Mail;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 26/04/2023 - 10:18 AM
  */
 public class MainApplicationTest {

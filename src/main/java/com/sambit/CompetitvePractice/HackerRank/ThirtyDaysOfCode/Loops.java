@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 12/11/2022 - 9:53 PM
  */
 public class Loops {

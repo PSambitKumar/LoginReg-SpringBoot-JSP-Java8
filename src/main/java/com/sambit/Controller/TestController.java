@@ -8,7 +8,7 @@ import org.springframework.web.client.RestTemplate;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 11/11/2022 - 5:00 PM
  */
 @Controller

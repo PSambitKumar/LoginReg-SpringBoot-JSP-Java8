@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 01/11/2022 - 10:21 AM
  */
 public class JavaMap {

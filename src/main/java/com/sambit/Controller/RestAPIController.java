@@ -39,7 +39,7 @@ import java.util.*;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 29/09/2022 - 9:57 AM
  */
 @RestController

@@ -13,7 +13,7 @@ import java.util.*;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 31/01/2023 - 4:41 PM
  */
 public class JSONArrayExt {

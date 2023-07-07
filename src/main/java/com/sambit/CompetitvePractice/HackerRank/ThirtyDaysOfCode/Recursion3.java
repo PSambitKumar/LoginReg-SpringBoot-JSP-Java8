@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.ThirtyDaysOfCode;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 15/11/2022 - 4:47 PM
  */
 public class Recursion3 {

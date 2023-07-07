@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 22/10/2022 - 10:25 AM
  */
 public class BigInteger {

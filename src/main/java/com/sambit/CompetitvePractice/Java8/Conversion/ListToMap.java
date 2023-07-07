@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 09/05/2023 - 12:51 PM
  */
 public class ListToMap {

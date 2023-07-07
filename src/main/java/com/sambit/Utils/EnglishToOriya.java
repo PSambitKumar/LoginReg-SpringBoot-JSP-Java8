@@ -2,7 +2,7 @@ package com.sambit.Utils;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 13/04/2023 - 4:47 PM
  */
 public class EnglishToOriya {

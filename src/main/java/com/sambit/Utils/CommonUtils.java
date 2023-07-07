@@ -16,7 +16,7 @@ import java.util.Map;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 21/06/2023 - 12:57 PM
  */
 public class CommonUtils {

@@ -8,7 +8,7 @@ import static org.eclipse.jdt.internal.compiler.parser.Parser.name;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 14/11/2022 - 9:42 AM
  */
 public class DictionaryAndMaps {

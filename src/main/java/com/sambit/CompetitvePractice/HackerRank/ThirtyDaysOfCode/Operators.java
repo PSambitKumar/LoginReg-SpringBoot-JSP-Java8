@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.ThirtyDaysOfCode;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 08/11/2022 - 9:12 AM
  */
 public class Operators {

@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 31/10/2022 - 6:18 PM
  */
 public class JavaList {

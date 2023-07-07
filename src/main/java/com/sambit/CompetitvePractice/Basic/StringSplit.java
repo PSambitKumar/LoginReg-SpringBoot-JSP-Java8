@@ -6,7 +6,7 @@ import java.util.stream.Stream;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 01/06/2023 - 7:51 PM
  */
 public class StringSplit {

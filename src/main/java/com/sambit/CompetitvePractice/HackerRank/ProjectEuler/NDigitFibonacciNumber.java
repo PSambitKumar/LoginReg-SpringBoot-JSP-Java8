@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 27/10/2022 - 3:51 PM
  */
 public class NDigitFibonacciNumber {

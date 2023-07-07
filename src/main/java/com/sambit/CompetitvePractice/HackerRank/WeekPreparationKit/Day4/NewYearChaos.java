@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 16/10/2022 - 11:32 AM
  */
 public class NewYearChaos {

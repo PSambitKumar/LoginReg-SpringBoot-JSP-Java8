@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 14/10/2022 - 10:45 AM
  */
 public class MigretoryBirds {

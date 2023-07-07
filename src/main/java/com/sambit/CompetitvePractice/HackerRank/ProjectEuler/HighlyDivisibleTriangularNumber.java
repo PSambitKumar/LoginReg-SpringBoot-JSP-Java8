@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 16/10/2022 - 1:13 AM
  */
 public class HighlyDivisibleTriangularNumber {

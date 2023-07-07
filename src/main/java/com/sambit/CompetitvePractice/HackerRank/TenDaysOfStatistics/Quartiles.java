@@ -7,7 +7,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 07/11/2022 - 9:10 AM
  */
 public class Quartiles {

@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 20/10/2022 - 12:23 PM
  */
 public class JavaReg2DuplicateWords {

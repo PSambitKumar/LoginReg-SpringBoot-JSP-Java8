@@ -4,7 +4,7 @@ import java.util.Iterator;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 29/12/2022 - 6:30 PM
  */
 public class TwoSum {

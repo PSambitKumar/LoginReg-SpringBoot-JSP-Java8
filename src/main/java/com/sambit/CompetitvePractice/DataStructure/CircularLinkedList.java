@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.DataStructure;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 13/10/2022 - 3:06 PM
  */
 public class CircularLinkedList {

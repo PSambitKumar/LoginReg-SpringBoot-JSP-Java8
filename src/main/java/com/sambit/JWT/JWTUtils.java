@@ -11,7 +11,7 @@ import java.util.function.Function;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 22/11/2022 - 11:49 AM
  */
 public class JWTUtils {

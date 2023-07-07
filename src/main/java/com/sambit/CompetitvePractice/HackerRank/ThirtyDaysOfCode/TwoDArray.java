@@ -8,7 +8,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 28/11/2022 - 10:35 AM
  */
 public class TwoDArray {

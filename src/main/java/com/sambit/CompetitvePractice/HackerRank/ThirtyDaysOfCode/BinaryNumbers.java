@@ -6,7 +6,7 @@ import java.io.InputStreamReader;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 16/11/2022 - 9:36 AM
  */
 public class BinaryNumbers {

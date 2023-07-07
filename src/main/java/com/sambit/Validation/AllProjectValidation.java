@@ -2,7 +2,7 @@ package com.sambit.Validation;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 16/11/2022 - 4:26 PM
  */
 public class AllProjectValidation {

@@ -4,7 +4,7 @@ import java.util.*;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 18/10/2022 - 10:04 AM
  */
 public class BreadthFirstSearchShortestSearch {
