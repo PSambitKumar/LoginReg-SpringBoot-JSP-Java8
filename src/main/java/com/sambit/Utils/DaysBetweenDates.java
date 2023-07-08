@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.concurrent.TimeUnit;
 
-//@Auther : Sambit Kumar Pradhan
+//@Author : Sambit Kumar Pradhan
 
 @SuppressWarnings("deprecation")
 public class DaysBetweenDates {

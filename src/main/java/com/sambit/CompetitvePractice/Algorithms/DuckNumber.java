@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.Algorithms;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 29/01/2023 - 11:18 PM
  */
 public class DuckNumber {

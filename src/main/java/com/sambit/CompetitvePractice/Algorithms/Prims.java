@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.Algorithms;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 10/10/2022 - 11:00 AM
  */
 public class Prims {

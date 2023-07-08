@@ -5,7 +5,7 @@ import java.util.Locale;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 08/11/2022 - 3:02 PM
  */
 public class CurrencyConverter {
@@ -26,5 +26,18 @@ public class CurrencyConverter {
 		System.out.println(currency);
 		return currency;
 	}
+
+	public static String currencyFormat(String rupees){
+		NumberFormat format = NumberFormat.getCurrencyInstance(new Locale("en", "IN"));
+		String currency = format.format(Double.parseDouble(rupees));
+		System.out.println(currency);
+		return currency;
+	}
+
+	public static void main(String[] args) {
+		indianCurrencyFormat("123456789");
+		currencyFormat("123456789", "IN");
+	}
+
 
 }

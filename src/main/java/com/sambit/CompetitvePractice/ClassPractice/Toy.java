@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.ClassPractice;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 09/12/2022 - 12:08 PM
  */
 public class Toy {

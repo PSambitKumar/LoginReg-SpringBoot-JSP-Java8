@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.ClassPractice;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 10/12/2022 - 11:46 AM
  */
 public class ArithmeticOperation {

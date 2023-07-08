@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 26/11/2022 - 8:55 PM
  */
 interface AdvancedArithmetic{

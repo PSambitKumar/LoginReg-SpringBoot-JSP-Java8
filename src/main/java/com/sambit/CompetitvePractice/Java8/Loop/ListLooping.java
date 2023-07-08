@@ -8,7 +8,7 @@ import java.util.Objects;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 13/04/2023 - 1:59 PM
  */
 public class ListLooping {

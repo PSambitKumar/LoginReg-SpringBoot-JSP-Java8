@@ -6,7 +6,7 @@ import java.util.Collections;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 27/12/2022 - 11:26 PM
  */
 public class JavaReflectionAttributes {

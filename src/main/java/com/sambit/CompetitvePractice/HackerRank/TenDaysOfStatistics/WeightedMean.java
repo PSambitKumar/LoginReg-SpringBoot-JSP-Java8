@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 06/11/2022 - 10:18 PM
  */
 public class WeightedMean {

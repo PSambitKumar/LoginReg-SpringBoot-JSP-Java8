@@ -1,8 +1,13 @@
 package com.sambit.Utils;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
 import java.util.Properties;
 
 public class Mail {
@@ -13,6 +18,7 @@ public class Mail {
 //        public static final String password = "qjqnhwsrvytkgblr";
 
         public static void sendEmailGmailTLS(String email) {
+                String filePath = "C:/BSKY/Daily Basis CPD Allotment Report.xlsx";
 
                 Properties prop = new Properties();
                 prop.put("mail.smtp.host", "smtp.gmail.com");
@@ -35,6 +41,20 @@ public class Mail {
                         );
                         message.setSubject("Greeting From Sambit");
                         message.setText("Delete Pro. Database Please.");
+
+                        MimeBodyPart messageBodyPart = new MimeBodyPart();
+                        messageBodyPart.setText("Body Part");
+
+                        MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+                        DataSource source = new FileDataSource(filePath);
+                        attachmentBodyPart.setDataHandler(new DataHandler(source));
+                        attachmentBodyPart.setFileName(source.getName());
+
+                        Multipart multipart = new MimeMultipart();
+                        multipart.addBodyPart(messageBodyPart);
+                        multipart.addBodyPart(attachmentBodyPart);
+
+                        message.setContent(multipart);
 
                         Transport.send(message);
                         System.out.println("Mail Sent Successfully.");
@@ -77,5 +97,55 @@ public class Mail {
                 } catch (MessagingException mex) {
                         mex.printStackTrace();
                 }
+        }
+
+        public static void sendMail(String subject,String body,String recipientMail) {
+                try {
+                        Properties prop = new Properties();
+                        prop.put("mail.smtp.host", "apps.odishaone.gov.in");
+                        prop.put("mail.smtp.port", "25");
+                        prop.put("mail.smtp.auth", "enable");
+                        prop.put("mail.smtp.starttls.enable", "enable");
+
+                        Session session = Session.getInstance(prop,new Authenticator() {
+                                protected PasswordAuthentication getPasswordAuthentication() {
+                                        return new PasswordAuthentication("bsky@odishaone.gov.in", "m658P6@iQK9l");
+                                }
+                        });
+
+                        try {
+                                Message message = new MimeMessage(session);
+                                message.setFrom(new InternetAddress("bsky@odishaone.gov.in"));
+                                message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(recipientMail));
+                                message.setSubject(subject);
+                                message.setText(body);
+                                Transport.send(message);
+                                System.out.println("Mail Sent Successfully.");
+                        } catch (MessagingException e) {
+                                System.out.println(e);
+                        }
+                }catch (Exception e) {
+                        e.printStackTrace();
+                }
+        }
+
+        public static String generateEmailBodyForCPDAllotment(String name) {
+                return "Dear " + name + ",\n\n" +
+                        "CPD claims allotment report has been generated.\n" +
+                        "This report contains the list of the claims that have been allotted to you.\n" +
+                        "Please find the attached report.\n" +
+                        "\n\n" +
+                        "Regards,\n" +
+                        "BSKY Team\n\n" +
+                        "This is a system-generated mail. Please do not reply.\n\n";
+        }
+
+        public static String generateEmailBodyForCPDUnAllotment(String name) {
+                return "Dear " + name + ",\n\n" +
+                        "You have no claims allotted to you for today.\n" +
+                        "\n\n" +
+                        "Regards,\n" +
+                        "BSKY Team\n\n" +
+                        "This is a system-generated mail. Please do not reply.\n\n";
         }
 }

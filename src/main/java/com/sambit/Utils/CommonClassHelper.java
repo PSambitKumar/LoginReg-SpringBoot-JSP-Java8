@@ -2,17 +2,22 @@ package com.sambit.Utils;
 
 import com.sambit.Entity.BasicDetails;
 import com.sambit.Entity.MemberDetails;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.springframework.beans.BeanUtils;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.lang.reflect.Field;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
  * @Project : BSKY Backend
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 23/06/2023 - 11:51 AM
  */
 public class CommonClassHelper {
@@ -48,9 +53,9 @@ public class CommonClassHelper {
                             map.put("createdOn", model.getCreatedOn() != null ? DateFormat.formatDate(model.getCreatedOn()) : "NA");
                             map.put("createdBy", model.getCreatedBy() != null ? model.getCreatedBy() : "NA");
                             map.put("dataStatus", model.getDataStatus() == 0 ? "Inserted" : "Updated");
-//                            map.put("updatedOn", model.getUpdatedOn() != null ? model.getUpdatedOn() : "NA");
-//                            map.put("updatedBy", model.getUpdatedBy() != null ? model.getUpdatedBy() : "NA");
-//                            map.put("statusFlag", model.getStatusFlag() != null ? model.getStatusFlag() : "NA");
+                            map.put("updatedOn", model.getUpdatedOn() != null ? model.getUpdatedOn() : "NA");
+                            map.put("updatedBy", model.getUpdatedBy() != null ? model.getUpdatedBy() : "NA");
+                            map.put("statusFlag", model.getStatusFlag() != null ? model.getStatusFlag() : "NA");
                             map.put("oldData", model.getOldDataId());
                     return map;
                 })
@@ -80,9 +85,9 @@ public class CommonClassHelper {
                             map.put("createdOn", model.getCreatedOn() != null ? model.getCreatedOn() : "NA");
                             map.put("createdBy", model.getCreatedBy() != null ? model.getCreatedBy() : "NA");
                             map.put("dataStatus", model.getDataStatus() == 0 ? "Inserted" : "Updated");
-//                            map.put("updatedOn", model.getUpdatedOn());
-//                            map.put("updatedBy", model.getUpdatedBy());
-//                            map.put("statusFlag", model.getStatusFlag());
+                            map.put("updatedOn", model.getUpdatedOn());
+                            map.put("updatedBy", model.getUpdatedBy());
+                            map.put("statusFlag", model.getStatusFlag());
                             map.put("oldData", model.getOldDataId());
                             return map;
                     })
@@ -97,5 +102,103 @@ public class CommonClassHelper {
             keyNames.add(field.getName());
         }
         return keyNames;
+    }
+
+    public static Map<String, Object> ConvertModelToMap(BasicDetails basicDetails) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        BeanUtils.copyProperties(basicDetails, map);
+        return map;
+    }
+
+    public static Class<?> converMapToModelClass(String modelName) {
+        Class<?> modelClass = null;
+        try {
+            modelClass = Class.forName("com.odisha.rationcard.model." + modelName);
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+        return modelClass;
+    }
+
+    public static String generateExcelFile(List<Map<String, Object>> dataList, List<String> columns, String sheetName, String fileName) {
+        String path;
+        try {
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet(sheetName);
+
+            CellStyle headerCellStyle = workbook.createCellStyle();
+            headerCellStyle.setFillForegroundColor(IndexedColors.DARK_GREEN.getIndex());
+            headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+
+            Font newFont = workbook.createFont();
+            newFont.setBold(true);
+            newFont.setColor(IndexedColors.WHITE.getIndex());
+            newFont.setFontHeightInPoints((short) 15);
+            newFont.setItalic(true);
+
+            headerCellStyle.setFont(newFont);
+            Row headerRow = sheet.createRow(0);
+
+            Cell headingCell = headerRow.createCell(0);
+            headingCell.setCellValue(fileName);
+            CellRangeAddress mergedRegion = new CellRangeAddress(0, 0, 0, columns.size() - 1);//Merging Rows / Columns
+            sheet.addMergedRegion(mergedRegion);
+            headingCell.setCellStyle(headerCellStyle);
+
+            Row generatedRow = sheet.createRow(1);
+            Cell generatedCell = generatedRow.createCell(0);
+            generatedCell.setCellValue("Generated On:");
+            generatedCell.setCellStyle(headerCellStyle);
+            generatedRow.createCell(1).setCellValue(new SimpleDateFormat("dd-MMM-yyyy").format(new Date()));
+
+            Row generatedRow1 = sheet.createRow(2);
+            Cell generatedCell1 = generatedRow1.createCell(0);
+            generatedCell1.setCellValue("Generated By:");
+            generatedCell1.setCellStyle(headerCellStyle);
+            generatedRow1.createCell(1).setCellValue("System");
+
+            Row dataHeaderRow = sheet.createRow(4);
+            for (int i = 0; i < columns.size(); i++) {
+                Cell cell = dataHeaderRow.createCell(i);
+                cell.setCellValue(columns.get(i));
+                cell.setCellStyle(headerCellStyle);
+            }
+
+            int rowNum = 5;
+            int count = 0;
+
+            for (Map<String, Object> objectMap : dataList) {
+                Row dataRow = sheet.createRow(rowNum++);
+                count = count + 1;
+                String s = String.valueOf(count);
+                dataRow.createCell(0).setCellValue(s.trim());
+                for (int i = 1; i < columns.size(); i++) {
+                    String column = columns.get(i);
+                    if (objectMap.containsKey(column) && objectMap.get(column) != null)
+                        dataRow.createCell(i).setCellValue(objectMap.get(column).toString());
+                    else
+                        dataRow.createCell(i).setCellValue("-NA-");
+                }
+            }
+
+            for (int i = 0; i < columns.size() + 1; i++) {
+                sheet.autoSizeColumn(i);
+            }
+
+            try {
+                String home = System.getProperty("user.home");
+                path = home + "/Desktop/" + fileName + ".xlsx";
+                File file = new File(path);
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
+                workbook.write(fileOutputStream);
+                fileOutputStream.close();
+                workbook.close();
+            } catch (IOException e) {
+                throw new IOException(e);
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return path;
     }
 }

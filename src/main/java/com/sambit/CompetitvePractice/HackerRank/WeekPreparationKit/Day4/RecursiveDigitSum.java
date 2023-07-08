@@ -4,7 +4,7 @@ import org.apache.poi.openxml4j.opc.internal.unmarshallers.PackagePropertiesUnma
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 16/10/2022 - 10:37 AM
  */
 public class RecursiveDigitSum {

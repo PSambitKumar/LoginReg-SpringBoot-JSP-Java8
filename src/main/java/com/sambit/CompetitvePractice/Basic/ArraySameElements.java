@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 09/02/2023 - 2:31 PM
  */
 public class ArraySameElements {

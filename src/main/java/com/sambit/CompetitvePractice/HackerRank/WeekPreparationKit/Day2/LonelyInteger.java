@@ -4,7 +4,7 @@ import java.util.List;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 14/10/2022 - 9:03 AM
  */
 public class LonelyInteger {

@@ -18,7 +18,7 @@ import java.util.zip.ZipInputStream;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 10/11/2022 - 11:18 PM
  */
 @Controller

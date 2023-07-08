@@ -4,7 +4,7 @@ import javax.swing.plaf.PanelUI;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 10/10/2022 - 11:20 AM
  */
 public class StackArray {

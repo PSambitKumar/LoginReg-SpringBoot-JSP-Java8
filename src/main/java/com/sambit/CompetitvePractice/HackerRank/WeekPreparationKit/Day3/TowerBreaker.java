@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.WeekPreparationKit.Day3;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 15/10/2022 - 10:08 AM
  */
 public class TowerBreaker {

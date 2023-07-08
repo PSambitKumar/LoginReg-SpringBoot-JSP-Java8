@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.GFG;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 18/01/2023 - 5:36 PM
  */
 public class FindPeak {

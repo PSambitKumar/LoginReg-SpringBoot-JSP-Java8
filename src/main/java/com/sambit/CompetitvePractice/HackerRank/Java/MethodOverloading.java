@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.Java;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 27/11/2022 - 10:20 PM
  */
 

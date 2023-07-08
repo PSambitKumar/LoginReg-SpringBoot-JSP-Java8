@@ -5,7 +5,7 @@ import java.text.ParseException;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 03/11/2022 - 6:07 PM
  */
 public class JavaGenerics {

@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.InterviewPreparationKit.WarmupC
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 12/10/2022 - 10:32 AM
  */
 public class CountingValleys {

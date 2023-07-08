@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.Certification.JavaBasic;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 12/10/2022 - 12:55 PM
  */
 public class TypeCounter {

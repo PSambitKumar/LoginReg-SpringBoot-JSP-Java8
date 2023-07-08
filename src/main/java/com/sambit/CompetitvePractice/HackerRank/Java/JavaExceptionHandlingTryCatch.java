@@ -5,7 +5,7 @@ import java.util.Scanner;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 06/12/2022 - 4:34 PM
  */
 public class JavaExceptionHandlingTryCatch {

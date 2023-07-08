@@ -7,7 +7,7 @@ import static java.util.Collections.rotate;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 28/12/2022 - 3:10 PM
  */
 public class RotateArray {

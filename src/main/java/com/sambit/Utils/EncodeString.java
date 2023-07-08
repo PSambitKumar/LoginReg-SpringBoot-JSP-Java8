@@ -4,7 +4,7 @@ import java.util.Base64;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 12/01/2023 - 5:11 PM
  */
 public class EncodeString {

@@ -8,7 +8,7 @@ import java.net.URL;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 04/05/2023 - 3:37 PM
  */
 public class WhatsAppSender {

@@ -4,7 +4,7 @@ import java.util.UUID;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 18/10/2022 - 11:01 AM
  */
 public class DayOfTheProgrammer {

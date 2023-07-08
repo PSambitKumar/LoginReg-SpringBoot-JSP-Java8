@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.LeetCode.Problems;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 31/12/2022 - 11:04 PM
  */
 public class CharacterFrequencyInString {

@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.ProblemSolving;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 10/10/2022 - 9:30 PM
  */
 public class RealEstateBroker {

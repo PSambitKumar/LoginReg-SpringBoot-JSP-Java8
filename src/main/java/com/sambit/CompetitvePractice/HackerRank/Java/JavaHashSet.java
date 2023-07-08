@@ -6,7 +6,7 @@ import java.util.Set;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 02/11/2022 - 9:06 PM
  */
 public class JavaHashSet {

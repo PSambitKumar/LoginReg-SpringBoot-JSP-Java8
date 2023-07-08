@@ -7,7 +7,7 @@ import java.util.UUID;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 17/10/2022 - 8:32 PM
  */
 public class GenerateUUID {

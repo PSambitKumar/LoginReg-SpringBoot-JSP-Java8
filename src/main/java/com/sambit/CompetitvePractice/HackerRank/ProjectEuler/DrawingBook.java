@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.ProjectEuler;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 25/10/2022 - 4:18 PM
  */
 public class DrawingBook {

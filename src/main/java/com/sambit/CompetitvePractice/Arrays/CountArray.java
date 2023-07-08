@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.Arrays;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 11/02/2023 - 11:38 PM
  */
 public class CountArray {

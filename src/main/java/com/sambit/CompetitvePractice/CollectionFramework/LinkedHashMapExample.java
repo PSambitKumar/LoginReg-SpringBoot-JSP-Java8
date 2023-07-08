@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 22/11/2022 - 1:23 PM
  */
 public class LinkedHashMapExample {

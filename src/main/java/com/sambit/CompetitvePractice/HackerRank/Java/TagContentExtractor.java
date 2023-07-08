@@ -6,7 +6,7 @@ import java.util.regex.Pattern;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 06/11/2022 - 8:06 PM
  */
 public class TagContentExtractor {

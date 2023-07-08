@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.Certification.ProblemSolvingBas
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 10/10/2022 - 9:47 PM
  */
 public class VowelSubstring {

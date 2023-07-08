@@ -8,7 +8,7 @@ import java.util.Base64;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 29/11/2022 - 3:39 PM
  */
 public class GenerateEncodedString {

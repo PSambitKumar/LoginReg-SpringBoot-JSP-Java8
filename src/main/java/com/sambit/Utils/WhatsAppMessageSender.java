@@ -13,7 +13,7 @@ import java.net.http.HttpResponse.BodyHandlers;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 04/05/2023 - 11:46 AM
  */
 public class WhatsAppMessageSender {

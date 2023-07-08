@@ -5,7 +5,7 @@ import java.util.Objects;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 12/10/2022 - 10:00 AM
  */
 public class SalesByMatch {

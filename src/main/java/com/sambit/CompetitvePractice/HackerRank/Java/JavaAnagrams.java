@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.HackerRank.Java;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 20/10/2022 - 12:13 PM
  */
 public class JavaAnagrams {

@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.Algorithms;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 05/02/2023 - 11:07 PM
  */
 public class EvilNumber {

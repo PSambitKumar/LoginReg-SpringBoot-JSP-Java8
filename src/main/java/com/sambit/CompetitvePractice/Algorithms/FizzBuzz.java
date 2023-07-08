@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.Algorithms;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 21/09/2022 - 3:38 PM
  */
 

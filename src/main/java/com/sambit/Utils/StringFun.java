@@ -2,7 +2,7 @@ package com.sambit.Utils;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 26/03/2023 - 11:04 PM
  */
 public class StringFun {

@@ -2,7 +2,7 @@ package com.sambit.CompetitvePractice.CollectionFramework;
 
 /**
  * @Project : Registration
- * @Auther : Sambit Kumar Pradhan
+ * @Author : Sambit Kumar Pradhan
  * @Created On : 12/12/2022 - 5:25 PM
  */
 public class Map {

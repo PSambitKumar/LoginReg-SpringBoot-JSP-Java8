@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 /**
     *@Project : Registration
-    *@Auther : Sambit Kumar Pradhan
+    *@Author : Sambit Kumar Pradhan
     *@Created On : 28/10/2022 - 1:08 PM
 */public class ReciprocalCycles {
 	int cycleLength(int n) {

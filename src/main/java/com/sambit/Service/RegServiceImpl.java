@@ -24,6 +24,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -468,6 +470,21 @@ public class RegServiceImpl implements RegService{
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+//        For Saving This File in Local
+//        String path;
+//        try {
+//            String home = System.getProperty("user.home");
+//            path = home + "/Desktop/" + fileName + ".xlsx";
+//            System.out.println("Path: " + path);
+//            File file = new File(path);
+//            FileOutputStream fileOutputStream = new FileOutputStream(file);
+//            workbook.write(fileOutputStream);
+//            fileOutputStream.close();
+//            workbook.close();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
     }
 
     @Override
