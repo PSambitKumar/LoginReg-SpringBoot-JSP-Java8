@@ -18,7 +18,6 @@ import java.util.logging.Logger;
 @Component
 public class SchedulerController {
     private final Logger logger = Logger.getLogger(SchedulerController.class.getName());
-
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
     private final RegService regService;
 
