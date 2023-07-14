@@ -5,6 +5,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
 import javax.net.ssl.HostnameVerifier;
@@ -59,8 +60,8 @@ public class SMSMobile {
             String password = "sambit16";
             String messagetype = "SMS:TEXT";
             String httpUrl = "https://127.0.0.1:9400/";
-            String recipient = URLEncoder.encode("+917008095918", "UTF-8");
-            String messagedata = URLEncoder.encode("Sambit", "UTF-8");
+            String recipient = URLEncoder.encode("+917008095918", StandardCharsets.UTF_8);
+            String messagedata = URLEncoder.encode("Sambit", StandardCharsets.UTF_8);
 
             sendString.append(httpUrl).append("api?action=sendmessage").
                     append("&username=").append(username).append("&password=").
