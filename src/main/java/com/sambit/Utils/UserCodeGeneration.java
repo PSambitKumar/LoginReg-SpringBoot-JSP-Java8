@@ -19,6 +19,10 @@ public class UserCodeGeneration {
     public static String userCodeGenerationMethod(String maxUserSlNo){
         return "USER" + String.format("%08d", Integer.parseInt(maxUserSlNo) + 1);
     }
+
+    public static String userCodeGenerationMethod(String maxUserSlNo, int increment){
+        return "USER" + String.format("%08d", Integer.parseInt(maxUserSlNo) + increment);
+    }
     public static void main(String[] args) {
         System.out.println(userCodeGenerationMethod());
     }
