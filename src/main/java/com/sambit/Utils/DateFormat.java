@@ -17,8 +17,7 @@ public class DateFormat {
 		String dd=date.substring(0, 2);
 		String mm=date.substring(2, 4);
 		String yy=date.substring(4);
-	    String date1=mm+"-"+dd+"-"+yy;
-		return date1;
+		return mm+"-"+dd+"-"+yy;
 	}
 	
 	
@@ -26,8 +25,7 @@ public class DateFormat {
 		String dd=date.substring(0, 2);
 		String mm=date.substring(2, 4);
 		String yy=date.substring(4);
-		String date1=dd+"-"+mm+"-"+yy;
-		return date1;
+		return dd+"-"+mm+"-"+yy;
 	}
 	public static String formatDateFun(String dt) {
 		String dd=dt.substring(0, 2);

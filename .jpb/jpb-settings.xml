@@ -5,4 +5,13 @@
     <option name="generateSerialVersionUID" value="true" />
     <option name="scaffoldingLanguage" />
   </component>
+  <component name="PersistenceUnitSettings">
+    <persistence-units>
+      <persistence-unit name="Default">
+        <packages>
+          <package value="com.sambit" />
+        </packages>
+      </persistence-unit>
+    </persistence-units>
+  </component>
 </project>
