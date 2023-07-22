@@ -7,7 +7,7 @@ package com.sambit.Utils;
  */
 public class EnglishToOriya {
     public static String convertEnglishToOriya(String English) {
-        String englishToOriya = English.chars()
+        return English.chars()
                 .mapToObj(c -> (char) c)
                 .map(c -> {
                     if (c == 'a') {
@@ -119,6 +119,5 @@ public class EnglishToOriya {
                     }
                 })
                 .reduce("", String::concat);
-        return englishToOriya;
     }
 }
