@@ -26,6 +26,10 @@ public class StringFun {
         return str.split(delimiter, limit);
     }
 
+    public static String[] splitString(String str, int limit, int offset){
+        return str.split(" ", limit);
+    }
+
     public static void main(String[] args) {
         String str = "Sambit Kumar Pradhan";
         String[] strArray = splitString(str);
