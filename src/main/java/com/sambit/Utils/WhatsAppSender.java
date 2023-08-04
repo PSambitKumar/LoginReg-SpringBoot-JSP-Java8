@@ -5,6 +5,9 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @Project : Registration
@@ -58,6 +61,61 @@ public class WhatsAppSender {
             System.out.println(output);
         }
         conn.disconnect();
+    }
+
+    public void whatsAppMessaging() {
+        try {
+//            Method Using Sending Data Using Form-Data. Doc File : static/pdffiles/WhatsAppMessaging.pdf
+            String url = "https://msg.odisha.gov.in/api/api.php";
+            String action = "send_template_sms";
+            String phone = "+917008095918";
+            String template_name = "odisha_57";
+            String body_text = "This is a test message from BSKY Team";
+
+            Map<String, String> formData = new HashMap<>();
+            formData.put("action", action);
+            formData.put("phone", phone);
+            formData.put("template_name", template_name);
+            formData.put("body_text", body_text);
+
+            String response1 = sendPostRequest(url, formData);
+            System.out.println("Response: " + response1);
+        } catch (Exception e) {
+            System.out.println("Exception Found in whatsAppMessaging of WhatsAppMessagingServiceImpl : " + e);
+        }
+    }
+
+    private static String sendPostRequest(String apiUrl, Map<String, String> formData) throws Exception {
+        URL url = new URL(apiUrl);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        conn.setDoOutput(true);
+
+        StringBuilder postData = new StringBuilder();
+        for (Map.Entry<String, String> entry : formData.entrySet()) {
+            if (postData.length() != 0) {
+                postData.append('&');
+            }
+            postData.append(entry.getKey());
+            postData.append('=');
+            postData.append(entry.getValue());
+        }
+
+        try (OutputStream os = conn.getOutputStream()) {
+            byte[] postDataBytes = postData.toString().getBytes(StandardCharsets.UTF_8);
+            os.write(postDataBytes);
+        }
+
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(conn.getInputStream()))) {
+            StringBuilder response = new StringBuilder();
+            String line;
+            while ((line = br.readLine()) != null) {
+                response.append(line);
+            }
+            return response.toString();
+        }
     }
 
 }
