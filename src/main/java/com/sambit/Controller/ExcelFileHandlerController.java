@@ -503,7 +503,7 @@ public class ExcelFileHandlerController {
                 for (int j = 1; j < totalNoOfCols; j++){
                     row = sheet.getRow(i);
                     String checkNullData = df.formatCellValue(row.getCell(4)).trim();
-                    if (checkNullData != null && checkNullData != ""){
+                    if (checkNullData != ""){
                         if (j == 4){
                             Cell cell = row.getCell(j);
                             String cellData = df.formatCellValue(cell).trim();
