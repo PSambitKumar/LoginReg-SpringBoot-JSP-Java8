@@ -6,6 +6,13 @@ public class PersonalDataBean {
     private String panId;
     private String adharNo;
 
+//    public PersonalDataBean(Integer id, String name, String panId, String adharNo) {
+//        this.pid = id;
+//        this.name = name;
+//        this.panId = panId;
+//        this.adharNo = adharNo;
+//    }
+
     public int getPid() {
         return pid;
     }

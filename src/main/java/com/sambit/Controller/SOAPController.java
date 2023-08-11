@@ -1,8 +1,9 @@
 package com.sambit.Controller;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import com.sambit.Utils.VerifyGepNIC;
+import org.json.JSONException;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.xml.bind.JAXBException;
 import java.io.*;
@@ -29,9 +30,10 @@ public class SOAPController {
 
 //        SOAP API Calling
         String responseString = "";
-        String outputString = "";
+        StringBuilder outputString = new StringBuilder();
         OutputStream outputStream = null;
         InputStreamReader inputStreamReader = null;
+        
         BufferedReader bufferedReader = null;
 
         String wsURL = "https://demoeproc.nic.in/nicgep_general_webservice/services/TechnicalService.TechnicalServiceHttpsSoap11Endpoint";
@@ -74,12 +76,12 @@ public class SOAPController {
         bufferedReader = new BufferedReader( inputStreamReader);
 
         while ((responseString = bufferedReader.readLine()) != null) {
-            outputString = outputString + responseString ;
+            outputString.append(responseString);
         }
 
 
-        System.out.println("String : " + outputString.toString());
-        if (outputString.contains("GePID Verified Successfully")){
+        System.out.println("String : " + outputString);
+        if (outputString.toString().contains("GePID Verified Successfully")){
             System.out.println("Success");
         }
         else
@@ -88,4 +90,23 @@ public class SOAPController {
 
         return outputString.toString();
     }
+
+    @PostMapping(value = "/verifyGepNIC")
+    public ResponseEntity<?> verifyGepNIC() throws JSONException, IOException {
+        System.out.println("Verify GepNIC");
+        return ResponseEntity.ok(VerifyGepNIC.GepNIC("DCAADPR2318544S"));
+    }
 }
+
+
+//        Sample GePIDs in GePNIC
+//        UCAADPR3318542O
+//        PCAADPR24185417
+//        MCAADPR2718540H
+//        TCAADPR3318539E
+//        TCAADPR3318538N
+//        ACAADPR27185370
+//        ACAADPR2318536A
+//        MCAADPR33185357
+//        XCAADPR22185345
+//        ACAADPR2218533B

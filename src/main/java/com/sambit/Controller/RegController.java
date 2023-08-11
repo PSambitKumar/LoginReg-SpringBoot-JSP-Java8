@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.itextpdf.text.DocumentException;
 import com.sambit.Bean.*;
 import com.sambit.Entity.*;
 import com.sambit.Repository.PostalRepository;
@@ -19,9 +20,13 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.json.XML;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
@@ -48,13 +53,18 @@ import static java.util.stream.Collectors.toCollection;
 @Controller
 public class RegController {
 
+    private final Logger logger;
+
+    @Autowired
+    public RegController(Logger logger) {
+        this.logger = logger;
+    }
+
+    private static final int PRETTY_PRINT_INDENT_FACTOR = 4;
     @Autowired
     RegRepository regRepository;
-
-    final RegService regService;
-    public RegController(RegService regService) {
-        this.regService = regService;
-    }
+    @Autowired
+    RegService regService;
 
 
     @GetMapping("Registration")
@@ -152,6 +162,11 @@ public class RegController {
 //        return "Success";
 //    }
 
+    @GetMapping(value = "/heavyValidation")
+    public String heavyValidation(){
+        return "heavyValidation";
+    }
+
     @PostMapping("AddPersonalData")
     public String addPersonalData(PersonalDataBean personalDataBean, Model model){
         //System.out.println(personalDataBean);
@@ -181,7 +196,7 @@ public class RegController {
         return "ViewPersonalDetails";
     }
 
-    @GetMapping("UploadImage")
+    @GetMapping("       ")
     public ModelAndView uploadImage(){
         ModelAndView mav = new ModelAndView("UploadImage");
 //        mav.addObject("uploadImage", new ImageBean());
@@ -203,6 +218,7 @@ public class RegController {
     public String about(){
         return "About";
     }
+
     @GetMapping("/NewReg")
     public String newReg(Model model){
         model.addAttribute("regBean", new RegBean());
@@ -309,6 +325,8 @@ public class RegController {
         return null;
     }
 
+
+
     @GetMapping(value = "/imageUpload")
     public String imageUpload(Model model){
 //        model.addAttribute("flashNumber", 88);
@@ -391,7 +409,8 @@ public class RegController {
 //        Method 1
         JSONObject jsonObject = new JSONObject(bankDetails);
         System.out.println("Bank Details Data : " + jsonObject);
-        System.out.println(jsonObject.get("BANK"));
+        System.out.println(jsonObject.get("BANK"));//Can Get Using get
+        System.out.println(jsonObject.getString("BANK"));//Also Can Get Using getString
 
 //        Method 2
 //        Converting JSON String to ModeL Class
@@ -467,7 +486,7 @@ public class RegController {
     }
 
     @GetMapping(value = "/objectClassTest")
-    public String objectClassTest() throws JSONException, IOException {
+    public String objectClassTest() throws JSONException {
         Gson gson = new Gson();
         Object[] allData = regRepository.findAll().toArray();
         for (Object allDatum : allData) {
@@ -521,7 +540,7 @@ public class RegController {
         System.out.println("Current Sql Date : " + currentSqlDate);
 
         LocalDate dob1 = java.sql.Date.valueOf(dateOfBirth1.toString()).toLocalDate();
-        System.out.println(dob1 + "<=======Sam======>" +  LocalDate.now());
+        System.out.println(dob1 + "<----------Sambit----------->" +  LocalDate.now());
         int age1 = AgeCalculator.calculateAge(dob1, LocalDate.now());
         System.out.println("Age : " + age);
         return null;
@@ -565,8 +584,49 @@ public class RegController {
 //        CommonFileUpload.downloadFile(httpServletResponse, filePath);
 
         String filePath1 = "C:\\RegistrationData\\images\\csm.jpg";
-        CommonFileUpload.downloadFileUsingCompletePath(httpServletResponse, filePath1);
+        String filePath12 = "C:\\Users\\sambit.pradhan\\Downloads\\licenceCanceled.pdf";
+        CommonFileUpload.downloadFileUsingCompletePath(httpServletResponse, filePath12);
     }
 
+    @GetMapping(value = "downloadDcocument")
+    public String downloadDocument(HttpServletResponse httpServletResponse){
+        regService.downloadCancelledPdf(httpServletResponse);
+        return null;
+    }
 
+//    Excel File Generation
+    @GetMapping(value = "generateRegistrationEXCELReport")
+    public void generateRegistrationEXCELReport(HttpServletResponse httpServletResponse){
+        regService.generateRegistrationEXCELReport(httpServletResponse);
+    }
+
+    @GetMapping(value = "generateRegistrationPDFReport")
+    public void generateRegistrationPDFReport(HttpServletResponse httpServletResponse) throws DocumentException, IOException {
+        regService.generateRegistrationPDFReport(httpServletResponse);
+    }
+    @GetMapping(value = "storeDataInHash")
+    public void storeDataInHash(){
+        MultiValueMap<String, String> map = new LinkedMultiValueMap<>();
+        map.add("Name", "Sambit");
+        map.add("Name", "Sambit");
+        System.out.println("Map Data : " + map);
+    }
+
+    public static void convertXMLtoJSON() throws IOException, JSONException {
+        String xml = "<note>\n" +
+                "  <to>Tove</to>\n" +
+                "  <from>Jani</from>\n" +
+                "  <heading>Reminder</heading>\n" +
+                "  <body>Don't forget me this weekend!</body>\n" +
+                "</note>";
+        JSONObject xmlJSONObj = XML.toJSONObject(xml);
+        String jsonPrettyPrintString = xmlJSONObj.toString(PRETTY_PRINT_INDENT_FACTOR);
+        System.out.println(jsonPrettyPrintString);
+    }
+
+    @GetMapping(value = "test")
+    public String test() {
+        logger.info("Inside Test Method------->>");
+        return "test";
+    }
 }

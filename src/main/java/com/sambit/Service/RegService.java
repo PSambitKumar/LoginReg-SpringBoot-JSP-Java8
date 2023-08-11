@@ -1,11 +1,15 @@
 package com.sambit.Service;
 
+import com.itextpdf.text.DocumentException;
 import com.sambit.Bean.ImageBean;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
 import com.sambit.Entity.*;
+import org.json.JSONArray;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.util.List;
 
 public interface RegService {
@@ -29,6 +33,17 @@ public interface RegService {
     String recieveIntData(String x);
 //    List<String> findAllName();
     List<Reg> getAllRegList();
+    void downloadCancelledPdf(HttpServletResponse httpServletResponse);
 
-
+    boolean checkUserIsPresentOrNot(String userName);
+    Reg saveReg(Reg reg);
+    boolean deleteReg(int slNo);
+    Reg getRegBySlNo(int slNo);
+    boolean checkRegIsPresentOrNotBySlNo(int slNo);
+    List<Reg> getAllReg();
+    void generateRegistrationEXCELReport(HttpServletResponse httpServletResponse);
+    void generateRegistrationPDFReport(HttpServletResponse httpServletResponse) throws DocumentException, IOException;
+    boolean checkRegIsPresentOrNotByUserCode(String userCode);
+     Reg getRegByUserCode(String userCode);
+    void generatePDF(JSONArray reports, String header, HttpServletResponse httpServletResponse);
 }
