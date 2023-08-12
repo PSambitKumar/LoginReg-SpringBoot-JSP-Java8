@@ -3,6 +3,7 @@ package com.sambit.CompetitvePractice.Basic;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @Project : Registration
@@ -42,6 +43,14 @@ public class BeforeJava8 {
                 result.add(line);
             }
         }
+        return result;
+    }
+
+    public static List<String> getFilterOutputJava8(List<String> lines) {
+        List<String> result;
+        result = lines.stream()               // convert list to stream
+                .filter(line -> !"Sambit".equals(line))    // we dont like Sambit
+                .collect(Collectors.toList());             // collect the output and convert streams to a List
         return result;
     }
 }
