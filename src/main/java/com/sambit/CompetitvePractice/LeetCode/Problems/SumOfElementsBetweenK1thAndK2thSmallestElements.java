@@ -41,16 +41,14 @@ import java.util.Set;
 
 public class SumOfElementsBetweenK1thAndK2thSmallestElements {
 	public static long sumBetweenTwoKth(long A[], long N, long K1, long K2) {
-		for (int i = 0; i < A.length; i++) {
-			long l = A[i];
-			System.out.println(l);
-		}
+        for (long l : A) {
+            System.out.println(l);
+        }
 		Arrays.sort(A);
 		System.out.println("After Sort of an Array : ");
-		for (int i = 0; i < A.length; i++) {
-			long l = A[i];
-			System.out.println(l);
-		}
+        for (long l : A) {
+            System.out.println(l);
+        }
 		Set<Long> s = new HashSet<Long>();
 		System.out.println("HashSet is : " + s);
 		long c = 0, sum = 0;

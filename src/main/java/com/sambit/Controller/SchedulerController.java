@@ -48,4 +48,52 @@ public class SchedulerController {
         logger.info("Scheduler is running in every 3 hours");
     }
 
+    @GetMapping(value = "/runMoSarkarScheduler")
+    public void runScheduler2() throws IOException {
+        System.out.println("Running Mo Sarkar Scheduler");
+        int responseCode;
+       do {
+           responseCode = sendDataToMoSarakar();
+           if (responseCode != 200) {
+               responseCode = callMoSarakarDataList();
+           }
+           System.out.println("Response Code In Loop: " + responseCode);
+       } while (responseCode == 200);
+
+    }
+
+    public int callMoSarakarDataList() throws IOException {
+        System.out.println("Calling Mo Sarkar Data List");
+        URL url1 = new URL("https://bsky.odisha.gov.in/bsky_service_consume/getMoSarkarDataList");
+        HttpURLConnection connection1 = (HttpURLConnection) url1.openConnection();
+        connection1.setRequestMethod("GET");
+        int responseCode1 = connection1.getResponseCode();
+        System.out.println("Response Code: " + responseCode1);
+        return responseCode1;
+    }
+    public int sendDataToMoSarakar() {
+        System.out.println("Sending BSKY Data to Mo Sarkar");
+        int responseCode = 0;
+        try {
+            URL url = new URL("https://bsky.odisha.gov.in/bsky_service_consume/moSarkarData");
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            responseCode = connection.getResponseCode();
+            System.out.println("Response Code: " + responseCode);
+
+            BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+            String line;
+            StringBuilder response = new StringBuilder();
+            while ((line = reader.readLine()) != null) {
+                response.append(line);
+            }
+            reader.close();
+            System.out.println("Response Content : " + response);
+            connection.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return responseCode;
+    }
+
 }

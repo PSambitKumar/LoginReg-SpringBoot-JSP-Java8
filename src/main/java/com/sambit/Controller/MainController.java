@@ -4,11 +4,13 @@ import com.sambit.CompetitvePractice.Algorithms.Sorting;
 import com.sambit.Repository.DistrictRepository;
 import com.sambit.Repository.StateRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.net.URI;
 import java.util.*;
 
 /**
@@ -56,5 +58,17 @@ public class MainController {
 			System.out.println(e.getMessage());
 		}
 		return ResponseEntity.ok().body(districtList);
+	}
+
+	@GetMapping(value = "/google")
+	public ResponseEntity<?> odishaOne() {
+		URI uri = null;
+		String path = "https://www.google.com";
+		try {
+			uri = new URI(path);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ResponseEntity.status(HttpStatus.MOVED_PERMANENTLY).location(uri).build();
 	}
 }

@@ -19,17 +19,22 @@ public class EncodeString {
     }
 
     public static String decodeString(String str) {
-        String decodedString = "";
+        StringBuilder decodedString = new StringBuilder();
         for (int i = 0; i < str.length(); i += 2) {
             String s = str.substring(i, i + 2);
             int n = Integer.parseInt(s);
-            decodedString += (char) n;
+            decodedString.append((char) n);
         }
-        return decodedString;
+        return decodedString.toString();
     }
 
     public static String base64Encode(String str) {
         return Base64.getEncoder().encodeToString(str.getBytes());
+    }
+
+    public static String base64Decode(String str) {
+        byte[] bytes = Base64.getDecoder().decode(str);
+        return new String(bytes);
     }
     
     public static void main(String[] args) {
