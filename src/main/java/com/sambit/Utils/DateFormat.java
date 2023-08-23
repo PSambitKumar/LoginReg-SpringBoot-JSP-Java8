@@ -19,7 +19,20 @@ public class DateFormat {
 		String yy=date.substring(4);
 		return mm+"-"+dd+"-"+yy;
 	}
-	
+
+	public static Date FormatToDateString1(String date) {
+		String dd=date.substring(0, 2);
+		String mm=date.substring(2, 4);
+		String yy=date.substring(4);
+		String date1=mm+"-"+dd+"-"+yy;
+		Date date2=null;
+		try {
+			date2 = new SimpleDateFormat("MM-dd-yyyy").parse(date1);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date2;
+	}
 	
 	public static String DateString(String date) {
 		String dd=date.substring(0, 2);
