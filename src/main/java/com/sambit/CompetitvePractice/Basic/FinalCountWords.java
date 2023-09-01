@@ -5,7 +5,7 @@ import java.util.HashMap;
 public class FinalCountWords {
 
     public static void main(String[] args) {
-        String str = "This this is is done by Saket Saket";
+        String str = "I Love Computer Gaming and I Love Coding";
         String[] split = str.split(" ");
 
         HashMap<String,Integer> map = new HashMap<String,Integer>();
