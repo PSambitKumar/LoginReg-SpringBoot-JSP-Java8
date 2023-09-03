@@ -8,7 +8,7 @@ public class PrintFibonacciRecursive {
         return fibonacci(count - 1) + fibonacci(count - 2);
     }
 
-    public static void main(String args[]) {
+    public static void main(String[] args) {
         int seqLength = 10;
 
         System.out.print("A Fibonacci sequence of " + seqLength + " numbers: ");
