@@ -165,7 +165,6 @@
     </dependencies>
 
     <build>
-             <final-name>Registration</final-name>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
