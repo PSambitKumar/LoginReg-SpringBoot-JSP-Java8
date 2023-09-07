@@ -18,7 +18,6 @@ public class AESEncryptionOdishaOneUtils {
     private static final int CIPHER_KEY_LEN = 16;
     static String iv = "fedcba9876543210";
 
-
     public static String encrypt(String key, String data) {
         try {
             if (key.length() < AESEncryptionOdishaOneUtils.CIPHER_KEY_LEN) {
@@ -43,7 +42,6 @@ public class AESEncryptionOdishaOneUtils {
         }
         return null;
     }
-
 
     public static String decrypt(String key, String data) {
         try {
