@@ -1,5 +1,7 @@
 package com.sambit.Controller;
 
+import okhttp3.*;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
@@ -81,5 +83,38 @@ public class HttpController {
             }
             return response.toString();
         }
+    }
+
+    public void sendPostRequestUsingBodyFormData2() throws IOException {
+        OkHttpClient client = new OkHttpClient.Builder()
+                .build();
+
+        MediaType mediaType = MediaType.parse("text/plain");
+        RequestBody body = new MultipartBody.Builder().setType(MultipartBody.FORM)
+                .addFormDataPart("action", "send_template_sms")
+                .addFormDataPart("phone", "+917008095918")
+                .addFormDataPart("template_name", "bsky_005")
+                .addFormDataPart("body_text", "11")
+                .build();
+
+        Request request = new Request.Builder()
+                .url("https://msg.odisha.gov.in/api/api.php")
+                .method("POST", body)
+                .addHeader("Cookie", "PHPSESSID=rscfc6uq05d3gcqhausc472ehp")
+                .build();
+
+        try (Response response = client.newCall(request).execute()) {
+            if (response.isSuccessful()) {
+                String responseBody = response.body().string();
+                System.out.println("Response: " + responseBody);
+            } else {
+                System.err.println("HTTP Error Code: " + response.code());
+            }
+        } catch (IOException e) {
+            System.err.println("IO Exception: " + e.getMessage());
+        }
+    }
+    public void sendPostRequestUsingBodyFormData3() throws IOException {
+        
     }
 }
