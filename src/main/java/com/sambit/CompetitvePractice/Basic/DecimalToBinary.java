@@ -22,6 +22,7 @@ public class DecimalToBinary {
         return binary;
     }
 
+
     public static void main(String[] args) {
         System.out.println("Binary of 10 is: "+getBinary(10));
         System.out.println("Binary of 21 is: "+getBinary(21));
