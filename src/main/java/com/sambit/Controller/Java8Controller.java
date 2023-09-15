@@ -5,6 +5,7 @@ import com.sambit.Entity.Reg;
 import com.sambit.Repository.PostalPoRepository;
 import com.sambit.Service.RegService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -526,6 +527,18 @@ public String sumOfIntegers(){
 			e.printStackTrace();
 		}
 		return filteredList;
+	}
+
+	@GetMapping(value = "/mergeTwoListAndRemoveDuplicateData")
+	public ResponseEntity<?> mergeTwoListAndRemoveDuplicateData() {
+		List<Integer> list1 = Arrays.asList(1, 2, 3, 4, 5);
+		List<Integer> list2 = Arrays.asList(3, 4, 5, 6, 7);
+
+		List<Integer> list3 = Stream.concat(list1.stream(), list2.stream())
+				.distinct()
+				.collect(Collectors.toList());
+		System.out.println("List3 : " + list3);
+		return new ResponseEntity<>(list3, org.springframework.http.HttpStatus.OK);
 	}
 
 
