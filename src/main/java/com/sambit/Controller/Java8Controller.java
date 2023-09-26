@@ -11,7 +11,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.StoredProcedureQuery;
 import javax.swing.*;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -97,6 +103,10 @@ class printFullName{
 
 @Controller
 public class Java8Controller {
+
+	@PersistenceContext
+	private EntityManager entityManager;
+
 
 	@Autowired
 	private RegService regService;
@@ -539,6 +549,51 @@ public String sumOfIntegers(){
 				.collect(Collectors.toList());
 		System.out.println("List3 : " + list3);
 		return new ResponseEntity<>(list3, org.springframework.http.HttpStatus.OK);
+	}
+
+	@GetMapping(value = "/ListDortUsingStream")
+	public ResponseEntity<?> ListDortUsingStream() throws SQLException {
+		List<Map<String, Object>> responseList = new ArrayList<>();
+		StoredProcedureQuery storedProcedureQuery = this.entityManager
+				.createStoredProcedureQuery("USP_CPD_PAYMENT_CALCULATION")
+				.registerStoredProcedureParameter("P_FROMDATE", String.class, ParameterMode.IN)
+				.registerStoredProcedureParameter("P_TODATE", String.class, ParameterMode.IN)
+				.registerStoredProcedureParameter("P_ASSIGNEDCPD", Long.class, ParameterMode.IN)
+				.registerStoredProcedureParameter("P_OUT", void.class, ParameterMode.REF_CURSOR);
+
+		storedProcedureQuery.setParameter("P_FROMDATE", new SimpleDateFormat("yy-MM-dd").format(new Date()));
+		storedProcedureQuery.setParameter("P_TODATE", new SimpleDateFormat("yy-MM-dd").format(new Date()));
+		storedProcedureQuery.setParameter("P_ASSIGNEDCPD", 1656);
+
+		storedProcedureQuery.execute();
+		ResultSet resultSet = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_OUT");
+
+		while (resultSet.next()) {
+			Map<String, Object> response = new LinkedHashMap<>();
+			response.put("userId", resultSet.getLong(1));
+			response.put("fullName", resultSet.getString(2));
+			response.put("pendingAt", resultSet.getLong(3));
+			response.put("claimStatus", resultSet.getLong(4));
+			response.put("claimDesc", resultSet.getString(5));
+			response.put("totalClaims", resultSet.getLong(6));
+			response.put("totalAmountPaid", resultSet.getDouble(7));
+			response.put("actionCode", resultSet.getDouble(8));
+
+			responseList.add(response);
+		}
+
+//		Save in Onother List
+		List<Map<String, Object>> responseMapList = new ArrayList<>();
+		responseMapList = responseList.stream()
+				.filter(map -> map.get("fullName") != null)
+				.sorted(Comparator.comparing(map -> (String) map.get("fullName")))
+				.collect(Collectors.toList());
+
+//		Save in Same List
+		responseList.removeIf(map -> map.get("fullName") == null);
+		Collections.sort(responseList, Comparator.comparing(map -> (String) map.get("fullName")));
+
+		return new ResponseEntity<>(responseList, org.springframework.http.HttpStatus.OK);
 	}
 
 
