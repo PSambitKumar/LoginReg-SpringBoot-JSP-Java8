@@ -151,6 +151,18 @@
             <artifactId>lombok</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>3.141.59</version> <!-- Replace with the latest version -->
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-chrome-driver</artifactId>
+            <version>3.141.59</version> <!-- Replace with the latest version -->
+        </dependency>
+
+
         <!--        <dependency>-->
 <!--            <groupId>org.slf4j</groupId>-->
 <!--            <artifactId>slf4j-api</artifactId>-->
@@ -165,7 +177,6 @@
     </dependencies>
 
     <build>
-             <finalname>reg</finalname>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
