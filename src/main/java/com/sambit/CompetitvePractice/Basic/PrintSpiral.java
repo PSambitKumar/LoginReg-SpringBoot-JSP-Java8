@@ -11,7 +11,6 @@ public class PrintSpiral {
 
         char move = 'r';
 
-        // Array for matrix
         int matrix[][] = new int[size][size];
 
         for (int i = 1; i < size * size + 1; i++) {
