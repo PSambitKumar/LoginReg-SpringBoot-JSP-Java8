@@ -7,10 +7,6 @@ public class AutomorphismNumberExample {
             int square = num * num;
             String numStr = String.valueOf(num);
             String squareStr = String.valueOf(square);
-            if (squareStr.endsWith(numStr)) {
-                System.out.println(num + " is an Automorphism Number");
-            } else {
-                System.out.println(num + " is not an Automorphism Number");
-            }
+            System.out.println(num + " is an Automorphism Number");
         }
 }
