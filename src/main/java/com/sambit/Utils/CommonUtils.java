@@ -9,10 +9,7 @@ import org.json.JSONObject;
 import java.io.BufferedReader;
 import java.io.Reader;
 import java.sql.Clob;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Project : Registration
@@ -76,6 +73,16 @@ public class CommonUtils {
             return list;
         } catch (Exception e) {
             return null;
+        }
+    }
+
+    public static String otpGenerator(){
+        try {
+            Random rnd = new Random();
+            int number = rnd.nextInt(999999);
+            return String.format("%06d", number);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
