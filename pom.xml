@@ -161,6 +161,11 @@
             <artifactId>selenium-chrome-driver</artifactId>
             <version>3.141.59</version> <!-- Replace with the latest version -->
         </dependency>
+        <dependency>
+            <groupId>com.mashape.unirest</groupId>
+            <artifactId>unirest-java</artifactId>
+            <version>1.4.9</version>
+        </dependency>
 
 
         <!--        <dependency>-->

@@ -1,5 +1,9 @@
 package com.sambit.Utils;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mashape.unirest.http.HttpResponse;
+import com.mashape.unirest.http.Unirest;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
@@ -118,4 +122,28 @@ public class WhatsAppSender {
         }
     }
 
+    public int sendWhatsAppMessage1(String phoneNumber, String body, String templateName) {
+        int statusCode = 500;
+        try {
+            Unirest.setTimeouts(0, 0);
+            HttpResponse<String> response = Unirest.post("URL")
+                    .header("Cookie", "PHPSESSID=grqrqegr47glkn20th2c0llpa8")
+                    .field("action", "Action Code")
+                    .field("phone", "+91" + phoneNumber)
+                    .field("template_name", templateName)
+                    .field("body_text", body)
+                    .asString();
+
+            if (response.getStatus() == 200) {
+                String responseBody = response.getBody();
+                Map<?, ?> responseMap = new ObjectMapper().readValue(responseBody, Map.class);
+                statusCode = Integer.parseInt(responseMap.get("status").toString()) == 1 ? 200 : 500;
+            } else {
+                System.out.println("Invalid response");
+            }
+        } catch (Exception e) {
+            System.out.println("Exception" + e);
+        }
+        return statusCode;
+    }
 }
