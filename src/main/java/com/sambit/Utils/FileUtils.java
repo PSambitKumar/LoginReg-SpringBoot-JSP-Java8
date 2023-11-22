@@ -1,10 +1,15 @@
 package com.sambit.Utils;
 
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.util.UriUtils;
 
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -18,13 +23,18 @@ import java.util.ResourceBundle;
 
 @PropertySource(value = "classpath:application.properties")
 public class FileUtils {
+
     private FileUtils() {}
 
     private static final String OPERATING_SYSTEM = System.getProperty("os.name").toLowerCase().trim();
-    private static final ResourceBundle BSKYAPP_RESOURCES_BUNDLE = ResourceBundle.getBundle("application");
-    public static final String WINDOWS_ROOT_FOLDER = BSKYAPP_RESOURCES_BUNDLE.getString("file.upload.directory.windows");
-    public static final String LINUX_ROOT_FOLDER = BSKYAPP_RESOURCES_BUNDLE.getString("file.upload.directory.linux");
+    private static final ResourceBundle BSKY_APP_RESOURCES_BUNDLE = ResourceBundle.getBundle("application");
+    public static final String WINDOWS_ROOT_FOLDER = BSKY_APP_RESOURCES_BUNDLE.getString("file.upload.directory.windows");
+    public static final String LINUX_ROOT_FOLDER = BSKY_APP_RESOURCES_BUNDLE.getString("file.upload.directory.linux");
 
+    /**
+     * This method is used to get Root Path
+     * Output = Root Path
+     */
     public static String getRootDirectoryName() {
         if (OPERATING_SYSTEM.contains("windows"))
             return WINDOWS_ROOT_FOLDER;
@@ -32,38 +42,37 @@ public class FileUtils {
             return LINUX_ROOT_FOLDER;
     }
 
-    public static String getFileExtension(String filename) {
-        int lastDotIndex = filename.lastIndexOf('.');
+    /**
+     * This method is used to Save File to Server
+     * Output = Full File Path
+     */
+    public static String saveFileToServer(String year, String hospitalCode, String folderName,
+                                          String newFileName, MultipartFile file) throws IOException {
+        String filePathString = "";
 
-        if (lastDotIndex != -1)
-            return filename.substring(lastDotIndex);
-        return "";
-    }
-
-    public static String saveFileToServer(String year, String hospitalCode, String folderName, String newFileName, MultipartFile file) throws IOException {
         String path = String.format("%s/%s/%s", year, hospitalCode, folderName);
         File fileData = new File(getRootDirectoryName() + path);
         fileData.getParentFile().mkdirs();
-        return saveFile(file, path, newFileName);
-    }
 
-    public static String saveFile(MultipartFile file, String fileName, String newFileName) throws IOException {
-        String fileFlag = "";
-        if (file.isEmpty()) {
-            fileFlag = "FileEmpty";
-        } else {
-            String folderPath = fileExistsOrNot(fileName);
+        if (file.isEmpty())
+            filePathString = "FileEmpty";
+        else {
+            String folderPath = folderExistsOrNot(path);
             byte[] bytes = file.getBytes();
-            Path path = Paths.get( String.format("%s/%s", folderPath.trim(), newFileName.trim()));
-            Files.write(path, bytes);
-            fileFlag = folderPath + newFileName;
+            Path filePath = Paths.get( String.format("%s/%s", folderPath.trim(), newFileName.trim()));
+            Files.write(filePath, bytes);
+            filePathString = folderPath + newFileName;
         }
-        return fileFlag;
+        return filePathString;
     }
 
-    public static String fileExistsOrNot(String folderName) {
+    /**
+     * This method is used to Check Folder existence if not present then creates a new folder
+     * Output = File Path
+     */
+    public static String folderExistsOrNot(String path) {
         String rootDirectoryName = getRootDirectoryName();
-        String filePath = rootDirectoryName + folderName;
+        String filePath = rootDirectoryName + path;
 
         File file = new File(filePath);
 
@@ -75,5 +84,90 @@ public class FileUtils {
                 return filePath;
         }
         return filePath + "/";
+    }
+
+    public static boolean fileExistsOrNot(String filePath) {
+        File file = new File(filePath);
+        return file.exists();
+    }
+
+    public static String getFileExtension(String filename) {
+        int lastDotIndex = filename.lastIndexOf('.');
+
+        if (lastDotIndex != -1)
+            return filename.substring(lastDotIndex);
+        return "";
+    }
+
+    /**
+     * This method is used to get the prefix from File Name.
+     * Eg: File Name Like = "INV_666666_66612023111620231116103845670.jpg",
+     * Output = "INV"
+     */
+    public static String getPrefixFromFileName(String fileName) {
+        return fileName.split("_")[0];
+    }
+
+    /**
+     * This method is used to get File Type Name Using File Name.
+     * Eg: File Name Like = "INV_666666_66612023111620231116103845670.jpg",
+     * Output = "Investigation"
+     */
+    public static String getFileTypeUsingFileName(String fileName) {
+        String prefix = getPrefixFromFileName(fileName);
+
+        if (prefix.equalsIgnoreCase(StringUtils.INVESTIGATION_DOC_PREFIX_NAME))
+            return "Investigation";
+        else if (prefix.equalsIgnoreCase(StringUtils.REFERRAL_DOC_PREFIX_NAME))
+            return "Referral";
+        else
+            return "Invalid Document Prefix";
+    }
+
+    /**
+     * This method is used to get Folder Name Using File Name.
+     * Eg: File Name Like = "INV_666666_66612023111620231116103845670.jpg",
+     * Output = "InvestigationDoc"
+     */
+    public static String getFolderNameUsingFileName(String fileName) {
+        String prefix = getPrefixFromFileName(fileName);
+
+        if (prefix.equalsIgnoreCase(StringUtils.INVESTIGATION_DOC_PREFIX_NAME))
+            return StringUtils.INVESTIGATION_DOC_FOLDER_NAME;
+        else if (prefix.equalsIgnoreCase(StringUtils.REFERRAL_DOC_PREFIX_NAME))
+            return StringUtils.REFERRAL_DOC_FOLDER_NAME;
+        else
+            return "Invalid Document Prefix";
+    }
+
+    /**
+     * This method is used to Download File.
+     * Output = "File in Bytes Array of BLOB
+     */
+    public static void downloadFile(String fileName, String year, String hospitalCode, String folderName, HttpServletResponse response) throws IOException {
+        String path = String.format("%s%s/%s/%s/%s", getRootDirectoryName(), year, hospitalCode, folderName.trim(), fileName);
+        File file = new File(path);
+
+        if (!file.exists()) {
+            String errorMessage = "Sorry. The file you are looking for does not exist";
+            response.getOutputStream().write(errorMessage.getBytes(StandardCharsets.UTF_8));
+            return;
+        }
+
+        String mimeType = Files.probeContentType(file.toPath());
+        if (mimeType == null)
+            mimeType = "application/octet-stream";
+
+        response.setContentType(mimeType);
+        response.setContentLength((int) file.length());
+
+        String encodedFilename = UriUtils.encode(file.getName(), StandardCharsets.UTF_8.toString());
+        response.setHeader(HttpHeaders.CONTENT_DISPOSITION, "inline; filename=\"" + encodedFilename + "\"");
+
+        try (OutputStream outputStream = response.getOutputStream()) {
+            Files.copy(file.toPath(), outputStream);
+        } catch (IOException e) {
+            throw new CustomException(e.getMessage());
+        }
     }
 }
