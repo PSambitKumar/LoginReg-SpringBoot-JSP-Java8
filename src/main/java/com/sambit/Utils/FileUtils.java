@@ -1,5 +1,6 @@
 package com.sambit.Utils;
 
+import com.sambit.CustomException.CustomException;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.web.multipart.MultipartFile;
