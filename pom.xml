@@ -182,7 +182,6 @@
     </dependencies>
 
     <build>
-        <finalName>Registration</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
