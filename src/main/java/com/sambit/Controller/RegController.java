@@ -629,4 +629,28 @@ public class RegController {
         logger.info("Inside Test Method------->>");
         return "test";
     }
+
+    //    Method To Process/Upload Document
+    public static Map<String, Object> processDocument(MultipartFile document, String docPrefix, String urn, Long memberId, Date date,
+                                                      String hospitalCode, String folderName) throws IOException {
+        String fileName = docPrefix + '_' +
+                urn.substring(urn.length() - 6) + '_' +
+                memberId +
+                new SimpleDateFormat("yyyyMMdd").format(date) +
+                new SimpleDateFormat("yyyyMMddHHmmssSSS").format(new Date()) +
+                FileUtils.getFileExtension(Objects.requireNonNull(document.getOriginalFilename()));
+
+        String savedFilePath = FileUtils.saveFileToServer(
+                new SimpleDateFormat("yyyy").format(date),
+                hospitalCode,
+                folderName,
+                fileName,
+                document
+        );
+
+        Map<String, Object> fileMap = new LinkedHashMap<>();
+        fileMap.put(fileName, savedFilePath);
+
+        return fileMap;
+    }
 }
