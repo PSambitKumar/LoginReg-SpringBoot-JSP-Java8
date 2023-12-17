@@ -14,7 +14,8 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ResourceBundle;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * @Project : TMS Backend
@@ -145,7 +146,7 @@ public class FileUtils {
      * This method is used to Download File.
      * Output = "File in Bytes Array of BLOB
      */
-    public static void downloadFile(String fileName, String year, String hospitalCode, String folderName, HttpServletResponse response) throws IOException {
+    public static void downloadFile(String fileName, String year, String hospitalCode, String folderName, HttpServletResponse response) throws Exception {
         String path = String.format("%s%s/%s/%s/%s", getRootDirectoryName(), year, hospitalCode, folderName.trim(), fileName);
         File file = new File(path);
 
@@ -168,7 +169,7 @@ public class FileUtils {
         try (OutputStream outputStream = response.getOutputStream()) {
             Files.copy(file.toPath(), outputStream);
         } catch (IOException e) {
-            throw new CustomException(e.getMessage());
+            throw new Exception(e.getMessage());
         }
     }
 }

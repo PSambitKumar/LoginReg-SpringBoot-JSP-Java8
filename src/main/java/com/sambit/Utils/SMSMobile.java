@@ -1,6 +1,15 @@
 package com.sambit.Utils;
 
+import org.apache.http.HttpResponse;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.message.BasicNameValuePair;
+
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -8,6 +17,8 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.security.GeneralSecurityException;
 import java.security.cert.X509Certificate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.SSLContext;
@@ -93,6 +104,36 @@ public class SMSMobile {
 
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
+        }
+    }
+
+    public String sendOTP(String mobileNo, String otp, String refNo) throws IOException {
+        String responseString = null;
+
+        String message = "Dear User, Your One Time Password (OTP) for patient verification is" + otp +
+                ". Reference Number " + refNo +
+                ". Dont share it with anyone. BSKY, Govt. of Odisha.";
+
+        try {
+            HttpClient client = new DefaultHttpClient();
+            HttpPost post = new HttpPost("https://govtsms.odisha.gov.in/api/api.php");
+            List<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>(1);
+            nameValuePairs.add(new BasicNameValuePair("action", "singleSMS"));
+            nameValuePairs.add(new BasicNameValuePair("department_id", "D006001"));
+            nameValuePairs.add(new BasicNameValuePair("template_id", "1007480143063815155"));
+            nameValuePairs.add(new BasicNameValuePair("sms_content", message));
+            nameValuePairs.add(new BasicNameValuePair("phonenumber", mobileNo));
+            post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
+            HttpResponse response = client.execute(post);
+            BufferedReader bf = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+            String line = "";
+            while ((line = bf.readLine()) != null) {
+                responseString = line;
+            }
+
+            return responseString;
+        } catch (Exception e) {
+            throw e;
         }
     }
 }
