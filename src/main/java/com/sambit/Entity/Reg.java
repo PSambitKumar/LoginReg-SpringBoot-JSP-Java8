@@ -2,7 +2,11 @@ package com.sambit.Entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.sql.Date;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @Entity
 @Table(name = "Registration")
@@ -124,5 +128,35 @@ public class Reg implements Serializable {
 
     public void setDob(Date dob) {
         this.dob = dob;
+    }
+
+    public Map<String, Object> toMap() {
+        Map<String, Object> map = new LinkedHashMap<>();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            try {
+                map.put(field.getName(), field.get(this));
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return map;
+    }
+
+    public Map<String, Object> toMap1() {
+        Map<String, Object> map = new HashMap<>();
+        Class<?> clazz = getClass();
+
+        try {
+            for (Field field : clazz.getDeclaredFields()) {
+                field.setAccessible(true);
+                Object value = field.get(this);
+                map.put(field.getName(), value);
+            }
+        } catch (IllegalAccessException e) {
+            e.printStackTrace(); // Handle the exception according to your needs
+        }
+
+        return map;
     }
 }
