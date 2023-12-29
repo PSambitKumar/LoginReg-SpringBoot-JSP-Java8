@@ -1,5 +1,8 @@
 package com.sambit.Entity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
@@ -141,6 +144,15 @@ public class Reg implements Serializable {
             }
         }
         return map;
+    }
+
+    public JSONObject toJSONObject() throws IllegalAccessException, JSONException {
+        JSONObject jsonObject = new JSONObject();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            jsonObject.put(field.getName(), field.get(this));
+        }
+        return jsonObject;
     }
 
     public Map<String, Object> toMap1() {
