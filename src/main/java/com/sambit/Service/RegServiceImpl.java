@@ -23,14 +23,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.ParameterMode;
+import javax.persistence.StoredProcedureQuery;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 @Service
 public class RegServiceImpl implements RegService{
@@ -749,6 +751,176 @@ public class RegServiceImpl implements RegService{
         } catch (Exception e) {
             logger.error("Exception in generatePDF() method", e.getMessage());
             throw new RuntimeException(e);
+        }
+    }
+
+    public Map<String, Object> getSlipData(Map<String, Object> request) {
+        Map<String, Object> response = null;
+        try {
+            StoredProcedureQuery storedProcedureQuery = this.entityManager.createStoredProcedureQuery(ProcedureUtils.GENERATE_SLIP)
+                    .registerStoredProcedureParameter("P_ACTION", String.class, ParameterMode.IN)
+                    .registerStoredProcedureParameter("P_TRANSACTIONID", Long.class, ParameterMode.IN)
+                    .registerStoredProcedureParameter("P_TXNPACKAGEDETAILID", Long.class, ParameterMode.IN)
+                    .registerStoredProcedureParameter("P_MSGOUT", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_IMP", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_HED", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_PACKAGE", void.class, ParameterMode.REF_CURSOR);
+
+            storedProcedureQuery.setParameter("P_ACTION", request.get("actionCode").toString());
+            storedProcedureQuery.setParameter("P_TRANSACTIONID", request.get("transactionId") != null
+                    ? Long.parseLong(request.get("transactionId").toString()) : null);
+            storedProcedureQuery.setParameter("P_TXNPACKAGEDETAILID", request.get("txnPackageDetailId") != null
+                    ? Long.parseLong(request.get("txnPackageDetailId").toString()) : null);
+
+            storedProcedureQuery.execute();
+            ResultSet pMsgOut = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_MSGOUT");
+            ResultSet pImp = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_IMP");
+            ResultSet pHed = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_HED");
+            ResultSet pPackage = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_PACKAGE");
+
+            switch (request.get("actionCode").toString()) {
+                case "BS":
+                    response = new LinkedHashMap<>();
+                    List<Map<String, Object>> packageList = new ArrayList<>();
+                    List<Map<String, Object>> hedList = new ArrayList<>();
+                    List<Map<String, Object>> impList = new ArrayList<>();
+
+                    while (pMsgOut.next()) {
+                        response.put("medicalType", pMsgOut.getString(1));
+                        response.put("memberName", pMsgOut.getString(2));
+                        response.put("memberId", pMsgOut.getString(3));
+                        response.put("memberRelationWithHead", pMsgOut.getString(4));
+                        response.put("headMemberName", pMsgOut.getString(5));
+                        response.put("verifiedMemberName", pMsgOut.getString(6));
+                        response.put("verificationMode", pMsgOut.getString(7));
+                        response.put("verifierRelationWithHead", pMsgOut.getString(8));
+                        response.put("invoiceNo", pMsgOut.getString(9));
+                        response.put("caseNo", pMsgOut.getString(10));
+                        response.put("urn", pMsgOut.getString(11));
+                        response.put("hospitalCode", pMsgOut.getString(12));
+                        response.put("hospitalName", pMsgOut.getString(13));
+                        response.put("hospitalAuthorityCode", pMsgOut.getString(14));
+                        response.put("dateTime", pMsgOut.getString(15));
+                        response.put("admissionDate", pMsgOut.getString(16));
+                        response.put("totalBlocked", pMsgOut.getString(17));
+                        response.put("insufficientAmount", pMsgOut.getString(18));
+                        response.put("totalAmount", pMsgOut.getString(19));
+                        response.put("availableBalance", pMsgOut.getString(20));
+                        response.put("policyYear", pMsgOut.getString(21));
+                    }
+
+                    while (pPackage.next()) {
+                        Map<String, Object> pPackageMap = new LinkedHashMap<>();
+                        pPackageMap.put("procedureCode", pPackage.getString(1));
+                        pPackageMap.put("packageHeaderName", pPackage.getString(2));
+                        pPackageMap.put("packageSubCategoryName", pPackage.getString(3));
+                        pPackageMap.put("procedureName", pPackage.getString(4));
+                        pPackageMap.put("txnPackageDetailId", pPackage.getString(5));
+                        pPackageMap.put("noOfDays", pPackage.getString(6));
+                        pPackageMap.put("amountBlocked", pPackage.getString(7));
+                        pPackageMap.put("wardName", pPackage.getString(8));
+                        pPackageMap.put("totalPackageCost", pPackage.getString(9));
+                        pPackageMap.put("packageCost", pPackage.getString(10));
+                        pPackageMap.put("blockDate", pPackage.getString(11));
+                        pPackageMap.put("blockingTransaction", pPackage.getString(12));
+                        pPackageMap.put("preAuthStatus", pPackage.getString(13));
+
+                        packageList.add(pPackageMap);
+                    }
+
+                    while (pImp.next()) {
+                        Map<String, Object> pImpMap = new LinkedHashMap<>();
+                        pImpMap.put("implantName", pImp.getString(1));
+                        pImpMap.put("unit", pImp.getString(2));
+                        pImpMap.put("unitCyclePrice", pImp.getString(3));
+                        pImpMap.put("amount", pImp.getString(4));
+                        pImpMap.put("txnPackageDetailId", pImp.getString(5));
+
+                        impList.add(pImpMap);
+                    }
+
+                    while (pHed.next()) {
+                        Map<String, Object> pHedMap = new LinkedHashMap<>();
+                        pHedMap.put("hedName", pHed.getString(1));
+                        pHedMap.put("preAuth", pHed.getString(2));
+                        pHedMap.put("hedPricePerUnit", pHed.getString(3));
+                        pHedMap.put("hedUnit", pHed.getString(4));
+                        pHedMap.put("hedPrice", pHed.getString(5));
+                        pHedMap.put("txnPackageDetailId", pHed.getString(6));
+
+                        hedList.add(pHedMap);
+                    }
+
+//                    Method 1
+/*                    packageList.forEach(packageMap -> {
+                        List<Map<String, Object>> impList1 = new ArrayList<>();
+                        List<Map<String, Object>> hedList1 = new ArrayList<>();
+
+                        impList.forEach(impMap -> {
+                            if (impMap.get("txnPackageDetailId").equals(packageMap.get("txnPackageDetailId")))
+                                impList1.add(impMap);
+                        });
+
+                        hedList.forEach(hedMap -> {
+                            if (hedMap.get("txnPackageDetailId").equals(packageMap.get("txnPackageDetailId")))
+                                hedList1.add(hedMap);
+                        });
+
+                        packageMap.put("implantList", impList1);
+                        packageMap.put("hedList", hedList1);
+                    });*/
+
+//                    Method 2
+/*                    packageList.forEach(p -> {
+                        p.put("implantData", impList.stream().filter(i -> i.get("txnPackageDetailId").equals(p.get("txnPackageDetailId"))));
+                        p.put("hed", hedList.stream().filter(h -> h.get("txnPackageDetailId").equals(p.get("txnPackageDetailId"))));
+                    });*/
+
+
+//                    Method 3
+                    packageList.stream().filter(p -> p.get("txnPackageDetailId").equals(impList.get(0).get("txnPackageDetailId")))
+                            .forEach(p -> p.put("implantData", impList));
+
+                    packageList.stream().filter(p -> p.get("txnPackageDetailId").equals(hedList.get(0).get("txnPackageDetailId")))
+                            .forEach(p -> p.put("hed", hedList));
+
+                    response.put("packageDetails", packageList);
+                    break;
+                case "US":
+                    while (pMsgOut.next()) {
+                        response = new LinkedHashMap<>();
+                        response.put("unBlockingTransaction", pMsgOut.getString(1));
+                        response.put("unBlockingInvoiceNumber", pMsgOut.getString(2));
+                        response.put("memberName", pMsgOut.getString(3));
+                        response.put("memberRelation", pMsgOut.getString(4));
+                        response.put("headMemberName", pMsgOut.getString(5));
+                        response.put("unBlockVerifiedMemberName", pMsgOut.getString(6));
+                        response.put("verifiedMemberRelation", pMsgOut.getString(7));
+                        response.put("unBlockVerificationMode", pMsgOut.getString(8));
+                        response.put("caseNo", pMsgOut.getString(9));
+                        response.put("urn", pMsgOut.getString(10));
+                        response.put("hospitalCode", pMsgOut.getString(11));
+                        response.put("hospitalName", pMsgOut.getString(12));
+                        response.put("hospitalAuthorityCode", pMsgOut.getString(13));
+                        response.put("dateTime", pMsgOut.getString(14));
+                        response.put("admissionDate", pMsgOut.getString(15));
+                        response.put("procedureCode", pMsgOut.getString(16));
+                        response.put("amountBlocked", pMsgOut.getString(17));
+                        response.put("insufficientAmount", pMsgOut.getString(18));
+                        response.put("availableBalance", pMsgOut.getString(19));
+                        response.put("implantData", pMsgOut.getString(20));
+                        response.put("wardName", pMsgOut.getString(21));
+                        response.put("hed", pMsgOut.getString(22));
+                        response.put("policyYear", pMsgOut.getString(23));
+                    }
+                    break;
+                default:
+                    throw new CustomException("Invalid Action Code!");
+            }
+            return response;
+        } catch (Exception e) {
+            logger.error("Exception Occurred in getSlipData method of SlipGenerationServiceImpl", e);
+            throw new CustomException(e.getMessage());
         }
     }
 }
