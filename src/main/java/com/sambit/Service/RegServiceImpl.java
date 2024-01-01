@@ -10,6 +10,7 @@ import com.sambit.Bean.ImageBean;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
+import com.sambit.CustomException.CustomException;
 import com.sambit.Entity.*;
 import com.sambit.Entity.Image;
 import com.sambit.Repository.*;
@@ -23,7 +24,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.EntityManager;
 import javax.persistence.ParameterMode;
+import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import javax.servlet.http.HttpServletResponse;
 import java.io.File;
@@ -754,10 +757,13 @@ public class RegServiceImpl implements RegService{
         }
     }
 
+    @PersistenceContext
+    private EntityManager entityManager;
+
     public Map<String, Object> getSlipData(Map<String, Object> request) {
         Map<String, Object> response = null;
         try {
-            StoredProcedureQuery storedProcedureQuery = this.entityManager.createStoredProcedureQuery(ProcedureUtils.GENERATE_SLIP)
+            StoredProcedureQuery storedProcedureQuery = this.entityManager.createStoredProcedureQuery("Procedure Name")
                     .registerStoredProcedureParameter("P_ACTION", String.class, ParameterMode.IN)
                     .registerStoredProcedureParameter("P_TRANSACTIONID", Long.class, ParameterMode.IN)
                     .registerStoredProcedureParameter("P_TXNPACKAGEDETAILID", Long.class, ParameterMode.IN)
