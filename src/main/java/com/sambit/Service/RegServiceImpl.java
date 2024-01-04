@@ -36,6 +36,7 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class RegServiceImpl implements RegService{
@@ -891,6 +892,42 @@ public class RegServiceImpl implements RegService{
                             .forEach(p -> p.put("hed", hedList));
 
                     response.put("packageDetails", packageList);
+
+//                    Method 3
+//                    Map<Long, List<Map<String, Object>>> packageInfoGrouped =
+//                            packageInfoList.stream().collect(Collectors.groupingBy(info -> (Long) info.get("txnPackageDetailId")));
+//
+//                    hedInfoList.forEach(hedInfo -> {
+//                        packageInfoGrouped.getOrDefault(hedInfo.get("txnPackageDetailId"), Collections.emptyList())
+//                                .forEach(packageInfo -> {
+//                                    List<Map<String, Object>> hedList = (List<Map<String, Object>>) packageInfo.get("hedList");
+//                                    if (hedList == null) {
+//                                        hedList = new ArrayList<>();
+//                                        packageInfo.put("hedList", hedList);
+//                                    }
+//                                    hedList.add(hedInfo);
+//                                });
+//                    });
+//
+//                    implantInfoList.forEach(implantInfo -> {
+//                        packageInfoGrouped.getOrDefault(implantInfo.get("txnPackageDetailId"), Collections.emptyList())
+//                                .forEach(packageInfo -> {
+//                                    List<Map<String, Object>> implantList = (List<Map<String, Object>>) packageInfo.get("implantList");
+//                                    if (implantList == null) {
+//                                        implantList = new ArrayList<>();
+//                                        packageInfo.put("implantList", implantList);
+//                                    }
+//                                    implantList.add(implantInfo);
+//                                });
+//                    });
+//
+//                    packageInfoList.forEach(packageInfo -> {
+//                        List<Map<String, Object>> hedList = (List<Map<String, Object>>) packageInfo.get("hedList");
+//                        List<Map<String, Object>> implantList = (List<Map<String, Object>>) packageInfo.get("implantList");
+//
+//                        packageInfo.put("totalHedAmount", hedList.stream().mapToLong(hed -> (long) hed.get("amount")).sum());
+//                        packageInfo.put("totalImplantAmount", implantList.stream().mapToLong(implant -> (long) implant.get("amount")).sum());
+//                    });
                     break;
                 case "US":
                     while (pMsgOut.next()) {
