@@ -182,7 +182,6 @@
     </dependencies>
 
     <build>
-        <finalName>REGISTRATION</finalName>
 
         <plugins>
             <plugin>
