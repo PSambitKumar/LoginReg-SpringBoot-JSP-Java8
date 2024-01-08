@@ -966,4 +966,157 @@ public class RegServiceImpl implements RegService{
             throw new CustomException(e.getMessage());
         }
     }
+
+
+    public Object getBlockedPackage(Map<String, Object> request) {
+        try {
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MMM-yy");
+
+            StoredProcedureQuery storedProcedureQuery = this.entityManager.createStoredProcedureQuery("PROCDURE_NAME")
+                    .registerStoredProcedureParameter("P_ACTION", String.class, ParameterMode.IN)
+                    .registerStoredProcedureParameter("P_HOSPITALCODE", String.class, ParameterMode.IN)
+                    .registerStoredProcedureParameter("P_FROMDATE", java.util.Date.class, ParameterMode.IN)
+                    .registerStoredProcedureParameter("P_TODATE", java.util.Date.class, ParameterMode.IN)
+                    .registerStoredProcedureParameter("P_TRANSACTIONID", Long.class, ParameterMode.IN)
+                    .registerStoredProcedureParameter("P_SEARCHTYPE", String.class, ParameterMode.IN)
+                    .registerStoredProcedureParameter("P_MSGOUT", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_VERIFY_CUR", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_PAK_CUR", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_IM_CUR", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_HE_CUR", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_ADMIN_CUR", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_VITAL_CUR", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_DIAGNOSIS_CUR", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_ICDINFO_CUR", void.class, ParameterMode.REF_CURSOR)
+                    .registerStoredProcedureParameter("P_SUBICDINFO_CUR", void.class, ParameterMode.REF_CURSOR);
+
+            storedProcedureQuery.setParameter("P_ACTION", getStringParameter(request, "actionCode"));
+            storedProcedureQuery.setParameter("P_HOSPITALCODE", getStringParameter(request, "hospitalCode"));
+            storedProcedureQuery.setParameter("P_FROMDATE", getDateParameter(request, "fromDate", simpleDateFormat));
+            storedProcedureQuery.setParameter("P_TODATE", getDateParameter(request, "toDate", simpleDateFormat));
+            storedProcedureQuery.setParameter("P_TRANSACTIONID", getLongParameter(request, "transactionId"));
+            storedProcedureQuery.setParameter("P_SEARCHTYPE", getStringParameter(request, "searchType"));
+
+            storedProcedureQuery.execute();
+
+            ResultSet resultSet = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_MSGOUT");
+            ResultSet verifierResultSet = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_VERIFY_CUR");
+            ResultSet packageResultSet = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_PAK_CUR");
+            ResultSet implantResultSet = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_IM_CUR");
+            ResultSet hedResultSet = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_HE_CUR");
+            ResultSet adminssionResultSet = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_ADMIN_CUR");
+            ResultSet vitalResultSet = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_VITAL_CUR");
+            ResultSet diagnosisResultSet = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_DIAGNOSIS_CUR");
+            ResultSet icdResultSet = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_ICDINFO_CUR");
+            ResultSet subIcdResultSet = (ResultSet) storedProcedureQuery.getOutputParameterValue("P_SUBICDINFO_CUR");
+
+            Map<String, Object> response = new LinkedHashMap<>();
+
+            switch (getStringParameter(request, "actionCode")) {
+                case "A":
+                    response.put("responseList", getResultList(resultSet));
+                    break;
+                case "B":
+                    Map<String, Object> patientInfo = getResultMap(resultSet);
+                    List<Map<String, Object>> verifierInfoList = getResultList(verifierResultSet);
+                    List<Map<String, Object>> packageInfoList = getResultList(packageResultSet);
+                    List<Map<String, Object>> implantInfoList = getResultList(implantResultSet);
+                    List<Map<String, Object>> hedInfoList = getResultList(hedResultSet);
+                    List<Map<String, Object>> diagnosisInfoList = getResultList(diagnosisResultSet);
+                    List<Map<String, Object>> adminssionInfoList = getResultList(adminssionResultSet);
+                    List<Map<String, Object>> vitalInfoList = getResultList(vitalResultSet);
+                    List<Map<String, Object>> icdInfoList = getResultList(icdResultSet);
+                    List<Map<String, Object>> subIcdInfoList = getResultList(subIcdResultSet);
+
+                    response.put("patientInfo", patientInfo);
+                    response.put("verifierInfoList", verifierInfoList);
+                    response.put("packageInfoList", packageInfoList);
+                    response.put("implantInfoList", implantInfoList);
+                    response.put("hedInfoList", hedInfoList);
+                    response.put("diagnosisInfoList", diagnosisInfoList);
+                    response.put("admissionInfoList", adminssionInfoList);
+                    response.put("vitalInfoList", vitalInfoList);
+                    response.put("icdInfoList", icdInfoList);
+                    response.put("subIcdInfoList", subIcdInfoList);
+
+                    updatePackageInfoList(packageInfoList, hedInfoList, implantInfoList);
+                    updateResponseWithGroupedInfo(response, subIcdInfoList, icdInfoList, diagnosisInfoList);
+                    break;
+                default:
+                    throw new CustomException("Invalid Action Code!");
+            }
+
+            return response;
+        } catch (Exception e) {
+            logger.error("Exception Occurred in getBlockedPackageList method of PackageBlockingServiceImpl", e);
+            throw new CustomException(e.getMessage());
+        }
+    }
+
+    private String getStringParameter(Map<String, Object> request, String parameterName) {
+        return request.containsKey(parameterName) ? request.get(parameterName).toString() : null;
+    }
+
+    private java.util.Date getDateParameter(Map<String, Object> request, String parameterName, SimpleDateFormat simpleDateFormat) throws ParseException {
+        return request.containsKey(parameterName) ? simpleDateFormat.parse(request.get(parameterName).toString()) : null;
+    }
+
+    private Long getLongParameter(Map<String, Object> request, String parameterName) {
+        return request.containsKey(parameterName) ? Long.parseLong(request.get(parameterName).toString()) : null;
+    }
+
+    private List<Map<String, Object>> getResultList(ResultSet resultSet) throws SQLException {
+        List<Map<String, Object>> resultList = new ArrayList<>();
+        while (resultSet.next()) {
+            Map<String, Object> result = new LinkedHashMap<>();
+            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                result.put(resultSet.getMetaData().getColumnName(i), resultSet.getObject(i));
+            }
+            resultList.add(result);
+        }
+        return resultList;
+    }
+
+    private Map<String, Object> getResultMap(ResultSet resultSet) throws SQLException {
+        Map<String, Object> resultMap = new LinkedHashMap<>();
+        while (resultSet.next()) {
+            for (int i = 1; i <= resultSet.getMetaData().getColumnCount(); i++) {
+                resultMap.put(resultSet.getMetaData().getColumnName(i), resultSet.getObject(i));
+            }
+        }
+        return resultMap;
+    }
+
+    private void updatePackageInfoList(List<Map<String, Object>> packageInfoList, List<Map<String, Object>> hedInfoList, List<Map<String, Object>> implantInfoList) {
+        packageInfoList.forEach(packageInfo -> {
+            List<Map<String, Object>> hedList = hedInfoList.stream()
+                    .filter(hedInfo -> packageInfo.get("txnPackageDetailId").equals(hedInfo.get("txnPackageDetailId")))
+                    .collect(Collectors.toList());
+
+            List<Map<String, Object>> implantList = implantInfoList.stream()
+                    .filter(implantInfo -> packageInfo.get("txnPackageDetailId").equals(implantInfo.get("txnPackageDetailId")))
+                    .collect(Collectors.toList());
+
+            packageInfo.put("hedList", hedList);
+            packageInfo.put("implantList", implantList);
+            packageInfo.put("totalHedAmount", hedList.stream().mapToLong(hed -> (long) hed.get("amount")).sum());
+            packageInfo.put("totalImplantAmount", implantList.stream().mapToLong(implant -> (long) implant.get("amount")).sum());
+        });
+    }
+
+    private void updateResponseWithGroupedInfo(Map<String, Object> response, List<Map<String, Object>> subIcdInfoList, List<Map<String, Object>> icdInfoList, List<Map<String, Object>> diagnosisInfoList) {
+        Map<Long, List<Map<String, Object>>> subIcdInfoGrouped = subIcdInfoList.stream()
+                .collect(Collectors.groupingBy(info -> (Long) info.get("icdInfoId")));
+
+        icdInfoList.forEach(icdInfo -> icdInfo.put("subIcdList", subIcdInfoGrouped.getOrDefault(icdInfo.get("icdInfoId"), Collections.emptyList())));
+
+        Map<Long, List<Map<String, Object>>> icdInfoGrouped = icdInfoList.stream()
+                .collect(Collectors.groupingBy(info -> (Long) info.get("txnPackageDetailId")));
+
+        diagnosisInfoList.forEach(diagnosisInfo -> diagnosisInfo.put("icdList",
+                icdInfoGrouped.getOrDefault(diagnosisInfo.get("txnPackageDetailId"), Collections.emptyList()))
+        );
+
+        response.put("diagnosisInfoList", diagnosisInfoList);
+    }
 }
