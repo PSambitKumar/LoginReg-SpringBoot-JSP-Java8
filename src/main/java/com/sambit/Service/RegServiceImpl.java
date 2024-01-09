@@ -29,9 +29,9 @@ import javax.persistence.ParameterMode;
 import javax.persistence.PersistenceContext;
 import javax.persistence.StoredProcedureQuery;
 import javax.servlet.http.HttpServletResponse;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -1120,5 +1120,43 @@ public class RegServiceImpl implements RegService{
         );
 
         response.put("diagnosisInfoList", diagnosisInfoList);
+    }
+
+    public String sendHttpRequest1(String url, String request) {
+        HttpURLConnection httpURLConnection = null;
+        try {
+            URL apiUrl = new URL(url);
+            httpURLConnection = (HttpURLConnection) apiUrl.openConnection();
+
+            httpURLConnection.setRequestMethod("POST");
+            httpURLConnection.setRequestProperty("Content-Type", "application/json");
+            httpURLConnection.setDoOutput(true);
+
+            try (OutputStream os = httpURLConnection.getOutputStream()) {
+                os.write(request.getBytes());
+                os.flush();
+            }
+
+            int responseCode = httpURLConnection.getResponseCode();
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(httpURLConnection.getInputStream()))) {
+                    StringBuilder response = new StringBuilder();
+                    String line;
+                    while ((line = bufferedReader.readLine()) != null) {
+                        response.append(line);
+                    }
+                    return response.toString();
+                }
+            } else {
+                throw new CustomException("Unable to send request. HTTP response code: " + responseCode);
+            }
+        } catch (Exception ex) {
+            logger.error("Exception occurred in sendHttpRequest method", ex);
+            throw new CustomException(ex.getMessage());
+        } finally {
+            if (httpURLConnection != null) {
+                httpURLConnection.disconnect();
+            }
+        }
     }
 }
