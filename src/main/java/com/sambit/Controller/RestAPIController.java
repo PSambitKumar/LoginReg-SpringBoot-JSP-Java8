@@ -52,6 +52,11 @@ public class RestAPIController {
 	@Value("${healthDepartmentMemberDetails.URL}")
 	private String healthDepartmentMemberDetailsURL;
 
+	@GetMapping(value = "/printHello")
+	public String printHello(){
+		return "Hello";
+	}
+
 
 	@GetMapping(value = "/checkUserIsPresent")
 	public Map<String, Object> checkUserIsPresent(@RequestParam(value = "userName") String userName){
