@@ -182,7 +182,6 @@
     </dependencies>
 
     <build>
-        <finalName>reg_service</finalName>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
