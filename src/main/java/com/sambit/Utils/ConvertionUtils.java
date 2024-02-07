@@ -152,7 +152,7 @@ public class ConvertionUtils {
 
     public static List<Map<String, Object>> convertJsonArrayToListMap(String json) {
         try {
-            return new ObjectMapper().readValue(json, new TypeReference<List<Map<String, Object>>() {
+            return new ObjectMapper().readValue(json, new TypeReference<List<Map<String, Object>>>() {
             });
         } catch (JsonProcessingException e) {
             return null;
