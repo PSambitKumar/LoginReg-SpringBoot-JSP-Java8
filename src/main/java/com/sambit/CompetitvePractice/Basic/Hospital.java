@@ -27,5 +27,15 @@ class Hospital {
         System.out.println("Doctors: " + obj1.variable1 + ", Nurses: " + obj1.variable2);
         System.out.println("Doctors: " + obj2.variable1);
         System.out.println("Salaries: " + obj3.variable3);
+
+
+        Hospital obj4 = new Hospital(89, 10);
+        Hospital obj5 = new Hospital(89);
+        Hospital obj6 = new Hospital(25000.00);
+
+        System.out.println("Doctors: " + obj4.variable1 + ", Nurses: " + obj4.variable2);
+        System.out.println("Doctors: " + obj5.variable1);
+        System.out.println("Salaries: " + obj6.variable3);
+
     }
 }
