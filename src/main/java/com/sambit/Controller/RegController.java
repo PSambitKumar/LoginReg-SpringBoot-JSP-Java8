@@ -18,6 +18,7 @@ import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.json.XML;
@@ -652,5 +653,38 @@ public class RegController {
         fileMap.put(fileName, savedFilePath);
 
         return fileMap;
+    }
+
+    @GetMapping(value = "convertListOfModelToListOfMap")
+    public List<Map<String, Object>> convertListOfModelToListOfMap() throws JSONException {
+        List<Reg> list = regService.getAllDataofUser(new LoginBean());
+        List<Map<String, Object>> mapList = new ArrayList<>();
+
+        for (Reg reg : list) {
+            mapList.add(reg.toMap());
+        }
+        return mapList;
+    }
+
+    @GetMapping(value = "convertListOfModelToJSONArray")
+    public JSONArray convertListOfModelToJSONArray() throws JSONException, IllegalAccessException {
+        List<Reg> list = regService.getAllDataofUser(new LoginBean());
+        JSONArray jsonArray = new JSONArray();
+
+        for (Reg reg : list) {
+            jsonArray.put(reg.toJSONObject());
+        }
+        return jsonArray;
+    }
+
+    @GetMapping(value = "convertListOfModelToJSONArray1")
+    public JSONArray convertListOfModelToJSONArray1() throws JSONException, IllegalAccessException {
+        List<Reg> list = regService.getAllDataofUser(new LoginBean());
+
+        JSONArray jsonArray = new JSONArray();
+        for (Reg reg : list) {
+            jsonArray.put(reg.toJSONObject());
+        }
+        return jsonArray;
     }
 }

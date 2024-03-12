@@ -7,9 +7,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Entity
 @Table(name = "Registration")
@@ -144,6 +142,21 @@ public class Reg implements Serializable {
             }
         }
         return map;
+    }
+
+    public List<Map<String, Object>> toList() {
+        List<Map<String, Object>> list = new ArrayList<>();
+        Field[] fields = this.getClass().getDeclaredFields();
+        for (Field field : fields) {
+            try {
+                Map<String, Object> map = new LinkedHashMap<>();
+                map.put(field.getName(), field.get(this));
+                list.add(map);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
     }
 
     public JSONObject toJSONObject() throws IllegalAccessException, JSONException {
