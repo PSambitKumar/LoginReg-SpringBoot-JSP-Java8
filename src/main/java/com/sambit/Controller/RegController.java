@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.itextpdf.text.DocumentException;
 import com.sambit.Bean.*;
+import com.sambit.CustomException.CustomHTMLException;
 import com.sambit.Entity.*;
 import com.sambit.Repository.PostalRepository;
 import com.sambit.Repository.RegRepository;
@@ -686,5 +687,12 @@ public class RegController {
             jsonArray.put(reg.toJSONObject());
         }
         return jsonArray;
+    }
+
+    @PostMapping(value = "saveLoginData")
+    public String saveLoginData(@RequestParam Map<String, Object> request){
+        if(!XSSRequestWrapper.stripXSSForCheck(request.get("input").toString()))
+            throw new CustomHTMLException("HTML Injection Detected!");
+        return "Success";
     }
 }

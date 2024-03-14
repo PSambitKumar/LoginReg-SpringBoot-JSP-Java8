@@ -8,6 +8,7 @@ import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
+import java.io.File;
 import java.util.Properties;
 
 public class Mail {
@@ -45,16 +46,18 @@ public class Mail {
                         MimeBodyPart messageBodyPart = new MimeBodyPart();
                         messageBodyPart.setText("Body Part");
 
-                        MimeBodyPart attachmentBodyPart = new MimeBodyPart();
-                        DataSource source = new FileDataSource(filePath);
-                        attachmentBodyPart.setDataHandler(new DataHandler(source));
-                        attachmentBodyPart.setFileName(source.getName());
+                        if (new File(filePath).exists()) {
+                                MimeBodyPart attachmentBodyPart = new MimeBodyPart();
+                                DataSource source = new FileDataSource(filePath);
+                                attachmentBodyPart.setDataHandler(new DataHandler(source));
+                                attachmentBodyPart.setFileName(source.getName());
 
-                        Multipart multipart = new MimeMultipart();
-                        multipart.addBodyPart(messageBodyPart);
-                        multipart.addBodyPart(attachmentBodyPart);
+                                Multipart multipart = new MimeMultipart();
+                                multipart.addBodyPart(messageBodyPart);
+                                multipart.addBodyPart(attachmentBodyPart);
 
-                        message.setContent(multipart);
+                                message.setContent(multipart);
+                        }
 
                         Transport.send(message);
                         System.out.println("Mail Sent Successfully.");
