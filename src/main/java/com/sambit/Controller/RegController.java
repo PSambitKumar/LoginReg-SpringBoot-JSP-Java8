@@ -695,4 +695,6 @@ public class RegController {
             throw new CustomHTMLException("HTML Injection Detected!");
         return "Success";
     }
+
+
 }
