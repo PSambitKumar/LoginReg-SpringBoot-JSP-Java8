@@ -172,4 +172,46 @@ public class FileUtils {
             throw new Exception(e.getMessage());
         }
     }
+
+    /**
+     * This method is used to get File Type
+     *
+     * @Auther : Sambit Kumar Pradhan
+     * @param fileName
+     * @return String
+     * @Date : 20-Mar-2024 : 12:47 PM
+     */
+    public static String getFileType(String fileName) {
+        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
+        if (suffix.equalsIgnoreCase("jpg") || suffix.equalsIgnoreCase("jpeg") || suffix.equalsIgnoreCase("png"))
+            return "Image";
+        else if (suffix.equalsIgnoreCase("pdf"))
+            return "PDF";
+        else if (suffix.equalsIgnoreCase("doc") || suffix.equalsIgnoreCase("docx"))
+            return "Word";
+        else if (suffix.equalsIgnoreCase("xls") || suffix.equalsIgnoreCase("xlsx"))
+            return "Excel";
+        else if (suffix.equalsIgnoreCase("ppt") || suffix.equalsIgnoreCase("pptx"))
+            return "PowerPoint";
+        else if (suffix.equalsIgnoreCase("txt"))
+            return "Text";
+        else if (suffix.equalsIgnoreCase("zip") || suffix.equalsIgnoreCase("rar"))
+            return "Zip";
+        else if (suffix.equalsIgnoreCase("mp3") || suffix.equalsIgnoreCase("wav") || suffix.equalsIgnoreCase("wma"))
+            return "Audio";
+        else if (suffix.equalsIgnoreCase("mp4") || suffix.equalsIgnoreCase("avi") || suffix.equalsIgnoreCase("flv"))
+            return "Video";
+        else if (suffix.equalsIgnoreCase("csv"))
+            return "CSV";
+        else if (suffix.equalsIgnoreCase("json"))
+            return "JSON";
+        else if (suffix.equalsIgnoreCase("xml"))
+            return "XML";
+        else if (suffix.equalsIgnoreCase("html") || suffix.equalsIgnoreCase("htm"))
+            return "HTML";
+        else if (suffix.equalsIgnoreCase("log"))
+            return "Log";
+        else
+            return "Other";
+    }
 }
