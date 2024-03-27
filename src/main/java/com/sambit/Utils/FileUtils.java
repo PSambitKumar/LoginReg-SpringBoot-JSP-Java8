@@ -214,4 +214,51 @@ public class FileUtils {
         else
             return "Other";
     }
+
+    /**
+     * This method is used to get File Type
+     *
+     * @Auther : Sambit Kumar Pradhan
+     * @param fileName
+     * @return String
+     * @Date : 20-Mar-2024 : 12:47 PM
+     */
+
+    private static final Map<String, String> FILE_TYPE_MAP = new HashMap<>();
+
+    static {
+        FILE_TYPE_MAP.put("jpg", "Image");
+        FILE_TYPE_MAP.put("jpeg", "Image");
+        FILE_TYPE_MAP.put("png", "Image");
+        FILE_TYPE_MAP.put("pdf", "PDF");
+        FILE_TYPE_MAP.put("doc", "Word");
+        FILE_TYPE_MAP.put("docx", "Word");
+        FILE_TYPE_MAP.put("xls", "Excel");
+        FILE_TYPE_MAP.put("xlsx", "Excel");
+        FILE_TYPE_MAP.put("ppt", "PowerPoint");
+        FILE_TYPE_MAP.put("pptx", "PowerPoint");
+        FILE_TYPE_MAP.put("txt", "Text");
+        FILE_TYPE_MAP.put("zip", "Zip");
+        FILE_TYPE_MAP.put("rar", "Zip");
+        FILE_TYPE_MAP.put("7z", "Zip");
+        FILE_TYPE_MAP.put("tar", "Zip");
+        FILE_TYPE_MAP.put("gz", "Zip");
+        FILE_TYPE_MAP.put("mp3", "Audio");
+        FILE_TYPE_MAP.put("wav", "Audio");
+        FILE_TYPE_MAP.put("wma", "Audio");
+        FILE_TYPE_MAP.put("mp4", "Video");
+        FILE_TYPE_MAP.put("avi", "Video");
+        FILE_TYPE_MAP.put("flv", "Video");
+        FILE_TYPE_MAP.put("csv", "CSV");
+        FILE_TYPE_MAP.put("json", "JSON");
+        FILE_TYPE_MAP.put("xml", "XML");
+        FILE_TYPE_MAP.put("html", "HTML");
+        FILE_TYPE_MAP.put("htm", "HTML");
+        FILE_TYPE_MAP.put("log", "Log");
+    }
+
+    public static String getFileType1(String fileName) {
+        String suffix = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+        return FILE_TYPE_MAP.getOrDefault(suffix, "Other");
+    }
 }
