@@ -5,6 +5,8 @@ import com.sambit.CompetitvePractice.Algorithms.Greedy;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -470,6 +472,12 @@ public class RandomQuestions {
 	public String callFizzBuzzAlgorithm(){
 		FizzBuzz.fizzBuzz();
 		return null;
+	}
+
+	@GetMapping("/arrayListCheck")
+	public void arrayListCheck() {
+		Integer[] arr1 = new Integer[] { 1, 9, 8, 7, 7, 8, 9 };
+		List<Integer> listDup = Arrays.asList(arr1);
 	}
 
 
