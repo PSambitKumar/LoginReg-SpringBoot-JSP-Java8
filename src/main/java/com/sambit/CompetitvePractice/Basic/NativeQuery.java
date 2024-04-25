@@ -51,6 +51,8 @@ public class NativeQuery {
             response.put("districtName", row[1]);
             response.put("hospitalName", row[2]);
         });
+
+//        entityManager.getTransaction().commit(); if commit required
     }
 
     public void getHospitalDetails1() {

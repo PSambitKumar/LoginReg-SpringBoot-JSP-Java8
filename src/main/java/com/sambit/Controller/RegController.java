@@ -697,4 +697,40 @@ public class RegController {
     }
 
 
+
+//    Angular
+
+/*    let data = {
+            'Name': this.selectedOverridePatient.memberName,
+            'Age': this.selectedOverridePatient.age,
+            'Gender': this.selectedOverridePatient.gender,
+            'Aadhaar No.': this.selectedOverridePatient.aadhaar,
+            'URN': this.selectedOverridePatient.urn,
+            'Scheme Category': this.selectedOverridePatient.schemeCategory,
+            'No of Days': this.selectedOverridePatient.noOfDays,
+            'Purpose of Override Code': this.selectedOverridePatient.generatedThrough,
+            'Request Date': this.selectedOverridePatient.requestDate,
+            'Status': this.selectedOverridePatient.approveStatus,
+            'Approved By': this.selectedOverridePatient.approvedBy,
+            'Approved Date': this.selectedOverridePatient.approvedDate,
+            'Remark': this.selectedOverridePatient.remark,
+}*/
+
+
+    /*downloadPDF(data: any) {
+        let headers = new HttpHeaders({
+                Authorization: this.jwtService.getJwtToken(),
+    })
+        let options = {
+                headers: headers
+    }
+        return this.httpClient.get(generatePDF, { ...options, params: data })
+    }*/
+
+//    Java
+@GetMapping(value = "/generatePDF")
+public void generatePDF(@RequestParam Map<String, Object> data, HttpServletResponse response) {
+    logger.info("Inside generatePDF method of Common Controller.");
+    System.out.println(data);
+}
 }
