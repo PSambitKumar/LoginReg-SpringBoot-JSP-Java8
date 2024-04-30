@@ -19,13 +19,14 @@ public class ReverseIntArr {
         return intList.stream().mapToInt(Integer::intValue).toArray();
     }
 
-    public static void reverseArr1(int[] arr) {
+    public static int[] reverseArr1(int[] arr) {
         int length = arr.length;
         for (int i = 0; i < length / 2; i++) {
             int temp = arr[i];
             arr[i] = arr[length - i - 1];
             arr[length - i - 1] = temp;
         }
+        return arr;
     }
 
     public static int[] reverseArr2(int[] arr) {
@@ -50,5 +51,19 @@ public class ReverseIntArr {
         }
 
         return reversedArr;
+    }
+
+    public static void main(String[] args) {
+        int[] arr = new int[5];
+        arr[0] = 1;
+        arr[1] = 2;
+        arr[2] = 3;
+        arr[3] = 4;
+        arr[4] = 5;
+
+        System.out.println(reverseArr(arr));
+        System.out.println(reverseArr1(arr));
+        System.out.println(reverseArr2(arr));
+        System.out.println(reverseArr3(arr));
     }
 }
