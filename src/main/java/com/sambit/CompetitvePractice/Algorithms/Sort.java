@@ -22,7 +22,7 @@ public class Sort {
     }
 
     private static void sortIntergerArray() {
-        int[] intArr = new int[6];
+        int[] intArr = new int[4];
 
         for (int i = 0; i < intArr.length; i++) {
             Scanner scanner = new Scanner(System.in);
@@ -36,36 +36,15 @@ public class Sort {
         }
         System.out.println();
 
-        sortArrayUsingLoopAndMinValue(intArr);
+//        SelectionSort selectionSort = new SelectionSort();
+//        selectionSort.sortByComparingMin(intArr);
+//        selectionSort.sortAscending(intArr);
+//        selectionSort.sortDescending(intArr);
+
+//        BubbleSort bubbleSort = new BubbleSort();
+//        bubbleSort.sort(intArr);
+
+        InsertionSort insertionSort = new InsertionSort();
+        insertionSort.sort(intArr);
     }
-
-    /*
-    Sort array using ascending order.
-    Algorithm: Variation of the Selection Sort algorithm.
-    Time Complexity: The time complexity of the algorithm is O(n^2), where n is the number of elements in the array.
-     Space Complexity: the space complexity of the algorithm is O(n)
-    */
-    private static void sortArrayUsingLoopAndMinValue(int[] arr) {
-        int arrSize = arr.length;
-        for (int i = 0; i < arrSize; i++) {
-            int minIndex = i;
-            int min = arr[i];
-            for (int j = i + 1; j < arrSize; j++) {
-                if (arr[j] < min) {
-                    minIndex = j;
-                    min = arr[j];
-                }
-            }
-
-            int temp = arr[i];
-            arr[i] = arr[minIndex];
-            arr[minIndex] = temp;
-        }
-
-        for (int i = 0; i < arr.length; i++) {
-            System.out.print((arr[i]) + (i != arr.length - 1 ?  ", " : ""));
-        }
-    }
-
-
 }
