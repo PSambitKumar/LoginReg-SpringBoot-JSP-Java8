@@ -28,6 +28,7 @@ public class InsertAStringToAnotherString {
         insertStringToAnotherString("SambitPradhan", "Kumar", 5);
         insertStringToAnotherString1("SambitPradhan", "Kumar", 5);
         insertStringToAnotherString2("SambitPradhan", "Kumar", 5);
+        insertStringToAnotherString3("SambitPradhan", "Kumar", 5);
     }
 
 //    Logics
@@ -36,7 +37,6 @@ public class InsertAStringToAnotherString {
         String secondString = mainString.substring(index + 1);
 
         String newString = firstString + insertString + secondString;
-
         System.out.println("New String: " + newString);
     }
 
@@ -62,5 +62,18 @@ public class InsertAStringToAnotherString {
 
         String result = new String(combinedCharArr);
         System.out.println("Final String: " + result);
+    }
+
+    private static void insertStringToAnotherString3(String mainString, String insertString, int index) {
+        StringBuilder stringBuilder = new StringBuilder();
+
+        for(int i = 0; i < mainString.length(); i++) {
+            if (i != index)
+                stringBuilder.append(mainString.charAt(i));
+            else
+                stringBuilder.append(mainString.charAt(i)).append(insertString);
+
+            System.out.println("Final String: " + stringBuilder);
+        }
     }
 }
