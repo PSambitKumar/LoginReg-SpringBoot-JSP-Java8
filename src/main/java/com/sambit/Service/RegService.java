@@ -46,4 +46,5 @@ public interface RegService {
     boolean checkRegIsPresentOrNotByUserCode(String userCode);
      Reg getRegByUserCode(String userCode);
     void generatePDF(JSONArray reports, String header, HttpServletResponse httpServletResponse);
+    void generatePDF1(JSONArray reports, JSONArray header, HttpServletResponse httpServletResponse);
 }

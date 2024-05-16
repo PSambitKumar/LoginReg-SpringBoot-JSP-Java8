@@ -3,9 +3,7 @@ package com.sambit.Service;
 import com.itextpdf.awt.geom.Rectangle;
 import com.itextpdf.text.*;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.pdf.PdfPCell;
-import com.itextpdf.text.pdf.PdfPTable;
-import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.*;
 import com.sambit.Bean.ImageBean;
 import com.sambit.Bean.LoginBean;
 import com.sambit.Bean.PersonalDataBean;
@@ -18,6 +16,7 @@ import com.sambit.Utils.UserCodeGeneration;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,6 +31,8 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
@@ -759,6 +760,90 @@ public class RegServiceImpl implements RegService{
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    public void generatePDF1(JSONArray reports, JSONArray header, HttpServletResponse httpServletResponse) {
+        header = new JSONArray();
+        header.put("report_id");
+        header.put("report_name");
+        header.put("report_value");
+
+        reports = new JSONArray();
+        Random random = new Random();
+
+        for (int i = 0; i < 5; i++) {
+            JSONObject report = new JSONObject();
+            report.put("report_id", "RPT" + (i + 1));
+            report.put("report_name", "Report " + (i + 1));
+            report.put("report_value", random.nextInt(100)); // Random value for report
+            reports.put(report);
+        }
+
+        String[] columns = new String[header.length()];
+        try {
+            Document myDoc = new Document(PageSize.A4);
+            String fileName = "CPDApprovalClaimList.pdf";
+            OutputStream outputStream = Files.newOutputStream(Paths.get("D:/CPDApprovalClaimList.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(myDoc, httpServletResponse.getOutputStream());
+            httpServletResponse.setContentType("application/pdf");
+            httpServletResponse.setHeader("Content-Disposition", "attachment; filename=" + "\"" + fileName + "\"");
+            myDoc.open();
+
+            com.itextpdf.text.Image backgroundImage = com.itextpdf.text.Image.getInstance("E:\\My CSM Project\\BSKY Project\\TMS Web\\TMS Frontend\\src\\assets\\images\\fade-logo.png");
+            backgroundImage.setAbsolutePosition(0, 0);
+            backgroundImage.scaleAbsolute(200, 200);
+
+            PdfTemplate backgroundTemplate = writer.getDirectContent().createTemplate(
+                    myDoc.getPageSize().getWidth(), myDoc.getPageSize().getHeight());
+            backgroundTemplate.addImage(backgroundImage);
+
+            PdfContentByte canvas = writer.getDirectContentUnder();
+            canvas.addTemplate(backgroundTemplate, 0, 0);
+
+            Paragraph p = new Paragraph("CPD Approval Claim List", FontFactory.getFont("Arial", 14, Font.BOLD));
+            p.setAlignment(Element.ALIGN_CENTER);
+            myDoc.add(p);
+            myDoc.add(new Paragraph(" "));
+
+            Font headingfont = FontFactory.getFont(String.valueOf(FontFactory.getFont("Arial")), 12);
+            Font font = FontFactory.getFont(String.valueOf(FontFactory.getFont("Arial")), 10);
+
+            PdfPTable table = new PdfPTable(3);
+            table.setWidthPercentage(110);
+            table.setSpacingBefore(0);
+            table.setSpacingAfter(0);
+            table.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            for (int i = 0; i < header.length(); i++) {
+                columns[i] = header.getString(i);
+            }
+
+            for (String column : columns) {
+                PdfPCell cell = new PdfPCell(new Paragraph(column, headingfont));
+                cell.setPaddingLeft(4);
+                cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
+                cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                table.addCell(cell);
+            }
+            int slNO = 1;
+
+            for (int i = 0; i < reports.length(); i++) {
+                JSONObject jsonObject = reports.getJSONObject(i);
+                for (String column : columns) {
+                    table.addCell(new Paragraph(jsonObject.getString(column), font));
+                }
+                slNO++;
+            }
+            myDoc.add(table);
+            myDoc.close();
+            outputStream.close();
+        } catch (Exception e) {
+            logger.error("Exception in generatePDF() method of CPDClaimProcessingServiceImpl" + e);
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @PersistenceContext
     private EntityManager entityManager;
