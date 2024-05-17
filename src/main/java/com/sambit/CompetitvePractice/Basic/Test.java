@@ -948,7 +948,6 @@ public class Test {
             myDoc.close();
             outputStream.close();
         } catch (Exception e) {
-            logger.error("Exception in generatePDF() method of CPDClaimProcessingServiceImpl" + e);
             throw new RuntimeException(e);
         }
     }
