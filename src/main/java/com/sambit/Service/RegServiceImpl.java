@@ -762,7 +762,7 @@ public class RegServiceImpl implements RegService{
     }
 
     @Override
-    public void generatePDF1(JSONArray reports, JSONArray header, HttpServletResponse httpServletResponse) {
+    public void generatePDF1(JSONArray reports, JSONArray header, HttpServletResponse httpServletResponse) throws JSONException {
         header = new JSONArray();
         header.put("report_id");
         header.put("report_name");
@@ -782,31 +782,33 @@ public class RegServiceImpl implements RegService{
         String[] columns = new String[header.length()];
         try {
             Document myDoc = new Document(PageSize.A4);
-            String fileName = "CPDApprovalClaimList.pdf";
-            OutputStream outputStream = Files.newOutputStream(Paths.get("D:/CPDApprovalClaimList.pdf"));
+            String fileName = "BSKY Summery Report List.pdf";
+            OutputStream outputStream = Files.newOutputStream(Paths.get("D:/BSKY Summery Report List.pdf"));
             PdfWriter writer = PdfWriter.getInstance(myDoc, httpServletResponse.getOutputStream());
             httpServletResponse.setContentType("application/pdf");
             httpServletResponse.setHeader("Content-Disposition", "attachment; filename=" + "\"" + fileName + "\"");
             myDoc.open();
 
             com.itextpdf.text.Image backgroundImage = com.itextpdf.text.Image.getInstance("E:\\My CSM Project\\BSKY Project\\TMS Web\\TMS Frontend\\src\\assets\\images\\fade-logo.png");
-            backgroundImage.setAbsolutePosition(0, 0);
-            backgroundImage.scaleAbsolute(200, 200);
+            backgroundImage.scaleToFit(500, 500);
+            backgroundImage.setAbsolutePosition((myDoc.getPageSize().getWidth() - backgroundImage.getScaledWidth()) / 2,
+                    (myDoc.getPageSize().getHeight() - backgroundImage.getScaledHeight()) / 2);
 
             PdfTemplate backgroundTemplate = writer.getDirectContent().createTemplate(
-                    myDoc.getPageSize().getWidth(), myDoc.getPageSize().getHeight());
+                    myDoc.getPageSize().getWidth(), myDoc.getPageSize().getHeight()
+            );
             backgroundTemplate.addImage(backgroundImage);
 
             PdfContentByte canvas = writer.getDirectContentUnder();
             canvas.addTemplate(backgroundTemplate, 0, 0);
 
-            Paragraph p = new Paragraph("CPD Approval Claim List", FontFactory.getFont("Arial", 14, Font.BOLD));
+            Paragraph p = new Paragraph("BSKY Summery Report List", FontFactory.getFont("Segoe UI", 14, Font.BOLD));
             p.setAlignment(Element.ALIGN_CENTER);
             myDoc.add(p);
             myDoc.add(new Paragraph(" "));
 
-            Font headingfont = FontFactory.getFont(String.valueOf(FontFactory.getFont("Arial")), 12);
-            Font font = FontFactory.getFont(String.valueOf(FontFactory.getFont("Arial")), 10);
+            Font headingfont = FontFactory.getFont(String.valueOf(FontFactory.getFont("Segoe UI")), 12);
+            Font font = FontFactory.getFont(String.valueOf(FontFactory.getFont("Segoe UI")), 10);
 
             PdfPTable table = new PdfPTable(3);
             table.setWidthPercentage(110);
@@ -836,6 +838,261 @@ public class RegServiceImpl implements RegService{
                 slNO++;
             }
             myDoc.add(table);
+            myDoc.close();
+            outputStream.close();
+        } catch (Exception e) {
+            logger.error("Exception in generatePDF() method of CPDClaimProcessingServiceImpl" + e);
+            throw new RuntimeException(e);
+        }
+    }
+
+    @Override
+    public void generatePDF2(JSONArray reports, JSONArray header, HttpServletResponse httpServletResponse) throws JSONException {
+        header = new JSONArray();
+        header.put("SL#");
+        header.put("Beneficiary Dist");
+        header.put("Total Family treated Till Now");
+        header.put("Total Beneficiary treated Till Now");
+        header.put("Total Package Discharged Till Now");
+        header.put("Amount of Discharge Till Now");
+
+        JSONObject report1 = new JSONObject();
+        report1.put("SL#", 1);
+        report1.put("Beneficiary Dist", "Cuttack");
+        report1.put("Total Family treated Till Now", 23123);
+        report1.put("Total Beneficiary treated Till Now", 45345);
+        report1.put("Total Package Discharged Till Now", 6786786);
+        report1.put("Amount of Discharge Till Now", 78978);
+        reports.put(report1);
+
+        JSONObject report2 = new JSONObject();
+        report2.put("SL#", 2);
+        report2.put("Beneficiary Dist", "Khurdha");
+        report2.put("Total Family treated Till Now", 12334);
+        report2.put("Total Beneficiary treated Till Now", 6756756);
+        report2.put("Total Package Discharged Till Now", 89789);
+        report2.put("Amount of Discharge Till Now", 45646);
+        reports.put(report2);
+
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("header", header);
+        map.put("report", reports);
+        map.put("id", 1);
+        map.put("heading", "BSKY – Transaction Summary From Starting to 31-April-2024 For All Scheme");
+
+        List<Map<String, Object>> list = new ArrayList<>();
+        list.add(map);
+
+//        Report 2 Data
+        JSONArray reports1 = new JSONArray();
+        JSONArray header1 = new JSONArray();
+        header1.put("SL#");
+        header1.put("Beneficiary Dist");
+        header1.put("Total Family treated Till Now");
+        header1.put("Total Beneficiary treated Till Now");
+        header1.put("Total Package Discharged Till Now");
+        header1.put("Amount of Discharge Till Now");
+        header1.put("Total No of Claim Submitted");
+        header1.put("Amount of Claim Submitted");
+
+        JSONObject report3 = new JSONObject();
+        report3.put("SL#", 1);
+        report3.put("Beneficiary Dist", "Cuttack");
+        report3.put("Total Family treated Till Now", 23123);
+        report3.put("Total Beneficiary treated Till Now", 45345);
+        report3.put("Total Package Discharged Till Now", 6786786);
+        report3.put("Amount of Discharge Till Now", 78978);
+        report3.put("Total No of Claim Submitted", 78978);
+        report3.put("Amount of Claim Submitted", 78978);
+        reports1.put(report3);
+
+        JSONObject report4 = new JSONObject();
+        report4.put("SL#", 2);
+        report4.put("Beneficiary Dist", "Khurdha");
+        report4.put("Total Family treated Till Now", 12334);
+        report4.put("Total Beneficiary treated Till Now", 6756756);
+        report4.put("Total Package Discharged Till Now", 89789);
+        report4.put("Amount of Discharge Till Now", 45646);
+        report4.put("Total No of Claim Submitted", 45646);
+        report4.put("Amount of Claim Submitted", 45646);
+        reports1.put(report4);
+
+        Map<String, Object> map1 = new LinkedHashMap<>();
+        map1.put("header", header1);
+        map1.put("report", reports1);
+        map1.put("id", 2);
+        map1.put("heading", "BSKY – Monthly Summary From  01-April-2024 to 31-April-2024 For All Scheme");
+        list.add(map1);
+
+//        Report 3 Data
+        JSONArray header2 = new JSONArray();
+        header2.put("SL#");
+        header2.put("Speciality Name");
+        header2.put("Total Discharge");
+        header2.put("Discharge Amount");
+
+        JSONArray reports2 = new JSONArray();
+
+        JSONObject report5 = new JSONObject();
+        report5.put("SL#", 1);
+        report5.put("Speciality Name", "BM");
+        report5.put("Total Discharge", 123123);
+        report5.put("Discharge Amount", 23432);
+        reports2.put(report5);
+
+        JSONObject report6 = new JSONObject();
+        report6.put("SL#", 2);
+        report6.put("Speciality Name", "SN");
+        report6.put("Total Discharge", 4525);
+        report6.put("Discharge Amount", 523);
+        reports2.put(report6);
+
+        JSONObject report7 = new JSONObject();
+        report7.put("SL#", 3);
+        report7.put("Speciality Name", "FG");
+        report7.put("Total Discharge", 45523);
+        report7.put("Discharge Amount", 3455);
+        reports2.put(report7);
+
+        Map<String, Object> map2 = new LinkedHashMap<>();
+        map2.put("header", header2);
+        map2.put("report", reports2);
+        map2.put("id", 4);
+        map2.put("heading", "Top 10 Speciality used from 01-April-2024 to 31-April-2024 – For All Scheme");
+        list.add(map2);
+
+//Report 4 Data
+        JSONArray header3 = new JSONArray();
+        header3.put("SL#");
+        header3.put("Hospital State");
+        header3.put("Hospital District");
+        header3.put("Total No of Discharge");
+        header3.put("Discharge Amount");
+
+        // Create the reports array
+        JSONArray reports3 = new JSONArray();
+
+        // Generate random data for 20 reports
+        for (int i = 0; i < 20; i++) {
+            JSONObject report = new JSONObject();
+            report.put("SL#", i + 1); // Incrementing SL# starting from 1
+
+            // Generating random Hospital State and District
+            String[] states = {"Odisha", "Andhra Pradesh", "Tamil Nadu", "Karnataka"};
+            String[] districts = {"Cuttack", "Khordha", "Puri", "Bhubaneswar"};
+            Random random = new Random();
+            String hospitalState = states[random.nextInt(states.length)];
+            String hospitalDistrict = districts[random.nextInt(districts.length)];
+
+            // Generating random Total No of Discharge and Discharge Amount
+            int totalDischarge = random.nextInt(100000);
+            int dischargeAmount = random.nextInt(10000);
+
+            // Putting data into the JSON object
+            report.put("Hospital State", hospitalState);
+            report.put("Hospital District", hospitalDistrict);
+            report.put("Total No of Discharge", totalDischarge);
+            report.put("Discharge Amount", dischargeAmount);
+
+            // Adding the report to the reports JSONArray
+            reports3.put(report);
+        }
+
+        // Create the JSON object to hold the header and reports
+        Map<String, Object> map3 = new LinkedHashMap<>();
+        map3.put("header", header3);
+        map3.put("report", reports3);
+        map3.put("id", 3);
+        map3.put("heading", "Top 20 Hospital Having highest Amount of Discharge from 01-April-2024 to 31-April-2024 – For All Scheme");
+
+        list.add(map3);
+
+        try {
+            Document myDoc = new Document(PageSize.A4);
+            String fileName = "BSKY Summery Report List.pdf";
+            OutputStream outputStream = Files.newOutputStream(Paths.get("D:/BSKY Summery Report.pdf"));
+            PdfWriter writer = PdfWriter.getInstance(myDoc, httpServletResponse.getOutputStream());
+            httpServletResponse.setContentType("application/pdf");
+            httpServletResponse.setHeader("Content-Disposition", "attachment; filename=" + "\"" + fileName + "\"");
+            myDoc.open();
+
+            com.itextpdf.text.Image backgroundImage = com.itextpdf.text.Image.getInstance("E:\\My CSM Project\\BSKY Project\\TMS Web\\TMS Frontend\\src\\assets\\images\\fade-logo.png");
+            backgroundImage.scaleToFit(500, 500);
+            backgroundImage.setAbsolutePosition((myDoc.getPageSize().getWidth() - backgroundImage.getScaledWidth()) / 2,
+                    (myDoc.getPageSize().getHeight() - backgroundImage.getScaledHeight()) / 2);
+
+            PdfTemplate backgroundTemplate = writer.getDirectContent().createTemplate(
+                    myDoc.getPageSize().getWidth(), myDoc.getPageSize().getHeight()
+            );
+            backgroundTemplate.addImage(backgroundImage);
+
+            PdfContentByte canvas = writer.getDirectContentUnder();
+            canvas.addTemplate(backgroundTemplate, 0, 0);
+
+            Paragraph p = new Paragraph("BSKY Summery Report", FontFactory.getFont("Segoe UI", 18, Font.BOLD, new BaseColor(0, 102, 0)));
+            p.setAlignment(Element.ALIGN_CENTER);
+            myDoc.add(p);
+
+            Paragraph p1 = new Paragraph("Document Generated On: " + new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(new Date()), FontFactory.getFont("Segoe UI", 10, Font.NORMAL, BaseColor.BLACK));
+            p1.setAlignment(Element.ALIGN_CENTER);
+            myDoc.add(p1);
+
+            myDoc.add(new Paragraph(" "));
+
+            Font subjectfont = FontFactory.getFont(String.valueOf(FontFactory.getFont("Segoe UI")), 12, Font.BOLD);
+            Font headingfont = FontFactory.getFont(String.valueOf(FontFactory.getFont("Segoe UI")), 10, Font.BOLD);
+            Font font = FontFactory.getFont(String.valueOf(FontFactory.getFont("Segoe UI")), 10);
+
+            for (Map<String, Object> mapData : list) {
+                JSONArray headerData = (JSONArray) mapData.get("header");
+                JSONArray reportData = (JSONArray) mapData.get("report");
+
+                PdfPTable table = new PdfPTable(headerData.length());
+                table.setWidthPercentage(110);
+                table.setSpacingBefore(0);
+                table.setSpacingAfter(0);
+                table.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                PdfPCell headerCell = new PdfPCell(new Paragraph((String) mapData.get("heading"), subjectfont));
+                headerCell.setPadding(5);
+                headerCell.setBackgroundColor((Integer) mapData.get("id") == 1
+                                ? new BaseColor(198, 235, 198)
+                                : ((Integer) mapData.get("id") == 2
+                                ? new BaseColor(255, 204, 204)
+                                : ((Integer) mapData.get("id") == 3
+                                ? new BaseColor(193, 193, 240)
+                                : new BaseColor(255, 255, 179))
+                        )
+                );
+                headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                headerCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                headerCell.setColspan(headerData.length()); // Merge all columns
+                table.addCell(headerCell);
+
+                String[] columns = new String[headerData.length()];
+                for (int i = 0; i < headerData.length(); i++) {
+                    columns[i] = headerData.getString(i);
+                }
+
+                for (String column : columns) {
+                    PdfPCell cell = new PdfPCell(new Paragraph(column, headingfont));
+                    cell.setPaddingLeft(4);
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    table.addCell(cell);
+                }
+
+                int slNO = 1;
+
+                for (int i = 0; i < reportData.length(); i++) {
+                    JSONObject jsonObject = reportData.getJSONObject(i);
+                    for (String column : columns) {
+                        table.addCell(new Paragraph(jsonObject.getString(column), font));
+                    }
+                    slNO++;
+                }
+                myDoc.add(table);
+                myDoc.add(new Paragraph(" "));
+            }
             myDoc.close();
             outputStream.close();
         } catch (Exception e) {

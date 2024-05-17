@@ -7,6 +7,7 @@ import com.sambit.Bean.PersonalDataBean;
 import com.sambit.Bean.RegBean;
 import com.sambit.Entity.*;
 import org.json.JSONArray;
+import org.json.JSONException;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -46,5 +47,6 @@ public interface RegService {
     boolean checkRegIsPresentOrNotByUserCode(String userCode);
      Reg getRegByUserCode(String userCode);
     void generatePDF(JSONArray reports, String header, HttpServletResponse httpServletResponse);
-    void generatePDF1(JSONArray reports, JSONArray header, HttpServletResponse httpServletResponse);
+    void generatePDF1(JSONArray reports, JSONArray header, HttpServletResponse httpServletResponse) throws JSONException;
+    void generatePDF2(JSONArray reports, JSONArray header, HttpServletResponse httpServletResponse) throws JSONException;
 }

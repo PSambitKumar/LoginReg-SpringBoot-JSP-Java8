@@ -327,6 +327,17 @@ public class FileHandlerController {
 		}
 	}
 
+	@GetMapping(value = "/generatePDF2")
+	public void generatePDF2(@RequestParam("data") String data, HttpServletResponse httpServletResponse)  {
+		try {
+			System.out.println("Data : " + data);
+			byte[] bytes = Base64.getDecoder().decode(data);
+			regService.generatePDF2(new JSONArray(), new JSONArray(), httpServletResponse);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
 //	@GetMapping(value = "/openWordDocs")
 //	public void openWordDocs(@RequestParam("data") String data, HttpServletResponse httpServletResponse)  {
 //		try {
