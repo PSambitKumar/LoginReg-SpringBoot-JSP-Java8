@@ -35,6 +35,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -1098,6 +1099,455 @@ public class RegServiceImpl implements RegService{
         } catch (Exception e) {
             logger.error("Exception in generatePDF() method of CPDClaimProcessingServiceImpl" + e);
             throw new RuntimeException(e);
+        }
+    }
+
+    public void generatePDF10() throws JSONException {
+        List<Map<String, Object>> list = new ArrayList<>();
+//        For Table 1
+        JSONArray header = new JSONArray();
+        header.put("SL#");
+        header.put("Activity");
+        header.put("NFSA/SFSA");
+        header.put("NABIN");
+
+        JSONArray report = new JSONArray();
+
+        JSONObject dataObject = new JSONObject();
+        dataObject.put("SL#", 1);
+        dataObject.put("Activity", "Total Family Treated");
+        dataObject.put("NFSA/SFSA", 126737);
+        dataObject.put("NABIN", 4564);
+        report.put(dataObject);
+
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 2);
+        dataObject.put("Activity", "Total Patient Treated");
+        dataObject.put("NFSA/SFSA", 126737);
+        dataObject.put("NABIN", 4564);
+        report.put(dataObject);
+
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 3);
+        dataObject.put("Activity", "Total Package Discharged");
+        dataObject.put("NFSA/SFSA", 126737);
+        dataObject.put("NABIN", 4564);
+        report.put(dataObject);
+
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 4);
+        dataObject.put("Activity", "Amount of Discharge");
+        dataObject.put("NFSA/SFSA", 126737);
+        dataObject.put("NABIN", 4564);
+        report.put(dataObject);
+
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("header", header);
+        map.put("report", report);
+        map.put("id", 1);
+        map.put("heading", "Outside Odisha Transaction Details from Starting to 31-April-2024 ");
+        list.add(map);
+
+//        For Table 2
+        header = new JSONArray();
+        header.put("SL#");
+        header.put("Activity");
+        header.put("NFSA/SFSA");
+        header.put("NABIN");
+
+        report = new JSONArray();
+
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 1);
+        dataObject.put("Activity", "Total Family Treated");
+        dataObject.put("NFSA/SFSA", 126737);
+        dataObject.put("NABIN", 4564);
+        report.put(dataObject);
+
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 2);
+        dataObject.put("Activity", "Total Patient Treated");
+        dataObject.put("NFSA/SFSA", 126737);
+        dataObject.put("NABIN", 4564);
+        report.put(dataObject);
+
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 3);
+        dataObject.put("Activity", "Total Package Discharged");
+        dataObject.put("NFSA/SFSA", 126737);
+        dataObject.put("NABIN", 4564);
+        report.put(dataObject);
+
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 4);
+        dataObject.put("Activity", "Amount of Discharge");
+        dataObject.put("NFSA/SFSA", 126737);
+        dataObject.put("NABIN", 4564);
+        report.put(dataObject);
+
+        map = new LinkedHashMap<>();
+        map.put("header", header);
+        map.put("report", report);
+        map.put("id", 2);
+        map.put("heading", "Outside Odisha Transaction Details from 01-April-2024 to 31-April-2024");
+        list.add(map);
+
+//        For Table 3
+        header = new JSONArray();
+        header.put("SL#");
+        header.put("Hospital State");
+        header.put("Hospital District");
+        header.put("Hospital Code");
+        header.put("Hospital Name");
+        header.put("Total No of Discharge");
+        header.put("Total Amount of Discharge");
+        header.put("Total No of Discharge1");
+        header.put("Total Amount of Discharge1");
+
+        List<JSONArray> jsonArrayList = new ArrayList<>();
+        JSONArray dataJSONArray = new JSONArray();
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 1);
+        dataObject.put("Hospital State", "Odisha");
+        dataObject.put("Hospital District", "Khurdha");
+        dataObject.put("Hospital Code", 21193472);
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Total No of Discharge", 21312);
+        dataObject.put("Total Amount of Discharge", 35345354);
+        dataObject.put("Total No of Discharge1", 21312);
+        dataObject.put("Total Amount of Discharge1", 35345354);
+        dataJSONArray.put(dataObject);
+
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 1);
+        dataObject.put("Hospital State", "Odisha");
+        dataObject.put("Hospital District", "Khurdha");
+        dataObject.put("Hospital Code", 21193472);
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Total No of Discharge", 21312);
+        dataObject.put("Total Amount of Discharge", 35345354)
+        ;dataObject.put("Total No of Discharge1", 21312);
+        dataObject.put("Total Amount of Discharge1", 35345354);
+        dataJSONArray.put(dataObject);
+        jsonArrayList.add(dataJSONArray);
+
+        dataJSONArray = new JSONArray();
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 2);
+        dataObject.put("Hospital State", "Odisha");
+        dataObject.put("Hospital District", "Khurdha");
+        dataObject.put("Hospital Code", 21193472);
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Total No of Discharge", 21312);
+        dataObject.put("Total Amount of Discharge", 35345354);
+        dataObject.put("Total No of Discharge1", 21312);
+        dataObject.put("Total Amount of Discharge1", 35345354);
+        dataJSONArray.put(dataObject);
+
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 3);
+        dataObject.put("Hospital State", "Odisha");
+        dataObject.put("Hospital District", "Khurdha");
+        dataObject.put("Hospital Code", 21193472);
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Total No of Discharge", 21312);
+        dataObject.put("Total Amount of Discharge", 35345354)
+        ;dataObject.put("Total No of Discharge1", 21312);
+        dataObject.put("Total Amount of Discharge1", 35345354);
+        dataJSONArray.put(dataObject);
+
+        dataJSONArray = new JSONArray();
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 1);
+        dataObject.put("Hospital State", "Odisha");
+        dataObject.put("Hospital District", "Khurdha");
+        dataObject.put("Hospital Code", 21193472);
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Total No of Discharge", 21312);
+        dataObject.put("Total Amount of Discharge", 35345354);
+        dataObject.put("Total No of Discharge1", 21312);
+        dataObject.put("Total Amount of Discharge1", 35345354);
+        dataJSONArray.put(dataObject);
+
+        dataObject = new JSONObject();
+        dataObject.put("SL#", 4);
+        dataObject.put("Hospital State", "Odisha");
+        dataObject.put("Hospital District", "Khurdha");
+        dataObject.put("Hospital Code", 21193472);
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Hospital Name", "Sahoo Vikari Seva Sadan");
+        dataObject.put("Total No of Discharge", 21312);
+        dataObject.put("Total Amount of Discharge", 35345354)
+        ;dataObject.put("Total No of Discharge1", 21312);
+        dataObject.put("Total Amount of Discharge1", 35345354);
+        dataJSONArray.put(dataObject);
+        jsonArrayList.add(dataJSONArray);
+
+        map = new LinkedHashMap<>();
+        map.put("header", header);
+        map.put("report", jsonArrayList);
+        map.put("id", 3);
+        map.put("heading", "Outside Odisha – Hospital District Wise Discharge from 01-April-2024  to 31-April-2024  ");
+        list.add(map);
+
+
+        String filePath = "C:\\BSKY\\WhatsAppDoc\\BSKY Summary Report24.pdf";
+        try {
+            Document myDoc = new Document(PageSize.A4);
+            OutputStream outputStream = Files.newOutputStream(Paths.get(filePath));
+            PdfWriter writer = PdfWriter.getInstance(myDoc, outputStream);
+            myDoc.open();
+
+            com.itextpdf.text.Image backgroundImage = com.itextpdf.text.Image.getInstance("C:\\BSKY\\WhatsAppDoc\\Images\\fade-logo.png");
+            backgroundImage.scaleToFit(400, 400);
+            backgroundImage.setAbsolutePosition((myDoc.getPageSize().getWidth() - backgroundImage.getScaledWidth()) / 2,
+                    (myDoc.getPageSize().getHeight() - backgroundImage.getScaledHeight()) / 2);
+
+            com.itextpdf.text.Image backgroundImage1 = com.itextpdf.text.Image.getInstance("C:\\BSKY\\WhatsAppDoc\\Images\\top-pattern.png");
+            backgroundImage1.scaleToFit(250, 250);
+            backgroundImage1.setAbsolutePosition(0, myDoc.getPageSize().getHeight() - backgroundImage1.getScaledHeight());
+
+            PdfTemplate backgroundTemplate = writer.getDirectContent().createTemplate(
+                    myDoc.getPageSize().getWidth(), myDoc.getPageSize().getHeight()
+            );
+
+            backgroundTemplate.addImage(backgroundImage);
+            backgroundTemplate.addImage(backgroundImage1);
+
+            PdfContentByte canvas = writer.getDirectContentUnder();
+
+            canvas.addTemplate(backgroundTemplate, 0, 0);
+
+            Paragraph p = new Paragraph("BSKY SUMMARY REPORT", FontFactory.getFont("Segoe UI", 20, Font.BOLD, new BaseColor(0, 102, 0)));
+            p.setAlignment(Element.ALIGN_CENTER);
+
+            Paragraph p1 = new Paragraph("Document Generated On: " + new SimpleDateFormat("dd-MMM-yyyy HH:mm:ss").format(new Date()), FontFactory.getFont("Segoe UI", 10, Font.NORMAL, BaseColor.BLACK));
+            p1.setAlignment(Element.ALIGN_CENTER);
+
+            myDoc.add(p);
+            myDoc.add(p1);
+            myDoc.add(new Paragraph(" "));
+
+            Font subjectfont = FontFactory.getFont(String.valueOf(FontFactory.getFont("Segoe UI")), 10, Font.BOLD);
+            Font headingfont = FontFactory.getFont(String.valueOf(FontFactory.getFont("Segoe UI")), 10, Font.BOLD);
+            Font font = FontFactory.getFont(String.valueOf(FontFactory.getFont("Segoe UI")), 10);
+
+            int reportSlNo = 1;
+            for (Map<String, Object> mapData : list) {
+                JSONArray headerData = (JSONArray) mapData.get("header");
+
+                PdfPTable table = new PdfPTable(headerData.length());
+                table.setWidthPercentage(110);
+                table.setSpacingBefore(0);
+                table.setSpacingAfter(0);
+                table.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+                PdfPCell headerCell = new PdfPCell(new Paragraph((String) mapData.get("heading"), subjectfont));
+                headerCell.setPadding(5);
+                headerCell.setBackgroundColor((Integer) mapData.get("id") == 1
+                                ? new BaseColor(198, 235, 198)
+                                : ((Integer) mapData.get("id") == 2
+                                ? new BaseColor(255, 204, 204)
+                                : ((Integer) mapData.get("id") == 3
+                                ? new BaseColor(153, 194, 255)
+                                : new BaseColor(255, 194, 153))
+                        )
+                );
+                headerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                headerCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                headerCell.setColspan(headerData.length()); // Merge all columns
+                table.addCell(headerCell);
+
+                String[] columns = new String[headerData.length()];
+                for (int i = 0; i < headerData.length(); i++) {
+                    columns[i] = headerData.getString(i);
+                }
+
+                if ((Integer)mapData.get("id") != 3) {
+                    for (String column : columns) {
+                        PdfPCell cell = new PdfPCell(new Paragraph(column, headingfont));
+                        cell.setPaddingLeft(4);
+                        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table.addCell(cell);
+                    }
+                } else {
+                   /*float[] columnWidths = {1, 2, 2, 2, 2, 2, 2, 2, 2};
+                   table.setWidths(columnWidths);*/
+
+                    String[] hospitalDataHeaders = new String[]
+                            {
+                                    "SL#",
+                                    "Hospital State",
+                                    "Hospital District",
+                                    "Hospital Code",
+                                    "Hospital Name",
+                                    "NFSA/SFSA",
+                                    "NABIN"
+                            };
+                    String[] hospitalDataSubHeaders = new String[]
+                            {
+                                    "SL#",
+                                    "Hospital State",
+                                    "Hospital District",
+                                    "Hospital Code",
+                                    "Hospital Name",
+                                    "Total No of Discharge",
+                                    "Total Amount of Discharge",
+                                    "Total No of Discharge",
+                                    "Total Amount of Discharge"
+                            };
+
+                    float[] columnWidths = new float[hospitalDataSubHeaders.length];
+                    for (int i = 0; i < hospitalDataSubHeaders.length; i++) {
+                        columnWidths[i] = 2f; // Set a default width of 2 for each column
+                    }
+                    columnWidths[0] = 1f; // Adjust the width of the first column if needed
+                    table.setWidths(columnWidths);
+
+                    for (int i = 0; i < 5; i++) {
+                        PdfPCell cell = new PdfPCell(new Paragraph(hospitalDataHeaders[i], headingfont));
+                        cell.setPaddingLeft(4);
+                        cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        cell.setRowspan(2); // Set rowspan for the first 5 headers
+                        table.addCell(cell);
+                    }
+
+// Add the header with colspan for the last 2 columns
+                    PdfPCell cell = new PdfPCell(new Paragraph("NFSA/SFSA", headingfont));
+                    cell.setPaddingLeft(4);
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell.setColspan(2); // Set colspan for NFSA/SFSA
+                    table.addCell(cell);
+
+                    cell = new PdfPCell(new Paragraph("NABIN", headingfont));
+                    cell.setPaddingLeft(4);
+                    cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                    cell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                    cell.setColspan(2); // Set colspan for NABIN
+                    table.addCell(cell);
+
+// Add subheaders for the remaining cells
+                    for (int i = 5; i < hospitalDataSubHeaders.length; i++) {
+                        PdfPCell subCell = new PdfPCell(new Paragraph(hospitalDataSubHeaders[i], headingfont));
+                        subCell.setPaddingLeft(4);
+                        subCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        table.addCell(subCell);
+                    }
+                }
+
+                int slNO = 1;
+
+                if ((Integer)mapData.get("id") != 3) {
+                    JSONArray reportData = (JSONArray) mapData.get("report");
+
+                    for (int i = 0; i < reportData.length(); i++) {
+                        JSONObject jsonObject = reportData.getJSONObject(i);
+                        for (String column : columns) {
+                            PdfPCell cell = new PdfPCell(new Paragraph(jsonObject.getString(column), font));
+                            cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                            cell.setPaddingLeft(4);
+                            table.addCell(cell);
+                        }
+                        slNO++;
+                    }
+
+                    if (reportData.length() > 0) {
+                        PdfPCell footerCell = new PdfPCell(new Paragraph("Total", headingfont));
+                        footerCell.setPadding(5);
+                        footerCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                        footerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                        footerCell.setBackgroundColor(new BaseColor(204, 255, 221));
+                        footerCell.setColspan(2);
+                        table.addCell(footerCell);
+
+                        for (int j = 2; j < columns.length; j++) {
+                            int sum = 0;
+                            for (int k = 0; k < reportData.length(); k++) {
+                                JSONObject jsonObject = reportData.getJSONObject(k);
+                                sum += jsonObject.getInt(columns[j]);
+                            }
+
+                            PdfPCell sumCell = new PdfPCell(new Paragraph(NumberFormat.getNumberInstance(Locale.US).format(sum), headingfont));
+                            sumCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                            sumCell.setBackgroundColor(new BaseColor(204, 255, 221));
+                            sumCell.setPaddingLeft(4);
+                            table.addCell(sumCell);
+                        }
+                    }
+                } else {
+                    List<JSONArray> jsonArrayList1 = (List<JSONArray>) mapData.get("report");
+                    for(JSONArray reportData1 : jsonArrayList1) {
+                        for (int i = 0; i < reportData1.length(); i++) {
+                            JSONObject jsonObject = reportData1.getJSONObject(i);
+                            for (String column : columns) {
+                                PdfPCell cell = new PdfPCell(new Paragraph(jsonObject.getString(column), font));
+                                cell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                cell.setPaddingLeft(4);
+                                table.addCell(cell);
+                            }
+                            slNO++;
+                        }
+
+                        if (reportData1.length() > 0) {
+                            PdfPCell footerCell = new PdfPCell(new Paragraph("Total", headingfont));
+                            footerCell.setPadding(5);
+                            footerCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                            footerCell.setHorizontalAlignment(Element.ALIGN_CENTER);
+                            footerCell.setBackgroundColor(new BaseColor(204, 255, 221));
+                            footerCell.setColspan(5);
+                            table.addCell(footerCell);
+
+                            for (int j = 5; j < columns.length; j++) {
+                                int sum = 0;
+                                for (int k = 0; k < reportData1.length(); k++) {
+                                    JSONObject jsonObject = reportData1.getJSONObject(k);
+                                    sum += jsonObject.getInt(columns[j]);
+                                }
+
+                                PdfPCell sumCell = new PdfPCell(new Paragraph(NumberFormat.getNumberInstance(Locale.US).format(sum), headingfont));
+                                sumCell.setVerticalAlignment(Element.ALIGN_MIDDLE);
+                                sumCell.setBackgroundColor(new BaseColor(204, 255, 221));
+                                sumCell.setPaddingLeft(4);
+                                table.addCell(sumCell);
+                            }
+                        }
+                    }
+
+                }
+
+                myDoc.add(table);
+                PdfContentByte cb = writer.getDirectContent();
+                ColumnText.showTextAligned(cb, Element.ALIGN_CENTER,
+                        new Phrase("Page No: " + writer.getPageNumber(), FontFactory.getFont("Segoe UI", 8, Font.BOLD)),
+                        (myDoc.right() - myDoc.left()) / 2 + myDoc.leftMargin(),
+                        myDoc.bottom() - 10, 0
+                );
+
+                if (reportSlNo != list.size()) {
+                    if ((Integer)mapData.get("id") != 1) {
+                        myDoc.newPage();
+                        myDoc.add(p);
+                        myDoc.add(p1);
+                        myDoc.add(new Paragraph(" "));
+                        canvas.addTemplate(backgroundTemplate, 0, 0);
+
+                        reportSlNo++;
+                    } else {
+                        myDoc.add(new Paragraph(" "));
+                        reportSlNo++;
+                    }
+                }
+            }
+            myDoc.close();
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
