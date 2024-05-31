@@ -1,8 +1,7 @@
 package com.sambit.CompetitvePractice.Java8;
 
-import java.util.Arrays;
-import java.util.IntSummaryStatistics;
-import java.util.List;
+import java.text.NumberFormat;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -74,5 +73,14 @@ public class Java8Practice {
         integers.stream().forEach(i -> sum6[0] += i);
 
         System.out.println("Sum of integers: " + sum6[0]);
+    }
+
+    private String formatNumber(Object number) {
+        return Optional.ofNullable(number)
+                .map(Object::toString)
+                .map(String::trim)
+                .map(Long::parseLong)
+                .map(num -> NumberFormat.getNumberInstance(Locale.US).format(num))
+                .orElse("NA");
     }
 }
