@@ -726,11 +726,4 @@ public class RegController {
     }
         return this.httpClient.get(generatePDF, { ...options, params: data })
     }*/
-
-//    Java
-@GetMapping(value = "/generatePDF")
-public void generatePDF(@RequestParam Map<String, Object> data, HttpServletResponse response) {
-    logger.info("Inside generatePDF method of Common Controller.");
-    System.out.println(data);
-}
 }

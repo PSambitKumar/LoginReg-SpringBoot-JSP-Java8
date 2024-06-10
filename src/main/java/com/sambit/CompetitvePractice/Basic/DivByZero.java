@@ -13,4 +13,11 @@ class DivByZero {
         System.out.println("Division of va1 by var2 is: " + ans1);
         System.out.println("Division of va1 by var3 is: " + ans2);
     }
+    public class Accumulator {
+        private int value = 0;
+        public int accumulate(int x) {
+            value += x;
+            return value;
+        }
+    }
 }

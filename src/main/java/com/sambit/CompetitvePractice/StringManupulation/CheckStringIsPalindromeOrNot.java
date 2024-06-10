@@ -10,7 +10,7 @@ public class CheckStringIsPalindromeOrNot {
 
     public static void main(String[] args) {
         checkStringIsPalindromeOrNot("SKS");
-        checkStringIsPalindromeOrNot1("MAM");
+//        checkStringIsPalindromeOrNot1("MAM");
     }
 
     private static void checkStringIsPalindromeOrNot(String string) {
