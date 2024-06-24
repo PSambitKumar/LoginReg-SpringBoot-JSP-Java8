@@ -22,7 +22,6 @@ public class CheckAnagram {
         char[] charArr1 = string1.toLowerCase().toCharArray();
         char[] charArr2 = string2.toLowerCase().toCharArray();
 
-
         Map<Character, Integer> charCountMap = new LinkedHashMap<>();
         for (char c : charArr1) {
             charCountMap.put(c, charCountMap.getOrDefault(c, 0) + 1);

@@ -17,7 +17,6 @@ public class DateTimeExample {
         DateAndTimeManipulationExample();
         DateTimeFormatter();
         DurationPersiod();
-
     }
 
     public static void DateAndTimeExmple() {

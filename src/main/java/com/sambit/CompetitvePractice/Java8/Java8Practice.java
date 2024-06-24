@@ -4,6 +4,7 @@ import java.text.NumberFormat;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 /**
  * @Project : Registraion
@@ -12,10 +13,6 @@ import java.util.stream.IntStream;
  */
 
 public class Java8Practice {
-
-    public static void main(String[] args) {
-
-    }
 
     public void sumUsingJava8() {
         List<Integer> integers = Arrays.asList(1, 2, 3, 4, 6,7);
@@ -82,5 +79,100 @@ public class Java8Practice {
                 .map(Long::parseLong)
                 .map(num -> NumberFormat.getNumberInstance(Locale.US).format(num))
                 .orElse("NA");
+    }
+
+    private static void findSumAnsAverage() {
+        List<Integer> integers = List.of(1, 2, 9, 0, 6, 4, 10);
+
+        OptionalDouble average  = integers.stream()
+                .mapToInt(Integer::intValue)
+                .average();
+
+        if (average.isPresent())
+            System.out.println("Average of the list is: " + average.getAsDouble());
+        else
+            System.out.println("List is empty to get the average value.");
+    }
+
+    public static void extractOddAndEvenNumbers() {
+        List<Integer> integers = List.of(1, 9, 8, 10, 11, 98, 3, 6, 7);
+
+        Map<Boolean, List<Integer>> evenOddList= integers.stream().collect(Collectors.partitioningBy(num -> num % 2 == 0));
+
+        evenOddList.get(true).forEach(System.out::println);
+        evenOddList.get(false).forEach(System.out::println);
+    }
+
+    public static void orderByNames() {
+        Map<Integer, String> nameMap = new HashMap<>();
+        nameMap.put(1, "Sambit");
+        nameMap.put(2, "David");
+        nameMap.put(3, "Ashok");
+        nameMap.put(7, "Aakash");
+        nameMap.put(5, "Pinak");
+
+        Map<Integer, String> sortedNameMap = nameMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByValue())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) ->e1,
+                        LinkedHashMap::new
+                ));
+
+        Map<Integer, String> sortedNameById = nameMap.entrySet()
+                .stream()
+                .sorted(Map.Entry.comparingByKey())
+                .collect(Collectors.toMap(
+                        Map.Entry::getKey,
+                        Map.Entry::getValue,
+                        (e1, e2) -> e1,
+                        LinkedHashMap::new
+                ));
+
+        // Print the sorted map
+        System.out.println("Sorted By Name: ");
+        sortedNameMap.forEach((key, value) -> System.out.println(key + " -> " + value));
+        System.out.println("Sorted By Id: ");
+        sortedNameById.forEach((key, value) -> System.out.println(key + " -> " + value));
+    }
+
+    public static void streamExample() {
+        List<Integer> integers = List.of(1, 8, 9, 10, 7, 99, 77);
+
+        boolean isPresent = integers.stream().anyMatch(data -> data.equals(88));
+        System.out.println("88 " + (isPresent ? "Present" : "Absent"));
+
+        boolean nonMatch = integers.stream().noneMatch(data -> data > 88);
+        System.out.println("None of the elements are greater than 88: " + nonMatch);
+
+        List<Map<String, String>> objectList = Stream.of(
+                Map.of("id", "1", "subject", "Math", "mark", "80"),
+                Map.of("id", "2", "subject", "English", "mark", "78"),
+                Map.of("id", "3", "subject", "Science", "mark", "94")
+        ).collect(Collectors.toList());
+
+        long totalMark = objectList.stream()
+                .mapToLong(map -> Long.parseLong(map.get("mark")))
+                .sum();
+
+        System.out.println("Total Mark: " + totalMark);
+    }
+
+    public static void checkOptional() {
+        List<Integer> integers1 = Arrays.asList(1, 2, 3, 4, 6,7, 25);
+        List<Integer> integers2 = Arrays.asList(1, 2, 3, 4, 6, 9, 10, 16);
+
+        List<Integer> common = new ArrayList<>(integers1);
+        common.retainAll(integers2);
+    }
+
+    public static void main(String[] args) {
+//        findSumAnsAverage();
+//        extractOddAndEvenNumbers();
+//        orderByNames();
+//        streamExample();
+        checkOptional();
     }
 }
