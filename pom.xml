@@ -13,7 +13,7 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>war</packaging>
     <name>Registration</name>
-    <description>Registration</description>
+    <description>Registration Springboot</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
