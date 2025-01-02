@@ -1,0 +1,113 @@
+package update_automate_nonautomate_hbl_api.util;
+
+import jakarta.persistence.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Component;
+
+import java.sql.*;
+import java.util.Date;
+import java.util.Objects;
+
+/**
+ * @Project : billoflading-complexbl-api-feature
+ * @Author : sambitkumar.pradhan (1361629)
+ * @Created On : 12/23/2024 3:37 PM
+ */
+@Component
+public class DBExecutionUtils {
+
+    @Autowired
+    private JdbcTemplate jdbcTemplate;
+
+    @Autowired
+    private SessionFactory sessionFactory;
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+    public void setCompany(String companyCode) {
+        try {
+            jdbcTemplate.update(Constants.SET_COMPANY_PROCEDURE, companyCode);
+            System.out.println("Procedure Executed, Shipping Company has been set!");
+        } catch (Exception e) {
+            System.err.println("Error executing procedure: " + e.getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public String getBillReferenceNumber(String companyCode, String department, String masterBlRefNo,
+                                         String customer, String customerSub) {
+        String nvoccBillRefNo = null;
+        Session session = null;
+
+        try {
+            // Start a session using Hibernate
+            session = sessionFactory.openSession();
+            Transaction transaction = session.beginTransaction();
+
+            // Set the company in the session (using Hibernate)
+            setCompanyInSession(session, "0001");  // Set the company for the session
+
+            // SQL to generate the bill reference number
+            String sql = "{call dp_bol_number.generate(?, ?, ?, ?, ?, ?, ?, ?, ?)}";
+
+            // Execute the stored procedure
+            CallableStatement stmt = session.doReturningWork(connection -> {
+                CallableStatement callableStatement = connection.prepareCall(sql);
+                callableStatement.setString(1, companyCode);
+                callableStatement.setString(2, department);
+                callableStatement.setString(3, masterBlRefNo);
+                callableStatement.setString(6, customer);
+                callableStatement.setString(7, customerSub);
+                callableStatement.setString(9, "Y");
+
+                callableStatement.registerOutParameter(4, Types.VARCHAR); // For nvocc_bill_ref
+                callableStatement.registerOutParameter(5, Types.DATE);    // For t_date
+                callableStatement.registerOutParameter(8, Types.INTEGER); // For t_bol_error
+
+                callableStatement.execute();
+                return callableStatement;
+            });
+
+            // Retrieve the results from the stored procedure
+            nvoccBillRefNo = stmt.getString(4);
+            Date tDate = stmt.getDate(5);
+            int tBolError = stmt.getInt(8);
+
+            System.out.println("Generated NVOC Bill Ref: " + nvoccBillRefNo);
+
+            // Commit the transaction
+            transaction.commit();
+        } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback(); // Rollback in case of error
+            }
+            System.err.println("Error executing procedure: " + e.getMessage());
+            e.printStackTrace();
+        } finally {
+            if (session != null && session.isOpen()) {
+                session.close(); // Always close the session
+            }
+        }
+
+        return nvoccBillRefNo;
+    }
+
+    // Helper method to set the company in the session (calls the procedure)
+    private void setCompanyInSession(Session session, String companyCode) {
+        // Use native SQL or a stored procedure to set the company in the Hibernate session
+        String setCompanySql = "{ call dp_mltc.set_company(?) }";
+
+        // Using Hibernate session to execute a native SQL query
+        session.doWork(connection -> {
+            try (CallableStatement stmt = connection.prepareCall(setCompanySql)) {
+                stmt.setString(1, companyCode);
+                stmt.execute(); // Set company for the session
+            }
+        });
+    }
+}
